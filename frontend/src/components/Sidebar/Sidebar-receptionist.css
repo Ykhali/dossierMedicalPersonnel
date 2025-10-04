@@ -1,0 +1,122 @@
+/* ---- Palette Aqua & Menthe ---- */
+:root{
+  --rcp-primary: #2AA9A0;
+  --rcp-primary-600: #238f87;
+  --rcp-hover: rgba(42,169,160,0.12);
+  --rcp-active-bg: rgba(42,169,160,0.18);
+  --rcp-active-border: var(--rcp-primary);
+
+  --rcp-sidebar-bg: #0f172a;   /* dark slate */
+  --rcp-text: #E6F4F3;         /* light text */
+  --rcp-muted: #9CA3AF;
+  --rcp-sep: #213042;
+  --rcp-danger: #DC2626;
+
+  --rcp-sidebar-w: 250px;  /* desktop */
+  --rcp-sidebar-w-md: 220px;
+}
+
+/* ---- Container ---- */
+.rcp-sidebar{
+  position: fixed;
+  inset: 0 auto 0 0;
+  width: var(--rcp-sidebar-w);
+  display: flex;
+  flex-direction: column;
+  background: var(--rcp-sidebar-bg);
+  color: var(--rcp-text);
+  padding: 16px;
+  border-right: 1px solid var(--rcp-sep);
+  z-index: 1000;
+  overflow-y: auto;
+}
+
+/* ---- Brand ---- */
+.rcp-brand{
+  font-weight: 700;
+  margin-bottom: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--rcp-sep);
+}
+
+/* ---- Menu ---- */
+.rcp-menu{
+  list-style: none;
+  padding: 8px 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.rcp-link{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  border: 0;
+  background: transparent;
+  color: var(--rcp-text);
+  border-radius: 12px;
+  text-align: left;
+  cursor: pointer;
+  transition: background .2s ease, color .2s ease, box-shadow .2s ease;
+}
+
+.rcp-link:hover{
+  background: var(--rcp-hover);
+}
+
+.rcp-link.is-active{
+  background: var(--rcp-active-bg);
+  color: #fff;
+  box-shadow: inset 3px 0 0 0 var(--rcp-active-border);
+}
+
+/* ---- Bottom / Logout ---- */
+.rcp-bottom{
+  margin-top: auto;
+  padding-top: 12px;
+  border-top: 1px solid var(--rcp-sep);
+}
+
+.rcp-logout{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  background: transparent;
+  border: 1px solid transparent;
+  color: #FCA5A5;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.rcp-logout:hover{
+  background: rgba(220,38,38,0.12);
+  border-color: rgba(220,38,38,0.3);
+}
+
+/* ---- Focus ---- */
+.rcp-link:focus-visible,
+.rcp-logout:focus-visible {
+  outline: 2px solid var(--rcp-primary);
+  outline-offset: 2px;
+}
+
+.bi{ font-size: 1rem; line-height: 1; }
+
+/* ------ Breakpoints ------ */
+@media (max-width: 992px) {
+  .rcp-sidebar { width: var(--rcp-sidebar-w-md); }
+}
+@media (max-width: 576px) {
+  .rcp-sidebar {
+    position: relative;
+    width: 100%;
+    inset: auto;
+    z-index: auto;
+  }
+}

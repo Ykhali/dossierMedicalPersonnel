@@ -10,7 +10,6 @@ import java.time.LocalDate;
 
 public class UpdateRendezVousDto {
 
-    @JsonFormat(pattern = "dd-MM-yyyy")
     @Column(name = "date_rendezVous")
     private LocalDate date;
 

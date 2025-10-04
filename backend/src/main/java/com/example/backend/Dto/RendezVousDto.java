@@ -5,6 +5,7 @@ import com.example.backend.Entity.Medecin;
 import com.example.backend.Entity.Patient;
 import com.example.backend.Entity.Receptionniste;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.Column;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -15,7 +16,7 @@ import java.time.LocalDate;
 public class RendezVousDto {
     private Long id;
 
-    @JsonFormat(pattern = "dd-MM-yyyy")
+    @JsonFormat(pattern = "dd/MM/yyyy")
     @Column(name = "date_rendezVous")
     private LocalDate date;
 
@@ -24,13 +25,16 @@ public class RendezVousDto {
 
     private String heure;
     private String motif;
-    private Medecin medecin;
+
 
     @Enumerated(EnumType.STRING)
     private StatusRendezVous status;
-    private Receptionniste receptionniste;
+
+    /*@JsonInclude(JsonInclude.Include.NON_NULL)
+    private Receptionniste receptionniste;*/
     private Patient patient;
 
+    private Medecin medecin;
     public RendezVousDto() {
     }
 
@@ -41,17 +45,16 @@ public class RendezVousDto {
         this.motif = motif;
         this.medecin = medecin;
     }
-    public RendezVousDto(Long id, LocalDate date, String heure, String motif, Medecin medecin, Receptionniste receptionniste, Patient patient) {
+    public RendezVousDto(Long id, LocalDate date, String heure, String motif, Medecin medecin, Patient patient) {
         this.id = id;
         this.date = date;
         this.heure = heure;
         this.motif = motif;
         this.medecin = medecin;
-        this.receptionniste = receptionniste;
         this.patient = patient;
     }
 
-    public RendezVousDto(Long id, LocalDate date,LocalDate dateCreation, String heure, String motif, Medecin medecin, StatusRendezVous status, Receptionniste receptionniste, Patient patient) {
+    public RendezVousDto(Long id, LocalDate date,LocalDate dateCreation, String heure, String motif, Medecin medecin, StatusRendezVous status, Patient patient) {
         this.id = id;
         this.date = date;
         this.heure = heure;
@@ -59,7 +62,6 @@ public class RendezVousDto {
         this.medecin = medecin;
         this.dateCreation = dateCreation;
         this.status = status;
-        this.receptionniste = receptionniste;
         this.patient = patient;
     }
 
@@ -111,13 +113,6 @@ public class RendezVousDto {
         this.status = status;
     }
 
-    public Receptionniste getReceptionniste() {
-        return receptionniste;
-    }
-
-    public void setReceptionniste(Receptionniste receptionniste) {
-        this.receptionniste = receptionniste;
-    }
 
     public Patient getPatient() {
         return patient;

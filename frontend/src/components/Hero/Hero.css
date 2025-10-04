@@ -1,0 +1,20 @@
+.hero{
+    display: flex;
+    background: none !important;
+    
+    
+}
+.container{
+    background: none !important;
+    height: 80vh;
+}
+
+.text-hero{
+
+}
+
+@media (max-width: 991px) {
+    .container{
+        height: 100%;
+    }
+}

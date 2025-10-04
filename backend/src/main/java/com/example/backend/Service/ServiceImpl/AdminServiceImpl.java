@@ -24,7 +24,8 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public void deleteAdmin(Long id) {
-        adminRepository.deleteById(String.valueOf(id));
+        //adminRepository.deleteById(String.valueOf(id));
+
     }
 
     @Override

@@ -1,0 +1,64 @@
+/* Conteneur list-group propre */
+.list-group-item {
+    border: 1px solid var(--bs-border-color, #dee2e6);
+}
+
+.list-group-item+.list-group-item {
+    border-top: 0;
+    /* évite la double bordure entre items */
+}
+
+/* Tuile date style "badge calendrier" */
+.date-chip {
+    width: 92px;
+    min-width: 92px;
+    border: 1px solid var(--bs-border-color, #dde2e6);
+    border-radius: 1rem;
+    background: #f7fbfd;
+    /* léger bleu/gris */
+    color: #0b7285;
+    /* teal/bleu medical */
+    padding: .35rem .5rem;
+    line-height: 1;
+}
+
+.date-chip-header {
+    font-size: .72rem;
+    letter-spacing: .06em;
+    font-weight: 700;
+    opacity: .9;
+}
+
+.date-chip-year {
+    font-size: .7rem;
+    font-weight: 600;
+    opacity: .85;
+}
+
+.date-chip-day {
+    font-size: 1.85rem;
+    font-weight: 800;
+    margin: .1rem 0 .2rem 0;
+    color: #0b7285;
+}
+
+.date-chip-time {
+    font-size: .85rem;
+    color: #6c757d;
+    border-top: 1px solid rgba(0, 0, 0, .06);
+    padding-top: .25rem;
+}
+
+/* Petites retouches */
+.badge.bg-info-subtle {
+    background-color: rgba(13, 202, 240, .12) !important;
+    border-color: rgba(13, 202, 240, .35) !important;
+    color: #087990 !important;
+}
+
+@media (max-width: 576px) {
+    .date-chip {
+        width: 86px;
+        min-width: 86px;
+    }
+}

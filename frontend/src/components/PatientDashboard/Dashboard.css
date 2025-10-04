@@ -1,0 +1,23 @@
+.dashboard-wrapper {
+    background-color: #f8f9fa;
+    /* léger gris pour casser le blanc */
+}
+
+.compact-card {
+    min-height: 120px;
+    /* plus petit */
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.alert {
+    border-radius: 0.5rem;
+}
+
+.dash-sectio{
+    width: 100%;
+}

@@ -10,11 +10,15 @@ import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import org.springframework.web.multipart.MultipartFile;
 
 public class UserDto {
 
-    @JsonIgnore
+    //@JsonIgnore
     private Long id;
+
+    @Column(name = "cin",unique = true)
+    private String cin;
 
     @NotBlank(message = "Nom est Obligatoire")
     private String Nom;
@@ -30,9 +34,9 @@ public class UserDto {
 
     @NotBlank(message = "Mot de Passe est obligatoire")
     @Size(min = 6, message = "Le mot de passe doit comporter au moins 6 caractères")
-    private String MotDePasse;
+    private String motdepasse;
 
-    private String ConfirmPwd;
+    private String confirmpwd;
 
     @Size(min = 8, max = 16)
     private String telephone;
@@ -40,35 +44,51 @@ public class UserDto {
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    private MultipartFile imageFile;
+
     public UserDto() {
     }
 
-    public UserDto(Long id, String nom, String prenom, String email
+    public UserDto(Long id,String cin, String nom, String prenom, String email
             , String telephone) {
         this.id = id;
+        this.cin = cin;
         this.Nom = nom;
         this.Prenom = prenom;
         this.Email = email;
         this.telephone = telephone;
     }
 
-    public UserDto(Long id, String nom, String prenom, String email,
+    public UserDto(Long id,String cin, String nom, String prenom, String email,
                    String motDePasse,String confirmPwd, String telephone) {
             this.id = id;
             Nom = nom;
-            Prenom = prenom;
-            Email = email;
-            MotDePasse = motDePasse;
-            this.ConfirmPwd = confirmPwd;
+            this.cin = cin;
+            this.Prenom = prenom;
+            this.Email = email;
+            this.motdepasse = motDePasse;
+            this.confirmpwd = confirmPwd;
             this.telephone = telephone;
     }
+    public UserDto(Long id, String nom, String prenom, String email,
+                   String motDePasse,String confirmPwd, String telephone) {
+        this.id = id;
+        Nom = nom;
+
+        this.Prenom = prenom;
+        this.Email = email;
+        this.motdepasse = motDePasse;
+        this.confirmpwd = confirmPwd;
+        this.telephone = telephone;
+    }
+
 
     public UserDto(String nom, String prenom, String email, String motDePasse, String confirmPwd, String telephone) {
         Nom = nom;
         Prenom = prenom;
         Email = email;
-        MotDePasse = motDePasse;
-        ConfirmPwd = confirmPwd;
+        this.motdepasse = motDePasse;
+        this.confirmpwd = confirmPwd;
         this.telephone = telephone;
     }
     public UserDto(String nom, String prenom, String email,  String telephone) {
@@ -84,6 +104,22 @@ public class UserDto {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public MultipartFile getImageFile() {
+        return imageFile;
+    }
+
+    public void setImageFile(MultipartFile imageFile) {
+        this.imageFile = imageFile;
+    }
+
+    public String getCin() {
+        return cin;
+    }
+
+    public void setCin(String cin) {
+        this.cin = cin;
     }
 
     public String getNom() {
@@ -110,22 +146,6 @@ public class UserDto {
         Email = email;
     }
 
-    public String getMotDePasse() {
-        return MotDePasse;
-    }
-
-    public void setMotDePasse(String motDePasse) {
-        MotDePasse = motDePasse;
-    }
-
-    public String getConfirmPwd() {
-        return ConfirmPwd;
-    }
-
-    public void setConfirmPwd(String confirmPwd) {
-        ConfirmPwd = confirmPwd;
-    }
-
     public String getTelephone() {
         return telephone;
     }
@@ -140,5 +160,21 @@ public class UserDto {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public String getMotdepasse() {
+        return motdepasse;
+    }
+
+    public void setMotdepasse(String motdepasse) {
+        this.motdepasse = motdepasse;
+    }
+
+    public String getConfirmpwd() {
+        return confirmpwd;
+    }
+
+    public void setConfirmpwd(String confirmpwd) {
+        this.confirmpwd = confirmpwd;
     }
 }

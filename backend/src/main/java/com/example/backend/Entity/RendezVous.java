@@ -15,7 +15,6 @@ public class RendezVous {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @JsonFormat(pattern = "dd-MM-yyyy")
     @Column(name = "date_rendezVous")
     private LocalDate date;
 
@@ -29,9 +28,9 @@ public class RendezVous {
     @Enumerated(EnumType.STRING)
     private StatusRendezVous status;
 
-    @ManyToOne
+    /*@ManyToOne
     @JoinColumn(name = "receptionniste_id")
-    private Receptionniste receptionniste;
+    private Receptionniste receptionniste;*/
 
     @ManyToOne
     @JoinColumn(name = "medecin_id")
@@ -54,14 +53,13 @@ public class RendezVous {
         this.status = status;
     }
 
-    public RendezVous(LocalDate date, String heure, String motif, StatusRendezVous status, Medecin medecin, Patient patient, Receptionniste receptionniste) {
+    public RendezVous(LocalDate date, String heure, String motif, StatusRendezVous status, Medecin medecin, Patient patient) {
         this.date = date;
         this.heure = heure;
         this.motif = motif;
         this.status = status;
         this.medecin = medecin;
         this.patient = patient;
-        this.receptionniste = receptionniste;
     }
     //Getters
 
@@ -85,9 +83,6 @@ public class RendezVous {
         return status;
     }
 
-    public Receptionniste getReceptionniste() {
-        return receptionniste;
-    }
 
     public Medecin getMedecin() {
         return medecin;
@@ -122,9 +117,6 @@ public class RendezVous {
         this.status = status;
     }
 
-    public void setReceptionniste(Receptionniste receptionniste) {
-        this.receptionniste = receptionniste;
-    }
 
     public void setMedecin(Medecin medecin) {
         this.medecin = medecin;

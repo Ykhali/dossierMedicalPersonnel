@@ -8,8 +8,8 @@ public class AddReceptionnisteDto extends UserDto {
         super();
     }
 
-    public AddReceptionnisteDto(Long id, String nom, String prenom, String email, String motDePasse, String confirmPwd, String telephone) {
-        super(id, nom, prenom, email, motDePasse, confirmPwd, telephone);
+    public AddReceptionnisteDto(Long id,String cin, String nom, String prenom, String email, String motDePasse, String confirmPwd, String telephone) {
+        super(id,cin, nom, prenom, email, motDePasse, confirmPwd, telephone);
         this.id = id;
     }
 

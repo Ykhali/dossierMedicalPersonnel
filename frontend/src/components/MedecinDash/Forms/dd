@@ -1,0 +1,4992 @@
+// import React from 'react';
+// import './DossierPatient.css'
+
+// export default function DossierPatient({ patient }) {
+//   const p = patient ?? {
+//     id: 1111,
+//     nom: "Nom",
+//     prenom: "Prénom",
+//     cin: "11111",
+//     dateNaissance: "11/07/2003",
+//     telephone: "0634614641",
+//     email: "email@exemple.com",
+//     photoUrl: "", // laisse vide pour un placeholder
+//     allergies: [{ label: "allergie 1 : …" }],
+//     maladies: [],
+//   };
+
+//   return (
+//     <div className="dossier-wrap container-fluid py-3">
+//       <div className="row h-100 g-3">
+//         {/* COLONNE GAUCHE : Identité + Allergies + Maladies */}
+//         <div className="col-12 col-lg-4 h-100">
+//           <div className="d-flex flex-column gap-3 h-100">
+//             {/* Identité */}
+//             <div className="card border-0 shadow-sm rounded-4 flex-shrink-0">
+//               <div className="card-header bg-white border-0 pb-0">
+//                 <h6 className="m-0 text-med fw-semibold">
+//                   Dossier Médical Patient — Id : {p.id}
+//                 </h6>
+//               </div>
+//               <div className="card-body">
+//                 <div className="d-flex gap-3">
+//                   <div className="photo-box border rounded-3 d-flex align-items-center justify-content-center">
+//                     {p.photoUrl ? (
+//                       <img
+//                         src={p.photoUrl}
+//                         alt="photo patient"
+//                         className="img-fluid rounded-3"
+//                       />
+//                     ) : (
+//                       <span className="text-muted small">photo</span>
+//                     )}
+//                   </div>
+//                   <div className="flex-grow-1 small">
+//                     <div className="fw-semibold">
+//                       {p.nom} {p.prenom}
+//                     </div>
+//                     <div>CIN: {p.cin}</div>
+//                     <div>Né le: {p.dateNaissance}</div>
+//                     <div>Téléphone: {p.telephone}</div>
+//                     <div>Email: {p.email}</div>
+//                   </div>
+//                 </div>
+//               </div>
+//             </div>
+
+//             {/* Allergies */}
+//             <div className="card border-0 shadow-sm rounded-4 flex-shrink-0">
+//               <div className="card-header d-flex justify-content-between align-items-center bg-white border-0">
+//                 <h6 className="m-0">Allergies</h6>
+//                 <button
+//                   type="button"
+//                   className="btn btn-add"
+//                   title="Ajouter une allergie"
+//                 >
+//                   <i className="bi bi-plus-lg"></i>
+//                 </button>
+//               </div>
+//               <div className="card-body small">
+//                 {p.allergies?.length ? (
+//                   <ul className="m-0 ps-3">
+//                     {p.allergies.map((a, i) => (
+//                       <li key={i}>{a.label}</li>
+//                     ))}
+//                   </ul>
+//                 ) : (
+//                   <div className="text-muted">Aucune allergie renseignée.</div>
+//                 )}
+//               </div>
+//             </div>
+
+//             {/* Maladies */}
+//             <div className="card border-0 shadow-sm rounded-4 flex-grow-1 d-flex flex-column">
+//               <div className="card-header d-flex justify-content-between align-items-center bg-white border-0">
+//                 <h6 className="m-0">Maladies</h6>
+//                 <button
+//                   type="button"
+//                   className="btn btn-add"
+//                   title="Ajouter une maladie"
+//                 >
+//                   <i className="bi bi-plus-lg"></i>
+//                 </button>
+//               </div>
+//               <div className="card-body small overflow-auto">
+//                 {p.maladies?.length ? (
+//                   <ul className="m-0 ps-3">
+//                     {p.maladies.map((m, i) => (
+//                       <li key={i}>{m.label}</li>
+//                     ))}
+//                   </ul>
+//                 ) : (
+//                   <div className="text-muted">Aucune maladie renseignée.</div>
+//                 )}
+//               </div>
+//             </div>
+//           </div>
+//         </div>
+
+//         {/* COLONNE DROITE : Grille 2×2 */}
+//         <div className="col-12 col-lg-8 h-100">
+//           <div className="grid-2x2 h-100">
+//             {/* Traitements en cours */}
+//             <section className="panel card border-0 shadow-sm rounded-4">
+//               <div className="card-header d-flex justify-content-between align-items-center bg-white border-0">
+//                 <h6 className="m-0">Traitements en cours</h6>
+//                 <button
+//                   type="button"
+//                   className="btn btn-add"
+//                   title="Ajouter un traitement"
+//                 >
+//                   <i className="bi bi-plus-lg"></i>
+//                 </button>
+//               </div>
+//               <div className="card-body overflow-auto">
+//                 <div className="text-muted small">— vide —</div>
+//               </div>
+//             </section>
+
+//             {/* Signes vitaux */}
+//             <section className="panel card border-0 shadow-sm rounded-4">
+//               <div className="card-header d-flex justify-content-between align-items-center bg-white border-0">
+//                 <h6 className="m-0">Signes vitaux</h6>
+//                 <button
+//                   type="button"
+//                   className="btn btn-add"
+//                   title="Ajouter des signes vitaux"
+//                 >
+//                   <i className="bi bi-plus-lg"></i>
+//                 </button>
+//               </div>
+//               <div className="card-body overflow-auto">
+//                 <table className="table table-sm mb-0 align-middle">
+//                   <tbody className="small">
+//                     <tr>
+//                       <th className="fw-normal">TA</th>
+//                       <td>—</td>
+//                     </tr>
+//                     <tr>
+//                       <th className="fw-normal">FC</th>
+//                       <td>—</td>
+//                     </tr>
+//                     <tr>
+//                       <th className="fw-normal">SpO₂</th>
+//                       <td>—</td>
+//                     </tr>
+//                     <tr>
+//                       <th className="fw-normal">Température</th>
+//                       <td>—</td>
+//                     </tr>
+//                     <tr>
+//                       <th className="fw-normal">Poids</th>
+//                       <td>—</td>
+//                     </tr>
+//                   </tbody>
+//                 </table>
+//               </div>
+//             </section>
+
+//             {/* Examens & Analyses */}
+//             <section className="panel card border-0 shadow-sm rounded-4">
+//               <div className="card-header d-flex justify-content-between align-items-center bg-white border-0">
+//                 <h6 className="m-0">Examens & Analyses</h6>
+//                 <button
+//                   type="button"
+//                   className="btn btn-add"
+//                   title="Ajouter un examen"
+//                 >
+//                   <i className="bi bi-plus-lg"></i>
+//                 </button>
+//               </div>
+//               <div className="card-body overflow-auto">
+//                 <div className="text-muted small">— vide —</div>
+//               </div>
+//             </section>
+
+//             {/* Documents / Imagerie (ou Observations) */}
+//             <section className="panel card border-0 shadow-sm rounded-4">
+//               <div className="card-header d-flex justify-content-between align-items-center bg-white border-0">
+//                 <h6 className="m-0">Documents & Imagerie</h6>
+//                 <button
+//                   type="button"
+//                   className="btn btn-add"
+//                   title="Ajouter un document"
+//                 >
+//                   <i className="bi bi-plus-lg"></i>
+//                 </button>
+//               </div>
+//               <div className="card-body overflow-auto">
+//                 <div className="text-muted small">— vide —</div>
+//               </div>
+//             </section>
+//           </div>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// }
+
+// src/pages/medecin/DossierPatient.jsx
+// import React, {useState} from "react";
+// import "./DossierPatient.css";
+// import API_BASE_URL from "../../config/apiConfig";
+
+// // cache simple d'objectURLs
+// const photoCache = new Map();
+
+// const authHeaders = () => ({
+//   "Content-Type": "application/json",
+//   Authorization: `Bearer ${localStorage.getItem("token")}`,
+// });
+
+// function reload() {
+//   try {
+//     if (typeof onReload === "function") {
+//       onReload();
+//     } else {
+//       window.location.reload();
+//     }
+//   } catch (e) {
+//     window.location.reload();
+//   }
+// }
+
+// /** Affiche la photo protégée du patient (ou un cadre "photo" en fallback) */
+// function PhotoSecure({ patientId, alt, size = 96, rounded = 12 }) {
+//   const [src, setSrc] = React.useState(null);
+
+//   React.useEffect(() => {
+//     setSrc(null);
+//     if (!patientId) return;
+//     const token = localStorage.getItem("token");
+//     if (!token) return;
+
+//     const url = `${API_BASE_URL}/api/Medecin/patients/${patientId}/image`;
+
+//     const cached = photoCache.get(url);
+//     if (cached) {
+//       setSrc(cached);
+//       return;
+//     }
+
+//     const ctrl = new AbortController();
+//     (async () => {
+//       try {
+//         const res = await fetch(url, {
+//           headers: { Authorization: `Bearer ${token}` },
+//           signal: ctrl.signal,
+//         });
+//         if (!res.ok) return; // 404 = pas de photo -> fallback
+//         const blob = await res.blob();
+//         const obj = URL.createObjectURL(blob);
+//         photoCache.set(url, obj);
+//         setSrc(obj);
+//       } catch {
+//         /* noop */
+//       }
+//     })();
+
+//     return () => ctrl.abort();
+//   }, [patientId]);
+
+//   const box = {
+//     width: size,
+//     height: size,
+//     objectFit: "cover",
+//     borderRadius: rounded,
+//   };
+
+//   if (src)
+//     return <img src={src} alt={alt} style={box} onError={() => setSrc(null)} />;
+
+//   return (
+//     <div
+//       className="d-flex align-items-center justify-content-center text-muted bg-light"
+//       style={{ ...box, border: "1px solid #e5e5e5" }}
+//     >
+//       photo
+//     </div>
+//   );
+// }
+
+// async function deleteAllergie(allergieId) {
+//   if (!allergieId) return;
+//   if (!confirm("Supprimer cette allergie ?")) return;
+//   const res = await fetch(
+//     `${API_BASE_URL}/api/Medecin/patients/allergies/${allergieId}`,
+//     {
+//       method: "DELETE",
+//       headers: authHeaders(),
+//     }
+//   );
+//   res.ok ? reload() : alert("Suppression impossible.");
+// }
+
+// async function editAllergie(a) {
+//   if (!a?.id) return;
+//   // exemple minimal (change selon tes champs)
+//   const newLabel = prompt("Modifier le libellé :", a.label ?? "");
+//   if (newLabel == null) return;
+
+//   const body = {
+//     label: newLabel,
+//     reaction: a.reaction ?? null,
+//     gravite: a.gravite ?? null,
+//     notes: a.notes ?? null,
+//     active: a.active ?? true,
+//     dateDebut: a.dateDebut ?? null, // "YYYY-MM-DD" si tu le gères
+//   };
+
+//   const res = await fetch(
+//     `${API_BASE_URL}/api/Medecin/patients/allergies/${a.id}`,
+//     {
+//       method: "PATCH",
+//       headers: authHeaders(),
+//       body: JSON.stringify(body),
+//     }
+//   );
+//   res.ok ? reload() : alert("Mise à jour impossible.");
+// }
+
+// async function deleteMaladie(maladieId) {
+//   if (!maladieId) return;
+//   if (!confirm("Supprimer cette maladie ?")) return;
+//   const res = await fetch(
+//     `${API_BASE_URL}/api/Medecin/patients/maladies/${maladieId}`,
+//     {
+//       method: "DELETE",
+//       headers: authHeaders(),
+//     }
+//   );
+//   res.ok ? reload() : alert("Suppression impossible.");
+// }
+
+// async function editMaladie(m) {
+//   if (!m?.id) return;
+//   // exemple minimal
+//   const newLabel = prompt("Modifier le libellé :", m.label ?? "");
+//   if (newLabel == null) return;
+
+//   const body = {
+//     label: newLabel,
+//     code: m.code ?? null,
+//     systemeCode: m.systemeCode ?? null,
+//     statut: m.statut ?? null, // si tu gères un statut (ex: actif, guéri…)
+//     notes: m.notes ?? null,
+//     dateDebut: m.dateDebut ?? null, // "YYYY-MM-DD"
+//     dateFin: m.dateFin ?? null, // "YYYY-MM-DD"
+//   };
+
+//   const res = await fetch(
+//     `${API_BASE_URL}/api/Medecin/patients/maladies/${m.id}`,
+//     {
+//       method: "PATCH",
+//       headers: authHeaders(),
+//       body: JSON.stringify(body),
+//     }
+//   );
+//   res.ok ? reload() : alert("Mise à jour impossible.");
+// }
+
+// export default function DossierPatient({
+//   patient = {},
+//   allergies = [],
+//   maladies = [],
+//   traitements = [],
+//   signesVitaux = [],
+//   examens = [],
+//   documents = [],
+// }) {
+//   const [detailItem, setDetailItem] = useState(null); // objet sélectionné
+//   const [detailType, setDetailType] = useState(null); // "allergie" | "maladie"
+
+//   const p = patient;
+//   const photoSrc =
+//     patient?.photoUrl ||
+//     (patient?.id ? `${API_BASE_URL}/api/Medecin/patients/${p.id}/image` : null);
+
+//   return (
+//     <div className="dossier-wrap container-fluid py-3">
+//       <div className="row g-3">
+//         {/* h-100 */}
+//         {/* ========= Colonne gauche ========= */}
+//         <div className="col-12 col-lg-4">
+//           {/* h-100 */}
+//           <div className="d-flex flex-column gap-3 h-100">
+//             {/* Identité */}
+//             <div className="card border-0 shadow-sm rounded-4 flex-shrink-0">
+//               <div className="card-header bg-white border-0 pb-0">
+//                 <h6 className="m-0 text-med fw-semibold">
+//                   Dossier Médical — Id : {p?.id ?? "—"}
+//                 </h6>
+//               </div>
+//               <div className="card-body">
+//                 {/* <img
+//                       src={photoSrc}
+//                       alt="photo patient"
+//                       style={{
+//                         width: "auto", // largeur fixe
+//                         height: "auto", // hauteur fixe
+//                         objectFit: "cover", // remplissage sans déformation
+//                         borderRadius: "12px", // coins arrondis (optionnel)
+//                       }}
+//                     /> */}
+//                 {/* <div className="d-flex gap-3">
+//                   <div className="photo-box border rounded-3 d-flex align-items-center justify-content-center overflow-hidden">
+//                     <PhotoSecure
+//                       patientId={p?.id}
+//                       alt={`${p?.nom ?? ""} ${p?.prenom ?? ""}`}
+//                       size={96}
+//                       rounded={12}
+//                     />
+//                   </div>
+//                   <div className="flex-grow-1 small">
+//                     <div className="fw-semibold">
+//                       {p?.nom ?? "Nom"} {p?.prenom ?? "Prénom"}
+//                     </div>
+//                     <div>CIN : {p?.cin ?? "—"}</div>
+//                     <div>Né le : {p?.dateNaissance ?? "—"}</div>
+//                     <div>Téléphone : {p?.telephone ?? "—"}</div>
+//                     <div>Email : {p?.email ?? "—"}</div>
+//                   </div>
+//                 </div> */}
+//                 <div className="d-flex flex-column flex-sm-row align-items-center align-items-sm-start gap-3">
+//                   <div className="photo-box border rounded-3 d-flex align-items-center justify-content-center overflow-hidden mb-2 mb-sm-0 me-sm-2">
+//                     <PhotoSecure
+//                       patientId={p?.id}
+//                       alt={`${p?.nom ?? ""} ${p?.prenom ?? ""}`}
+//                       size={96}
+//                       rounded={12}
+//                     />
+//                   </div>
+
+//                   <div className="flex-grow-1 small text-center text-sm-start">
+//                     <div className="fw-semibold">
+//                       {p?.nom ?? "Nom"} {p?.prenom ?? "Prénom"}
+//                     </div>
+//                     <div>CIN : {p?.cin ?? "—"}</div>
+//                     <div>Né le : {p?.dateNaissance ?? "—"}</div>
+//                     <div>Téléphone : {p?.telephone ?? "—"}</div>
+//                     <div className="text-break">Email : {p?.email ?? "—"}</div>
+//                   </div>
+//                 </div>
+//               </div>
+//             </div>
+
+//             {/* Allergies */}
+//             <div className="card border-0 shadow-sm rounded-4 flex-shrink-0">
+//               <div className="card-header d-flex justify-content-between align-items-center bg-white border-0">
+//                 <h6 className="m-0">Allergies</h6>
+//                 <button
+//                   type="button"
+//                   className="btn btn-add"
+//                   title="Ajouter une allergie"
+//                 >
+//                   <i className="bi bi-plus-lg"></i>
+//                 </button>
+//               </div>
+//               <div className="card-body small">
+//                 {allergies?.length ? (
+//                   <ul className="m-0 ps-3">
+//                     {allergies.map((a, i) => (
+//                       <li
+//                         key={a.id ?? i}
+//                         className="d-flex align-items-center justify-content-between py-1 border-bottom"
+//                       >
+//                         <span>{a.label ?? a}</span>
+//                         <div className="btn-group btn-group-sm gap-1">
+//                           <button
+//                             type="button"
+//                             className="btn-med btn-detail"
+//                             title="Détails"
+//                             onClick={() => openDetails(a, "allergie")}
+//                           >
+//                             <i className="bi bi-info-circle"></i>
+//                           </button>
+//                           <button
+//                             type="button"
+//                             className="btn-med btn-edit"
+//                             title="Modifier"
+//                             onClick={() => editAllergie(a)}
+//                           >
+//                             <i className="bi bi-pencil"></i>
+//                           </button>
+//                           <button
+//                             type="button"
+//                             className="btn-med btn-delete"
+//                             title="Supprimer"
+//                             onClick={() => deleteAllergie(a.id)}
+//                           >
+//                             <i className="bi bi-trash"></i>
+//                           </button>
+//                         </div>
+//                       </li>
+//                     ))}
+//                   </ul>
+//                 ) : (
+//                   <div className="text-muted">Aucune allergie renseignée.</div>
+//                 )}
+//               </div>
+//             </div>
+
+//             {/* Maladies */}
+//             <div className="card border-0 shadow-sm rounded-4 flex-grow-1 d-flex flex-column">
+//               <div className="card-header d-flex justify-content-between align-items-center bg-white border-0">
+//                 <h6 className="m-0">Maladies</h6>
+//                 <button
+//                   type="button"
+//                   className="btn btn-add"
+//                   title="Ajouter une maladie"
+//                 >
+//                   <i className="bi bi-plus-lg"></i>
+//                 </button>
+//               </div>
+//               <div className="card-body small overflow-auto">
+//                 {maladies?.length ? (
+//                   <ul className="m-0 ps-3">
+//                     {maladies.map((m, i) => (
+//                       <li
+//                         key={m.id ?? i}
+//                         className="d-flex align-items-center justify-content-between py-1 border-bottom"
+//                       >
+//                         <span>{m.label ?? m}</span>
+//                         <div className="btn-group btn-group-sm gap-1">
+//                           <button
+//                             type="button"
+//                             className="btn-med btn-detail "
+//                             title="Détails"
+//                             aria-label="Afficher les détails"
+//                             onClick={() => openDetails(m, "maladie")}
+//                           >
+//                             <i className="bi bi-info-circle"></i>
+//                           </button>
+//                           <button
+//                             type="button"
+//                             className="btn-med btn-edit"
+//                             title="Modifier"
+//                             aria-label="Modifier"
+//                             onClick={() => editMaladie(m)}
+//                           >
+//                             <i className="bi bi-pencil"></i>
+//                           </button>
+//                           <button
+//                             type="button"
+//                             className="btn-med btn-delete"
+//                             title="Supprimer"
+//                             aria-label="Supprimer"
+//                             onClick={() => deleteMaladie(m.id)}
+//                           >
+//                             <i className="bi bi-trash"></i>
+//                           </button>
+//                         </div>
+//                       </li>
+//                     ))}
+//                   </ul>
+//                 ) : (
+//                   <div className="text-muted">Aucune maladie renseignée.</div>
+//                 )}
+//               </div>
+//             </div>
+//           </div>
+//         </div>
+
+//         {/* ========= Colonne droite (grille 2×2) ========= */}
+//         <div className="col-12 col-lg-8 ">
+//           {/*h-100 */}
+//           <div className="grid-2x2 h-100">
+//             {/* Traitements */}
+//             <section className="panel card border-0 shadow-sm rounded-4">
+//               <div className="card-header d-flex justify-content-between align-items-center bg-white border-0">
+//                 <h6 className="m-0">Traitements en cours</h6>
+//                 <button
+//                   type="button"
+//                   className="btn btn-add"
+//                   title="Ajouter un traitement"
+//                 >
+//                   <i className="bi bi-plus-lg"></i>
+//                 </button>
+//               </div>
+//               <div className="card-body overflow-auto small">
+//                 {traitements?.length ? (
+//                   <ul className="m-0 ps-3">
+//                     {traitements.map((t) => (
+//                       <li key={t.id ?? `${t.nom}-${t.debut}`}>
+//                         <span className="fw-semibold">{t.nom ?? "—"}</span>
+//                         {t.posologie ? ` • ${t.posologie}` : ""}{" "}
+//                         {t.debut || t.fin ? (
+//                           <span className="text-muted">
+//                             ({t.debut ?? "?"} → {t.fin ?? "?"})
+//                           </span>
+//                         ) : null}
+//                       </li>
+//                     ))}
+//                   </ul>
+//                 ) : (
+//                   <div className="text-muted">— vide —</div>
+//                 )}
+//               </div>
+//             </section>
+
+//             {/* Signes vitaux */}
+//             <section className="panel card border-0 shadow-sm rounded-4">
+//               <div className="card-header d-flex justify-content-between align-items-center bg-white border-0">
+//                 <h6 className="m-0">Signes vitaux</h6>
+//                 <button
+//                   type="button"
+//                   className="btn btn-add"
+//                   title="Ajouter des signes vitaux"
+//                 >
+//                   <i className="bi bi-plus-lg"></i>
+//                 </button>
+//               </div>
+//               <div className="card-body overflow-auto">
+//                 {signesVitaux?.length ? (
+//                   <table className="table table-sm mb-0 align-middle small">
+//                     <thead>
+//                       <tr>
+//                         <th className="fw-normal">Type</th>
+//                         <th className="fw-normal">Valeur</th>
+//                         <th className="fw-normal">Date</th>
+//                       </tr>
+//                     </thead>
+//                     <tbody>
+//                       {signesVitaux.map((s) => (
+//                         <tr key={s.id ?? `${s.type}-${s.date}`}>
+//                           <td>{s.type ?? "—"}</td>
+//                           <td>{s.valeur ?? "—"}</td>
+//                           <td className="text-muted">{s.date ?? "—"}</td>
+//                         </tr>
+//                       ))}
+//                     </tbody>
+//                   </table>
+//                 ) : (
+//                   <div className="text-muted small">— vide —</div>
+//                 )}
+//               </div>
+//             </section>
+
+//             {/* Examens & Analyses */}
+//             <section className="panel card border-0 shadow-sm rounded-4">
+//               <div className="card-header d-flex justify-content-between align-items-center bg-white border-0">
+//                 <h6 className="m-0">Examens & Analyses</h6>
+//                 <button
+//                   type="button"
+//                   className="btn btn-add"
+//                   title="Ajouter un examen"
+//                 >
+//                   <i className="bi bi-plus-lg"></i>
+//                 </button>
+//               </div>
+//               <div className="card-body overflow-auto small">
+//                 {examens?.length ? (
+//                   <ul className="m-0 ps-3">
+//                     {examens.map((e) => (
+//                       <li key={e.id ?? `${e.type}-${e.date}`}>
+//                         <span className="fw-semibold">{e.type ?? "—"}</span>{" "}
+//                         {e.resultat ? (
+//                           <span className="text-muted">— {e.resultat}</span>
+//                         ) : null}{" "}
+//                         {e.date ? (
+//                           <span className="text-muted">({e.date})</span>
+//                         ) : null}
+//                       </li>
+//                     ))}
+//                   </ul>
+//                 ) : (
+//                   <div className="text-muted">— vide —</div>
+//                 )}
+//               </div>
+//             </section>
+
+//             {/* Documents / Imagerie */}
+//             <section className="panel card border-0 shadow-sm rounded-4">
+//               <div className="card-header d-flex justify-content-between align-items-center bg-white border-0">
+//                 <h6 className="m-0">Documents & Imagerie</h6>
+//                 <button
+//                   type="button"
+//                   className="btn btn-add"
+//                   title="Ajouter un document"
+//                 >
+//                   <i className="bi bi-plus-lg"></i>
+//                 </button>
+//               </div>
+//               <div className="card-body overflow-auto small">
+//                 {documents?.length ? (
+//                   <ul className="m-0 ps-3">
+//                     {documents.map((d) => (
+//                       <li key={d.id ?? `${d.titre}-${d.date}`}>
+//                         <i className="bi bi-file-earmark-text me-1"></i>
+//                         {d.titre ?? "Document"}{" "}
+//                         {d.date ? (
+//                           <span className="text-muted">({d.date})</span>
+//                         ) : null}
+//                         {d.url ? (
+//                           <a
+//                             className="ms-1"
+//                             href={d.url}
+//                             target="_blank"
+//                             rel="noreferrer"
+//                           >
+//                             ouvrir
+//                           </a>
+//                         ) : null}
+//                       </li>
+//                     ))}
+//                   </ul>
+//                 ) : (
+//                   <div className="text-muted">— vide —</div>
+//                 )}
+//               </div>
+//             </section>
+//           </div>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// }
+
+// import React, { useState, useEffect } from "react";
+// import "./DossierPatient.css";
+// import API_BASE_URL from "../../config/apiConfig";
+// import { Modal } from "bootstrap";
+// import "bootstrap/dist/js/bootstrap.bundle.min.js"; // assure-toi qu'il n'est importé qu'une seule fois dans l'app
+
+// // ----------------- Utils -----------------
+
+// // cache simple d'objectURLs pour la photo
+// const photoCache = new Map();
+
+// // headers avec JWT
+// function authHeaders() {
+//   return {
+//     "Content-Type": "application/json",
+//     Authorization: `Bearer ${localStorage.getItem("token") || ""}`,
+//   };
+// }
+
+// // rafraîchissement basique (remplace par un refetch local si tu veux éviter le reload)
+// function reload() {
+//   window.location.reload();
+// }
+
+// // formatages pour le modal
+// const fmtBool = (v) => (v === true ? "Oui" : v === false ? "Non" : "");
+// const fmtDate = (d) => (d ? new Date(d).toLocaleDateString() : "");
+
+// // ----------------- Composants -----------------
+
+// /** Affiche la photo protégée du patient (ou un cadre "photo" en fallback) */
+// function PhotoSecure({ patientId, alt, size = 96, rounded = 12 }) {
+//   const [src, setSrc] = React.useState(null);
+
+//   React.useEffect(() => {
+//     setSrc(null);
+//     if (!patientId) return;
+//     const token = localStorage.getItem("token");
+//     if (!token) return;
+
+//     const url = `${API_BASE_URL}/api/Medecin/patients/${patientId}/image`;
+
+//     const cached = photoCache.get(url);
+//     if (cached) {
+//       setSrc(cached);
+//       return;
+//     }
+
+//     const ctrl = new AbortController();
+//     (async () => {
+//       try {
+//         const res = await fetch(url, {
+//           headers: { Authorization: `Bearer ${token}` },
+//           signal: ctrl.signal,
+//         });
+//         if (!res.ok) return; // 404 = pas de photo -> fallback
+//         const blob = await res.blob();
+//         const obj = URL.createObjectURL(blob);
+//         photoCache.set(url, obj);
+//         setSrc(obj);
+//       } catch {
+//         /* noop */
+//       }
+//     })();
+
+//     return () => ctrl.abort();
+//   }, [patientId]);
+
+//   const box = {
+//     width: size,
+//     height: size,
+//     objectFit: "cover",
+//     borderRadius: rounded,
+//   };
+
+//   if (src)
+//     return <img src={src} alt={alt} style={box} onError={() => setSrc(null)} />;
+
+//   return (
+//     <div
+//       className="d-flex align-items-center justify-content-center text-muted bg-light"
+//       style={{ ...box, border: "1px solid #e5e5e5" }}
+//     >
+//       photo
+//     </div>
+//   );
+// }
+
+// // ----------------- API Helpers (Allergies/Maladies) -----------------
+
+// async function deleteAllergie(allergieId) {
+//   if (!allergieId) return;
+//   if (!confirm("Supprimer cette allergie ?")) return;
+//   const res = await fetch(
+//     `${API_BASE_URL}/api/Medecin/patients/allergies/${allergieId}`,
+//     {
+//       method: "DELETE",
+//       headers: authHeaders(),
+//     }
+//   );
+//   res.ok ? reload() : alert("Suppression impossible.");
+// }
+// async function deleteMaladie(maladieId) {
+//   if (!maladieId) return;
+//   if (!confirm("Supprimer cette maladie ?")) return;
+//   const res = await fetch(
+//     `${API_BASE_URL}/api/Medecin/patients/maladies/${maladieId}`,
+//     {
+//       method: "DELETE",
+//       headers: authHeaders(),
+//     }
+//   );
+//   res.ok ? reload() : alert("Suppression impossible.");
+// }
+
+// // async function editAllergie(a) {
+// //   if (!a?.id) return;
+// //   const newLabel = prompt("Modifier le libellé :", a.label ?? "");
+// //   if (newLabel == null) return;
+
+// //   const body = {
+// //     label: newLabel,
+// //     reaction: a.reaction ?? null,
+// //     gravite: a.gravite ?? null,
+// //     notes: a.notes ?? null,
+// //     active: a.active ?? true,
+// //     dateDebut: a.dateDebut ?? null, // "YYYY-MM-DD"
+// //   };
+
+// //   const res = await fetch(
+// //     `${API_BASE_URL}/api/Medecin/patients/allergies/${a.id}`,
+// //     {
+// //       method: "PATCH",
+// //       headers: authHeaders(),
+// //       body: JSON.stringify(body),
+// //     }
+// //   );
+// //   res.ok ? reload() : alert("Mise à jour impossible.");
+// // }
+
+// // async function editMaladie(m) {
+// //   if (!m?.id) return;
+// //   const newLabel = prompt("Modifier le libellé :", m.label ?? "");
+// //   if (newLabel == null) return;
+
+// //   const body = {
+// //     label: newLabel,
+// //     code: m.code ?? null,
+// //     systemeCode: m.systemeCode ?? null,
+// //     statut: m.statut ?? null,
+// //     notes: m.notes ?? null,
+// //     dateDebut: m.dateDebut ?? null, // "YYYY-MM-DD"
+// //     dateFin: m.dateFin ?? null, // "YYYY-MM-DD"
+// //   };
+
+// //   const res = await fetch(
+// //     `${API_BASE_URL}/api/Medecin/patients/maladies/${m.id}`,
+// //     {
+// //       method: "PATCH",
+// //       headers: authHeaders(),
+// //       body: JSON.stringify(body),
+// //     }
+// //   );
+// //   res.ok ? reload() : alert("Mise à jour impossible.");
+// // }
+
+// // ----------------- DossierPatient -----------------
+
+// export default function DossierPatient({
+//   patient = {},
+//   allergies = [],
+//   maladies = [],
+//   traitements = [],
+//   signesVitaux = [],
+//   examens = [],
+//   documents = [],
+// }) {
+//   // ---- Etat du modal Détails ----
+//   const [detailItem, setDetailItem] = useState(null); // objet sélectionné
+//   const [detailType, setDetailType] = useState(null); // "allergie" | "maladie"
+
+//   // état modal édition/création
+//   const [formType, setFormType] = useState(null); // "allergie" | "maladie"
+//   const [formMode, setFormMode] = useState(null); // "create" | "edit"
+//   const [formData, setFormData] = useState({}); // valeurs du formulaire
+
+//   // Construit les lignes de détails selon tes DTO backend
+//   function getDetailRows(item, type) {
+//     if (!item) return [];
+
+//     if (type === "allergie") {
+//       // AllergieResponse: id, label, reaction, gravite, notes, active, dateDebut
+//       return [
+//         ["Libellé", item.label],
+//         ["Réaction", item.reaction],
+//         ["Gravité", item.gravite],
+//         ["Notes", item.notes],
+//         ["Active", fmtBool(item.active)],
+//         ["Date de début", fmtDate(item.dateDebut)],
+//         ["ID", item.id],
+//       ];
+//     }
+
+//     // MaladieResponse: id, label, code, systemeCode, statut, notes, dateDebut, dateFin
+//     return [
+//       ["Libellé", item.label],
+//       ["Code", item.code],
+//       ["Système de code", item.systemeCode],
+//       ["Statut", item.statut],
+//       ["Notes", item.notes],
+//       ["Date de début", fmtDate(item.dateDebut)],
+//       ["Date de fin", fmtDate(item.dateFin)],
+//       ["ID", item.id],
+//     ];
+//   }
+
+//   // Ouvrir / fermer modal
+//   //   function openDetails(item, type) {
+//   //     setDetailItem(item);
+//   //     setDetailType(type);
+//   //     const el = document.getElementById("detailModal");
+//   //     if (el) new window.bootstrap.Modal(el).show();
+//   //   }
+
+//   //   function closeDetails() {
+//   //     const el = document.getElementById("detailModal");
+//   //     if (el) window.bootstrap.Modal.getInstance(el)?.hide();
+//   //     setDetailItem(null);
+//   //     setDetailType(null);
+//   //   }
+//   function openDetails(item, type) {
+//     setDetailItem(item);
+//     setDetailType(type);
+//     const el = document.getElementById("detailModal");
+//     if (el) new Modal(el).show(); // ✅ plus de window.bootstrap
+//   }
+
+//   function closeDetails() {
+//     const el = document.getElementById("detailModal");
+//     if (!el) return;
+//     const instance = Modal.getInstance(el); // ✅ API ESM
+//     instance?.hide();
+//     setDetailItem(null);
+//     setDetailType(null);
+//   }
+
+//   // Ouvrir / fermer modal Form
+//   function openForm(type, mode, item = {}) {
+//     setFormType(type);
+//     setFormMode(mode);
+//     // Normaliser les champs connus pour éviter les "controlled/uncontrolled"
+//     if (type === "allergie") {
+//       setFormData({
+//         id: item.id ?? undefined,
+//         label: item.label ?? "",
+//         reaction: item.reaction ?? "",
+//         gravite: item.gravite ?? "",
+//         notes: item.notes ?? "",
+//         active: item.active ?? true,
+//         dateDebut: item.dateDebut ?? "", // "YYYY-MM-DD"
+//       });
+//     } else {
+//       setFormData({
+//         id: item.id ?? undefined,
+//         label: item.label ?? "",
+//         code: item.code ?? "",
+//         systemeCode: item.systemeCode ?? "",
+//         statut: item.statut ?? "",
+//         notes: item.notes ?? "",
+//         dateDebut: item.dateDebut ?? "",
+//         dateFin: item.dateFin ?? "",
+//       });
+//     }
+//     const el = document.getElementById("formModal");
+//     if (el) new Modal(el).show();
+//   }
+
+//   function closeForm() {
+//     const el = document.getElementById("formModal");
+//     if (el) Modal.getInstance(el)?.hide();
+//     setFormType(null);
+//     setFormMode(null);
+//     setFormData({});
+//   }
+
+//   function handleFormChange(e) {
+//     const { name, value, type, checked } = e.target;
+//     setFormData((d) => ({
+//       ...d,
+//       [name]: type === "checkbox" ? checked : value,
+//     }));
+//   }
+
+//   async function submitForm() {
+//     if (!formType || !formMode) return;
+//     if (!patient?.id && formMode === "create") {
+//       alert("Patient introuvable pour la création.");
+//       return;
+//     }
+
+//     const isAllergie = formType === "allergie";
+//     const endpointBase = isAllergie ? "allergies" : "maladies";
+
+//     let url = "";
+//     let method = "";
+
+//     if (formMode === "create") {
+//       url = `${API_BASE_URL}/api/Medecin/patients/${patient.id}/${endpointBase}`;
+//       method = "POST";
+//     } else if (formMode === "edit") {
+//       url = `${API_BASE_URL}/api/Medecin/patients/${endpointBase}/${formData.id}`;
+//       method = "PATCH";
+//     }
+
+//     // corps à envoyer : on enlève les champs vides pour éviter d’écraser
+//     const body = {};
+//     Object.entries(formData).forEach(([k, v]) => {
+//       if (k === "id") return;
+//       if (v !== "" && v !== undefined) body[k] = v;
+//     });
+
+//     const res = await fetch(url, {
+//       method,
+//       headers: authHeaders(),
+//       body: JSON.stringify(body),
+//     });
+
+//     if (res.ok) {
+//       closeForm();
+//       reload();
+//     } else {
+//       const txt = await res.text().catch(() => "");
+//       alert(`Erreur lors de la sauvegarde\n${txt}`);
+//     }
+//   }
+
+//   const p = patient;
+//   const photoSrc =
+//     patient?.photoUrl ||
+//     (patient?.id ? `${API_BASE_URL}/api/Medecin/patients/${p.id}/image` : null);
+
+//   return (
+//     <div className="dossier-wrap container-fluid py-3">
+//       <div className="row g-3">
+//         {/* ========= Colonne gauche ========= */}
+//         <div className="col-12 col-lg-4">
+//           <div className="d-flex flex-column gap-3 h-100">
+//             {/* Identité */}
+//             <div className="card border-0 shadow-sm rounded-4 flex-shrink-0">
+//               <div className="card-header bg-white border-0 pb-0">
+//                 <h6 className="m-0 text-med fw-semibold">
+//                   Dossier Médical — Id : {p?.id ?? "—"}
+//                 </h6>
+//               </div>
+//               <div className="card-body">
+//                 <div className="d-flex flex-column flex-sm-row align-items-center align-items-sm-start gap-3">
+//                   <div className="photo-box border rounded-3 d-flex align-items-center justify-content-center overflow-hidden mb-2 mb-sm-0 me-sm-2">
+//                     <PhotoSecure
+//                       patientId={p?.id}
+//                       alt={`${p?.nom ?? ""} ${p?.prenom ?? ""}`}
+//                       size={96}
+//                       rounded={12}
+//                     />
+//                   </div>
+
+//                   <div className="flex-grow-1 small text-center text-sm-start">
+//                     <div className="fw-semibold">
+//                       {p?.nom ?? "Nom"} {p?.prenom ?? "Prénom"}
+//                     </div>
+//                     <div>CIN : {p?.cin ?? "—"}</div>
+//                     <div>Né le : {p?.dateNaissance ?? "—"}</div>
+//                     <div>Téléphone : {p?.telephone ?? "—"}</div>
+//                     <div className="text-break">Email : {p?.email ?? "—"}</div>
+//                   </div>
+//                 </div>
+//               </div>
+//             </div>
+
+//             {/* Allergies */}
+//             <div className="card border-0 shadow-sm rounded-4 flex-shrink-0">
+//               <div className="card-header d-flex justify-content-between align-items-center bg-white border-0">
+//                 <h6 className="m-0">Allergies</h6>
+//                 <button
+//                   type="button"
+//                   className="btn btn-add"
+//                   title="Ajouter une allergie"
+//                   onClick={() => openForm("allergie", "create")}
+//                 >
+//                   <i className="bi bi-plus-lg"></i>
+//                 </button>
+//               </div>
+//               <div className="card-body small">
+//                 {allergies?.length ? (
+//                   <ul className="m-0 ps-3">
+//                     {allergies.map((a, i) => (
+//                       <li
+//                         key={a.id ?? i}
+//                         className="d-flex align-items-center justify-content-between py-1 border-bottom"
+//                       >
+//                         <span>{a.label ?? a}</span>
+//                         <div className="btn-group btn-group-sm gap-1">
+//                           <button
+//                             type="button"
+//                             className="btn-med btn-detail"
+//                             title="Détails"
+//                             onClick={() => openDetails(a, "allergie")}
+//                           >
+//                             <i className="bi bi-info-circle"></i>
+//                           </button>
+//                           <button
+//                             type="button"
+//                             className="btn-med btn-edit"
+//                             title="Modifier"
+//                             onClick={() => editAllergie(a)}
+//                           >
+//                             <i className="bi bi-pencil"></i>
+//                           </button>
+//                           <button
+//                             type="button"
+//                             className="btn-med btn-delete"
+//                             title="Supprimer"
+//                             onClick={() => deleteAllergie(a.id)}
+//                           >
+//                             <i className="bi bi-trash"></i>
+//                           </button>
+//                         </div>
+//                       </li>
+//                     ))}
+//                   </ul>
+//                 ) : (
+//                   <div className="text-muted">Aucune allergie renseignée.</div>
+//                 )}
+//               </div>
+//             </div>
+
+//             {/* Maladies */}
+//             <div className="card border-0 shadow-sm rounded-4 flex-grow-1 d-flex flex-column">
+//               <div className="card-header d-flex justify-content-between align-items-center bg-white border-0">
+//                 <h6 className="m-0">Maladies</h6>
+//                 <button
+//                   type="button"
+//                   className="btn btn-add"
+//                   title="Ajouter une maladie"
+//                 >
+//                   <i className="bi bi-plus-lg"></i>
+//                 </button>
+//               </div>
+//               <div className="card-body small overflow-auto">
+//                 {maladies?.length ? (
+//                   <ul className="m-0 ps-3">
+//                     {maladies.map((m, i) => (
+//                       <li
+//                         key={m.id ?? i}
+//                         className="d-flex align-items-center justify-content-between py-1 border-bottom"
+//                       >
+//                         <span>{m.label ?? m}</span>
+//                         <div className="btn-group btn-group-sm gap-1">
+//                           <button
+//                             type="button"
+//                             className="btn-med btn-detail "
+//                             title="Détails"
+//                             aria-label="Afficher les détails"
+//                             onClick={() => openDetails(m, "maladie")}
+//                           >
+//                             <i className="bi bi-info-circle"></i>
+//                           </button>
+//                           <button
+//                             type="button"
+//                             className="btn-med btn-edit"
+//                             title="Modifier"
+//                             aria-label="Modifier"
+//                             onClick={() => editMaladie(m)}
+//                           >
+//                             <i className="bi bi-pencil"></i>
+//                           </button>
+//                           <button
+//                             type="button"
+//                             className="btn-med btn-delete"
+//                             title="Supprimer"
+//                             aria-label="Supprimer"
+//                             onClick={() => deleteMaladie(m.id)}
+//                           >
+//                             <i className="bi bi-trash"></i>
+//                           </button>
+//                         </div>
+//                       </li>
+//                     ))}
+//                   </ul>
+//                 ) : (
+//                   <div className="text-muted">Aucune maladie renseignée.</div>
+//                 )}
+//               </div>
+//             </div>
+//           </div>
+//         </div>
+
+//         {/* ========= Colonne droite (grille 2×2) ========= */}
+//         <div className="col-12 col-lg-8 ">
+//           <div className="grid-2x2 h-100">
+//             {/* Traitements */}
+//             <section className="panel card border-0 shadow-sm rounded-4">
+//               <div className="card-header d-flex justify-content-between align-items-center bg-white border-0">
+//                 <h6 className="m-0">Traitements en cours</h6>
+//                 <button
+//                   type="button"
+//                   className="btn btn-add"
+//                   title="Ajouter un traitement"
+//                 >
+//                   <i className="bi bi-plus-lg"></i>
+//                 </button>
+//               </div>
+//               <div className="card-body overflow-auto small">
+//                 {traitements?.length ? (
+//                   <ul className="m-0 ps-3">
+//                     {traitements.map((t) => (
+//                       <li key={t.id ?? `${t.nom}-${t.debut}`}>
+//                         <span className="fw-semibold">{t.nom ?? "—"}</span>
+//                         {t.posologie ? ` • ${t.posologie}` : ""}{" "}
+//                         {t.debut || t.fin ? (
+//                           <span className="text-muted">
+//                             ({t.debut ?? "?"} → {t.fin ?? "?"})
+//                           </span>
+//                         ) : null}
+//                       </li>
+//                     ))}
+//                   </ul>
+//                 ) : (
+//                   <div className="text-muted">— vide —</div>
+//                 )}
+//               </div>
+//             </section>
+
+//             {/* Signes vitaux */}
+//             <section className="panel card border-0 shadow-sm rounded-4">
+//               <div className="card-header d-flex justify-content-between align-items-center bg-white border-0">
+//                 <h6 className="m-0">Signes vitaux</h6>
+//                 <button
+//                   type="button"
+//                   className="btn btn-add"
+//                   title="Ajouter des signes vitaux"
+//                 >
+//                   <i className="bi bi-plus-lg"></i>
+//                 </button>
+//               </div>
+//               <div className="card-body overflow-auto">
+//                 {signesVitaux?.length ? (
+//                   <table className="table table-sm mb-0 align-middle small">
+//                     <thead>
+//                       <tr>
+//                         <th className="fw-normal">Type</th>
+//                         <th className="fw-normal">Valeur</th>
+//                         <th className="fw-normal">Date</th>
+//                       </tr>
+//                     </thead>
+//                     <tbody>
+//                       {signesVitaux.map((s) => (
+//                         <tr key={s.id ?? `${s.type}-${s.date}`}>
+//                           <td>{s.type ?? "—"}</td>
+//                           <td>{s.valeur ?? "—"}</td>
+//                           <td className="text-muted">{s.date ?? "—"}</td>
+//                         </tr>
+//                       ))}
+//                     </tbody>
+//                   </table>
+//                 ) : (
+//                   <div className="text-muted small">— vide —</div>
+//                 )}
+//               </div>
+//             </section>
+
+//             {/* Examens & Analyses */}
+//             <section className="panel card border-0 shadow-sm rounded-4">
+//               <div className="card-header d-flex justify-content-between align-items-center bg-white border-0">
+//                 <h6 className="m-0">Examens & Analyses</h6>
+//                 <button
+//                   type="button"
+//                   className="btn btn-add"
+//                   title="Ajouter un examen"
+//                 >
+//                   <i className="bi bi-plus-lg"></i>
+//                 </button>
+//               </div>
+//               <div className="card-body overflow-auto small">
+//                 {examens?.length ? (
+//                   <ul className="m-0 ps-3">
+//                     {examens.map((e) => (
+//                       <li key={e.id ?? `${e.type}-${e.date}`}>
+//                         <span className="fw-semibold">{e.type ?? "—"}</span>{" "}
+//                         {e.resultat ? (
+//                           <span className="text-muted">— {e.resultat}</span>
+//                         ) : null}{" "}
+//                         {e.date ? (
+//                           <span className="text-muted">({e.date})</span>
+//                         ) : null}
+//                       </li>
+//                     ))}
+//                   </ul>
+//                 ) : (
+//                   <div className="text-muted">— vide —</div>
+//                 )}
+//               </div>
+//             </section>
+
+//             {/* Documents / Imagerie */}
+//             <section className="panel card border-0 shadow-sm rounded-4">
+//               <div className="card-header d-flex justify-content-between align-items-center bg-white border-0">
+//                 <h6 className="m-0">Documents & Imagerie</h6>
+//                 <button
+//                   type="button"
+//                   className="btn btn-add"
+//                   title="Ajouter un document"
+//                 >
+//                   <i className="bi bi-plus-lg"></i>
+//                 </button>
+//               </div>
+//               <div className="card-body overflow-auto small">
+//                 {documents?.length ? (
+//                   <ul className="m-0 ps-3">
+//                     {documents.map((d) => (
+//                       <li key={d.id ?? `${d.titre}-${d.date}`}>
+//                         <i className="bi bi-file-earmark-text me-1"></i>
+//                         {d.titre ?? "Document"}{" "}
+//                         {d.date ? (
+//                           <span className="text-muted">({d.date})</span>
+//                         ) : null}
+//                         {d.url ? (
+//                           <a
+//                             className="ms-1"
+//                             href={d.url}
+//                             target="_blank"
+//                             rel="noreferrer"
+//                           >
+//                             ouvrir
+//                           </a>
+//                         ) : null}
+//                       </li>
+//                     ))}
+//                   </ul>
+//                 ) : (
+//                   <div className="text-muted">— vide —</div>
+//                 )}
+//               </div>
+//             </section>
+//           </div>
+//         </div>
+//       </div>
+
+//       {/* ===== Modal Détails (une seule fois) ===== */}
+//       <div
+//         className="modal fade"
+//         id="detailModal"
+//         tabIndex="-1"
+//         aria-hidden="true"
+//       >
+//         <div className="modal-dialog modal-dialog-centered">
+//           <div className="modal-content rounded-4">
+//             <div className="modal-header">
+//               <h5 className="modal-title">
+//                 {detailType === "allergie"
+//                   ? "Détails de l’allergie"
+//                   : detailType === "maladie"
+//                   ? "Détails de la maladie"
+//                   : "Détails"}
+//               </h5>
+//               <button
+//                 type="button"
+//                 className="btn-close"
+//                 onClick={closeDetails}
+//                 aria-label="Close"
+//               ></button>
+//             </div>
+
+//             <div className="modal-body">
+//               {detailItem ? (
+//                 <div className="table-responsive">
+//                   <table className="table table-sm align-middle mb-0">
+//                     <tbody>
+//                       {getDetailRows(detailItem, detailType)
+//                         .filter(
+//                           ([_, v]) =>
+//                             v !== undefined &&
+//                             v !== null &&
+//                             String(v).trim() !== ""
+//                         )
+//                         .map(([k, v]) => (
+//                           <tr key={k}>
+//                             <th
+//                               style={{ width: "40%" }}
+//                               className="text-muted fw-normal"
+//                             >
+//                               {k}
+//                             </th>
+//                             <td>{String(v)}</td>
+//                           </tr>
+//                         ))}
+//                     </tbody>
+//                   </table>
+//                 </div>
+//               ) : (
+//                 <div className="text-muted">Aucun détail à afficher.</div>
+//               )}
+//             </div>
+
+//             <div className="modal-footer">
+//               <button
+//                 type="button"
+//                 className="btn btn-secondary"
+//                 onClick={closeDetails}
+//               >
+//                 Fermer
+//               </button>
+//             </div>
+//           </div>
+//         </div>
+//       </div>
+//       {/* ===== /Modal Détails ===== */}
+//     </div>
+//   );
+// }
+
+// import React, { useState, useEffect } from "react";
+// import "./DossierPatient.css";
+// import API_BASE_URL from "../../config/apiConfig";
+
+// // Bootstrap (JS ESM + bundle pour compat)
+// import { Modal } from "bootstrap";
+
+// // ----------------- Utils -----------------
+
+// // cache simple d'objectURLs pour la photo
+// const photoCache = new Map();
+
+// // headers avec JWT
+// function authHeaders() {
+//   return {
+//     "Content-Type": "application/json",
+//     Authorization: `Bearer ${localStorage.getItem("token") || ""}`,
+//   };
+// }
+
+// // rafraîchissement basique (remplace par un refetch local si tu veux éviter le reload)
+// function reload() {
+//   window.location.reload();
+// }
+
+// // formatages pour le modal Détails
+// const fmtBool = (v) => (v === true ? "Oui" : v === false ? "Non" : "");
+// const fmtDate = (d) => (d ? new Date(d).toLocaleDateString() : "");
+
+// // ----------------- Composants -----------------
+
+// /** Affiche la photo protégée du patient (ou un cadre "photo" en fallback) */
+// function PhotoSecure({ patientId, alt, size = 96, rounded = 12 }) {
+//   const [src, setSrc] = useState(null);
+
+//   useEffect(() => {
+//     setSrc(null);
+//     if (!patientId) return;
+//     const token = localStorage.getItem("token");
+//     if (!token) return;
+
+//     const url = `${API_BASE_URL}/api/Medecin/patients/${patientId}/image`;
+
+//     const cached = photoCache.get(url);
+//     if (cached) {
+//       setSrc(cached);
+//       return;
+//     }
+
+//     const ctrl = new AbortController();
+//     (async () => {
+//       try {
+//         const res = await fetch(url, {
+//           headers: { Authorization: `Bearer ${token}` },
+//           signal: ctrl.signal,
+//         });
+//         if (!res.ok) return; // 404 = pas de photo -> fallback
+//         const blob = await res.blob();
+//         const obj = URL.createObjectURL(blob);
+//         photoCache.set(url, obj);
+//         setSrc(obj);
+//       } catch {
+//         /* noop */
+//       }
+//     })();
+
+//     return () => ctrl.abort();
+//   }, [patientId]);
+
+//   const box = {
+//     width: size,
+//     height: size,
+//     objectFit: "cover",
+//     borderRadius: rounded,
+//   };
+
+//   if (src)
+//     return <img src={src} alt={alt} style={box} onError={() => setSrc(null)} />;
+
+//   return (
+//     <div
+//       className="d-flex align-items-center justify-content-center text-muted bg-light"
+//       style={{ ...box, border: "1px solid #e5e5e5" }}
+//     >
+//       photo
+//     </div>
+//   );
+// }
+
+// // ----------------- API Helpers (Allergies/Maladies) -----------------
+
+// async function deleteAllergie(allergieId) {
+//   if (!allergieId) return;
+//   if (!confirm("Supprimer cette allergie ?")) return;
+//   const res = await fetch(
+//     `${API_BASE_URL}/api/Medecin/patients/allergies/${allergieId}`,
+//     {
+//       method: "DELETE",
+//       headers: authHeaders(),
+//     }
+//   );
+//   res.ok ? reload() : alert("Suppression impossible.");
+// }
+
+// async function deleteMaladie(maladieId) {
+//   if (!maladieId) return;
+//   if (!confirm("Supprimer cette maladie ?")) return;
+//   const res = await fetch(
+//     `${API_BASE_URL}/api/Medecin/patients/maladies/${maladieId}`,
+//     {
+//       method: "DELETE",
+//       headers: authHeaders(),
+//     }
+//   );
+//   res.ok ? reload() : alert("Suppression impossible.");
+// }
+
+// // ----------------- DossierPatient -----------------
+
+// export default function DossierPatient({
+//   patient = {},
+//   allergies = [],
+//   maladies = [],
+//   traitements = [],
+//   signesVitaux = [],
+//   examens = [],
+//   documents = [],
+// }) {
+//   // ---- Etat du modal Détails ----
+//   const [detailItem, setDetailItem] = useState(null); // objet sélectionné
+//   const [detailType, setDetailType] = useState(null); // "allergie" | "maladie"
+
+//   // ---- Etat modal Form (create/edit) ----
+//   const [formType, setFormType] = useState(null); // "allergie" | "maladie"
+//   const [formMode, setFormMode] = useState(null); // "create" | "edit"
+//   const [formData, setFormData] = useState({}); // champs du formulaire
+
+//   // Construit les lignes de détails selon tes DTO backend
+//   function getDetailRows(item, type) {
+//     if (!item) return [];
+
+//     if (type === "allergie") {
+//       // AllergieResponse: id, label, reaction, gravite, notes, active, dateDebut
+//       return [
+//         ["Libellé", item.label],
+//         ["Réaction", item.reaction],
+//         ["Gravité", item.gravite],
+//         ["Notes", item.notes],
+//         ["Active", fmtBool(item.active)],
+//         ["Date de début", fmtDate(item.dateDebut)],
+//         ["ID", item.id],
+//       ];
+//     }
+
+//     // MaladieResponse: id, label, code, systemeCode, statut, notes, dateDebut, dateFin
+//     return [
+//       ["Libellé", item.label],
+//       ["Code", item.code],
+//       ["Système de code", item.systemeCode],
+//       ["Statut", item.statut],
+//       ["Notes", item.notes],
+//       ["Date de début", fmtDate(item.dateDebut)],
+//       ["Date de fin", fmtDate(item.dateFin)],
+//       ["ID", item.id],
+//     ];
+//   }
+
+//   // Ouvrir / fermer modal Détails
+//   function openDetails(item, type) {
+//     setDetailItem(item);
+//     setDetailType(type);
+//     const el = document.getElementById("detailModal");
+//     if (el) new Modal(el).show();
+//   }
+
+//   function closeDetails() {
+//     const el = document.getElementById("detailModal");
+//     if (el) Modal.getInstance(el)?.hide();
+//     setDetailItem(null);
+//     setDetailType(null);
+//   }
+
+//   // Ouvrir / fermer modal Form
+//   function openForm(type, mode, item = {}) {
+//     setFormType(type);
+//     setFormMode(mode);
+//     // Normaliser les champs connus pour éviter les "controlled/uncontrolled"
+//     if (type === "allergie") {
+//       setFormData({
+//         id: item.id ?? undefined,
+//         label: item.label ?? "",
+//         reaction: item.reaction ?? "",
+//         gravite: item.gravite ?? "",
+//         notes: item.notes ?? "",
+//         active: item.active ?? true,
+//         dateDebut: item.dateDebut ?? "", // "YYYY-MM-DD"
+//       });
+//     } else {
+//       setFormData({
+//         id: item.id ?? undefined,
+//         label: item.label ?? "",
+//         code: item.code ?? "",
+//         systemeCode: item.systemeCode ?? "",
+//         statut: item.statut ?? "",
+//         notes: item.notes ?? "",
+//         dateDebut: item.dateDebut ?? "",
+//         dateFin: item.dateFin ?? "",
+//       });
+//     }
+//     const el = document.getElementById("formModal");
+//     if (el) new Modal(el).show();
+//   }
+
+//   function closeForm() {
+//     const el = document.getElementById("formModal");
+//     if (el) Modal.getInstance(el)?.hide();
+//     setFormType(null);
+//     setFormMode(null);
+//     setFormData({});
+//   }
+
+//   function handleFormChange(e) {
+//     const { name, value, type, checked } = e.target;
+//     setFormData((d) => ({
+//       ...d,
+//       [name]: type === "checkbox" ? checked : value,
+//     }));
+//   }
+
+//   async function submitForm() {
+//     if (!formType || !formMode) return;
+//     if (!patient?.id && formMode === "create") {
+//       alert("Patient introuvable pour la création.");
+//       return;
+//     }
+
+//     const isAllergie = formType === "allergie";
+//     const endpointBase = isAllergie ? "allergies" : "maladies";
+
+//     let url = "";
+//     let method = "";
+
+//     if (formMode === "create") {
+//       url = `${API_BASE_URL}/api/Medecin/patients/${patient.id}/${endpointBase}`;
+//       method = "POST";
+//     } else if (formMode === "edit") {
+//       url = `${API_BASE_URL}/api/Medecin/patients/${endpointBase}/${formData.id}`;
+//       method = "PATCH";
+//     }
+
+//     // corps à envoyer : on enlève les champs vides pour éviter d’écraser
+//     const body = {};
+//     Object.entries(formData).forEach(([k, v]) => {
+//       if (k === "id") return;
+//       if (v !== "" && v !== undefined) body[k] = v;
+//     });
+
+//     const res = await fetch(url, {
+//       method,
+//       headers: authHeaders(),
+//       body: JSON.stringify(body),
+//     });
+
+//     if (res.ok) {
+//       closeForm();
+//       reload();
+//     } else {
+//       const txt = await res.text().catch(() => "");
+//       alert(`Erreur lors de la sauvegarde\n${txt}`);
+//     }
+//   }
+
+//   const p = patient;
+
+//   return (
+//     <div className="dossier-wrap container-fluid py-3">
+//       <div className="row g-3">
+//         {/* ========= Colonne gauche ========= */}
+//         <div className="col-12 col-lg-4">
+//           <div className="d-flex flex-column gap-3 h-100">
+//             {/* Identité */}
+//             <div className="card border-0 shadow-sm rounded-4 flex-shrink-0">
+//               <div className="card-header bg-white border-0 pb-0">
+//                 <h6 className="m-0 text-med fw-semibold">
+//                   Dossier Médical — Id : {p?.id ?? "—"}
+//                 </h6>
+//               </div>
+//               <div className="card-body">
+//                 <div className="d-flex flex-column flex-sm-row align-items-center align-items-sm-start gap-3">
+//                   <div className="photo-box border rounded-3 d-flex align-items-center justify-content-center overflow-hidden mb-2 mb-sm-0 me-sm-2">
+//                     <PhotoSecure
+//                       patientId={p?.id}
+//                       alt={`${p?.nom ?? ""} ${p?.prenom ?? ""}`}
+//                       size={96}
+//                       rounded={12}
+//                     />
+//                   </div>
+
+//                   <div className="flex-grow-1 small text-center text-sm-start">
+//                     <div className="fw-semibold">
+//                       {p?.nom ?? "Nom"} {p?.prenom ?? "Prénom"}
+//                     </div>
+//                     <div>CIN : {p?.cin ?? "—"}</div>
+//                     <div>Né le : {p?.dateNaissance ?? "—"}</div>
+//                     <div>Téléphone : {p?.telephone ?? "—"}</div>
+//                     <div className="text-break">Email : {p?.email ?? "—"}</div>
+//                   </div>
+//                 </div>
+//               </div>
+//             </div>
+
+//             {/* Allergies */}
+//             <div className="card border-0 shadow-sm rounded-4 flex-shrink-0">
+//               <div className="card-header d-flex justify-content-between align-items-center bg-white border-0">
+//                 <h6 className="m-0">Allergies</h6>
+//                 <button
+//                   type="button"
+//                   className="btn btn-add"
+//                   title="Ajouter une allergie"
+//                   onClick={() => openForm("allergie", "create")}
+//                 >
+//                   <i className="bi bi-plus-lg"></i>
+//                 </button>
+//               </div>
+//               <div className="card-body small">
+//                 {allergies?.length ? (
+//                   <ul className="m-0 ps-3">
+//                     {allergies.map((a, i) => (
+//                       <li
+//                         key={a.id ?? i}
+//                         className="d-flex align-items-center justify-content-between py-1 border-bottom"
+//                       >
+//                         <span>{a.label ?? a}</span>
+//                         <div className="btn-group btn-group-sm gap-1">
+//                           {/* Détails */}
+//                           <button
+//                             type="button"
+//                             className="btn-med btn-detail"
+//                             title="Détails"
+//                             onClick={() => openDetails(a, "allergie")}
+//                           >
+//                             <i className="bi bi-info-circle"></i>
+//                           </button>
+//                           {/* Modifier */}
+//                           <button
+//                             type="button"
+//                             className="btn-med btn-edit"
+//                             title="Modifier"
+//                             onClick={() => openForm("allergie", "edit", a)}
+//                           >
+//                             <i className="bi bi-pencil"></i>
+//                           </button>
+//                           {/* Supprimer */}
+//                           <button
+//                             type="button"
+//                             className="btn-med btn-delete"
+//                             title="Supprimer"
+//                             onClick={() => deleteAllergie(a.id)}
+//                           >
+//                             <i className="bi bi-trash"></i>
+//                           </button>
+//                         </div>
+//                       </li>
+//                     ))}
+//                   </ul>
+//                 ) : (
+//                   <div className="text-muted">Aucune allergie renseignée.</div>
+//                 )}
+//               </div>
+//             </div>
+
+//             {/* Maladies */}
+//             <div className="card border-0 shadow-sm rounded-4 flex-grow-1 d-flex flex-column">
+//               <div className="card-header d-flex justify-content-between align-items-center bg-white border-0">
+//                 <h6 className="m-0">Maladies</h6>
+//                 <button
+//                   type="button"
+//                   className="btn btn-add"
+//                   title="Ajouter une maladie"
+//                   onClick={() => openForm("maladie", "create")}
+//                 >
+//                   <i className="bi bi-plus-lg"></i>
+//                 </button>
+//               </div>
+//               <div className="card-body small overflow-auto">
+//                 {maladies?.length ? (
+//                   <ul className="m-0 ps-3">
+//                     {maladies.map((m, i) => (
+//                       <li
+//                         key={m.id ?? i}
+//                         className="d-flex align-items-center justify-content-between py-1 border-bottom"
+//                       >
+//                         <span>{m.label ?? m}</span>
+//                         <div className="btn-group btn-group-sm gap-1">
+//                           {/* Détails */}
+//                           <button
+//                             type="button"
+//                             className="btn-med btn-detail "
+//                             title="Détails"
+//                             aria-label="Afficher les détails"
+//                             onClick={() => openDetails(m, "maladie")}
+//                           >
+//                             <i className="bi bi-info-circle"></i>
+//                           </button>
+//                           {/* Modifier */}
+//                           <button
+//                             type="button"
+//                             className="btn-med btn-edit"
+//                             title="Modifier"
+//                             aria-label="Modifier"
+//                             onClick={() => openForm("maladie", "edit", m)}
+//                           >
+//                             <i className="bi bi-pencil"></i>
+//                           </button>
+//                           {/* Supprimer */}
+//                           <button
+//                             type="button"
+//                             className="btn-med btn-delete"
+//                             title="Supprimer"
+//                             aria-label="Supprimer"
+//                             onClick={() => deleteMaladie(m.id)}
+//                           >
+//                             <i className="bi bi-trash"></i>
+//                           </button>
+//                         </div>
+//                       </li>
+//                     ))}
+//                   </ul>
+//                 ) : (
+//                   <div className="text-muted">Aucune maladie renseignée.</div>
+//                 )}
+//               </div>
+//             </div>
+//           </div>
+//         </div>
+
+//         {/* ========= Colonne droite (grille 2×2) ========= */}
+//         <div className="col-12 col-lg-8 ">
+//           <div className="grid-2x2 h-100">
+//             {/* Traitements */}
+//             <section className="panel card border-0 shadow-sm rounded-4">
+//               <div className="card-header d-flex justify-content-between align-items-center bg-white border-0">
+//                 <h6 className="m-0">Traitements en cours</h6>
+//                 <button
+//                   type="button"
+//                   className="btn btn-add"
+//                   title="Ajouter un traitement"
+//                 >
+//                   <i className="bi bi-plus-lg"></i>
+//                 </button>
+//               </div>
+//               <div className="card-body overflow-auto small">
+//                 {traitements?.length ? (
+//                   <ul className="m-0 ps-3">
+//                     {traitements.map((t) => (
+//                       <li key={t.id ?? `${t.nom}-${t.debut}`}>
+//                         <span className="fw-semibold">{t.nom ?? "—"}</span>
+//                         {t.posologie ? ` • ${t.posologie}` : ""}{" "}
+//                         {t.debut || t.fin ? (
+//                           <span className="text-muted">
+//                             ({t.debut ?? "?"} → {t.fin ?? "?"})
+//                           </span>
+//                         ) : null}
+//                       </li>
+//                     ))}
+//                   </ul>
+//                 ) : (
+//                   <div className="text-muted">— vide —</div>
+//                 )}
+//               </div>
+//             </section>
+
+//             {/* Signes vitaux */}
+//             <section className="panel card border-0 shadow-sm rounded-4">
+//               <div className="card-header d-flex justify-content-between align-items-center bg-white border-0">
+//                 <h6 className="m-0">Signes vitaux</h6>
+//                 <button
+//                   type="button"
+//                   className="btn btn-add"
+//                   title="Ajouter des signes vitaux"
+//                 >
+//                   <i className="bi bi-plus-lg"></i>
+//                 </button>
+//               </div>
+//               <div className="card-body overflow-auto">
+//                 {signesVitaux?.length ? (
+//                   <table className="table table-sm mb-0 align-middle small">
+//                     <thead>
+//                       <tr>
+//                         <th className="fw-normal">Type</th>
+//                         <th className="fw-normal">Valeur</th>
+//                         <th className="fw-normal">Date</th>
+//                       </tr>
+//                     </thead>
+//                     <tbody>
+//                       {signesVitaux.map((s) => (
+//                         <tr key={s.id ?? `${s.type}-${s.date}`}>
+//                           <td>{s.type ?? "—"}</td>
+//                           <td>{s.valeur ?? "—"}</td>
+//                           <td className="text-muted">{s.date ?? "—"}</td>
+//                         </tr>
+//                       ))}
+//                     </tbody>
+//                   </table>
+//                 ) : (
+//                   <div className="text-muted small">— vide —</div>
+//                 )}
+//               </div>
+//             </section>
+
+//             {/* Examens & Analyses */}
+//             <section className="panel card border-0 shadow-sm rounded-4">
+//               <div className="card-header d-flex justify-content-between align-items-center bg-white border-0">
+//                 <h6 className="m-0">Examens & Analyses</h6>
+//                 <button
+//                   type="button"
+//                   className="btn btn-add"
+//                   title="Ajouter un examen"
+//                 >
+//                   <i className="bi bi-plus-lg"></i>
+//                 </button>
+//               </div>
+//               <div className="card-body overflow-auto small">
+//                 {examens?.length ? (
+//                   <ul className="m-0 ps-3">
+//                     {examens.map((e) => (
+//                       <li key={e.id ?? `${e.type}-${e.date}`}>
+//                         <span className="fw-semibold">{e.type ?? "—"}</span>{" "}
+//                         {e.resultat ? (
+//                           <span className="text-muted">— {e.resultat}</span>
+//                         ) : null}{" "}
+//                         {e.date ? (
+//                           <span className="text-muted">({e.date})</span>
+//                         ) : null}
+//                       </li>
+//                     ))}
+//                   </ul>
+//                 ) : (
+//                   <div className="text-muted">— vide —</div>
+//                 )}
+//               </div>
+//             </section>
+
+//             {/* Documents / Imagerie */}
+//             <section className="panel card border-0 shadow-sm rounded-4">
+//               <div className="card-header d-flex justify-content-between align-items-center bg-white border-0">
+//                 <h6 className="m-0">Documents & Imagerie</h6>
+//                 <button
+//                   type="button"
+//                   className="btn btn-add"
+//                   title="Ajouter un document"
+//                 >
+//                   <i className="bi bi-plus-lg"></i>
+//                 </button>
+//               </div>
+//               <div className="card-body overflow-auto small">
+//                 {documents?.length ? (
+//                   <ul className="m-0 ps-3">
+//                     {documents.map((d) => (
+//                       <li key={d.id ?? `${d.titre}-${d.date}`}>
+//                         <i className="bi bi-file-earmark-text me-1"></i>
+//                         {d.titre ?? "Document"}{" "}
+//                         {d.date ? (
+//                           <span className="text-muted">({d.date})</span>
+//                         ) : null}
+//                         {d.url ? (
+//                           <a
+//                             className="ms-1"
+//                             href={d.url}
+//                             target="_blank"
+//                             rel="noreferrer"
+//                           >
+//                             ouvrir
+//                           </a>
+//                         ) : null}
+//                       </li>
+//                     ))}
+//                   </ul>
+//                 ) : (
+//                   <div className="text-muted">— vide —</div>
+//                 )}
+//               </div>
+//             </section>
+//           </div>
+//         </div>
+//         <div className="d-flex column mb-3 gap-2 ">
+//           <button className="btn btn-outline-info flex-grow-1">
+//             Créer facture
+//           </button>
+//           <button className="btn btn-outline-info flex-grow-1">
+//             Créer prescription
+//           </button>
+//         </div>
+//       </div>
+
+//       {/* ===== Modal Détails (une seule fois) ===== */}
+//       <div
+//         className="modal fade"
+//         id="detailModal"
+//         tabIndex="-1"
+//         aria-hidden="true"
+//       >
+//         <div className="modal-dialog modal-dialog-centered">
+//           <div className="modal-content rounded-4">
+//             <div className="modal-header">
+//               <h5 className="modal-title">
+//                 {detailType === "allergie"
+//                   ? "Détails de l’allergie"
+//                   : detailType === "maladie"
+//                   ? "Détails de la maladie"
+//                   : "Détails"}
+//               </h5>
+//               <button
+//                 type="button"
+//                 className="btn-close"
+//                 onClick={closeDetails}
+//                 aria-label="Close"
+//               ></button>
+//             </div>
+
+//             <div className="modal-body">
+//               {detailItem ? (
+//                 <div className="table-responsive">
+//                   <table className="table table-sm align-middle mb-0">
+//                     <tbody>
+//                       {getDetailRows(detailItem, detailType)
+//                         .filter(
+//                           ([_, v]) =>
+//                             v !== undefined &&
+//                             v !== null &&
+//                             String(v).trim() !== ""
+//                         )
+//                         .map(([k, v]) => (
+//                           <tr key={k}>
+//                             <th
+//                               style={{ width: "40%" }}
+//                               className="text-muted fw-normal"
+//                             >
+//                               {k}
+//                             </th>
+//                             <td>{String(v)}</td>
+//                           </tr>
+//                         ))}
+//                     </tbody>
+//                   </table>
+//                 </div>
+//               ) : (
+//                 <div className="text-muted">Aucun détail à afficher.</div>
+//               )}
+//             </div>
+
+//             <div className="modal-footer">
+//               <button
+//                 type="button"
+//                 className="btn btn-secondary"
+//                 onClick={closeDetails}
+//               >
+//                 Fermer
+//               </button>
+//             </div>
+//           </div>
+//         </div>
+//       </div>
+//       {/* ===== /Modal Détails ===== */}
+
+//       {/* ===== Modal Form (Create/Edit) ===== */}
+//       <div
+//         className="modal fade"
+//         id="formModal"
+//         tabIndex="-1"
+//         aria-hidden="true"
+//       >
+//         <div className="modal-dialog modal-dialog-centered">
+//           <div className="modal-content rounded-4">
+//             <div className="modal-header">
+//               <h5 className="modal-title">
+//                 {formMode === "create"
+//                   ? formType === "allergie"
+//                     ? "Nouvelle Allergie"
+//                     : "Nouvelle Maladie"
+//                   : formType === "allergie"
+//                   ? "Modifier Allergie"
+//                   : "Modifier Maladie"}
+//               </h5>
+//               <button
+//                 type="button"
+//                 className="btn-close"
+//                 onClick={closeForm}
+//                 aria-label="Close"
+//               ></button>
+//             </div>
+
+//             <div className="modal-body">
+//               {formType && (
+//                 <form className="vstack gap-3">
+//                   <div>
+//                     <label className="form-label">Libellé</label>
+//                     <input
+//                       type="text"
+//                       className="form-control"
+//                       name="label"
+//                       value={formData.label || ""}
+//                       onChange={handleFormChange}
+//                     />
+//                   </div>
+
+//                   {formType === "allergie" && (
+//                     <>
+//                       <div>
+//                         <label className="form-label">Réaction</label>
+//                         <input
+//                           type="text"
+//                           className="form-control"
+//                           name="reaction"
+//                           value={formData.reaction || ""}
+//                           onChange={handleFormChange}
+//                         />
+//                       </div>
+//                       <div>
+//                         <label className="form-label">Gravité</label>
+//                         <input
+//                           type="text"
+//                           className="form-control"
+//                           name="gravite"
+//                           value={formData.gravite || ""}
+//                           onChange={handleFormChange}
+//                         />
+//                       </div>
+//                       <div className="form-check">
+//                         <input
+//                           className="form-check-input"
+//                           type="checkbox"
+//                           id="allergie-active"
+//                           name="active"
+//                           checked={!!formData.active}
+//                           onChange={handleFormChange}
+//                         />
+//                         <label
+//                           className="form-check-label"
+//                           htmlFor="allergie-active"
+//                         >
+//                           Active
+//                         </label>
+//                       </div>
+//                       <div>
+//                         <label className="form-label">Date de début</label>
+//                         <input
+//                           type="date"
+//                           className="form-control"
+//                           name="dateDebut"
+//                           value={formData.dateDebut || ""}
+//                           onChange={handleFormChange}
+//                         />
+//                       </div>
+//                     </>
+//                   )}
+
+//                   {formType === "maladie" && (
+//                     <>
+//                       <div>
+//                         <label className="form-label">Code</label>
+//                         <input
+//                           type="text"
+//                           className="form-control"
+//                           name="code"
+//                           value={formData.code || ""}
+//                           onChange={handleFormChange}
+//                         />
+//                       </div>
+//                       <div>
+//                         <label className="form-label">Système de code</label>
+//                         <input
+//                           type="text"
+//                           className="form-control"
+//                           name="systemeCode"
+//                           value={formData.systemeCode || ""}
+//                           onChange={handleFormChange}
+//                         />
+//                       </div>
+//                       <div>
+//                         <label className="form-label">Statut</label>
+//                         <input
+//                           type="text"
+//                           className="form-control"
+//                           name="statut"
+//                           value={formData.statut || ""}
+//                           onChange={handleFormChange}
+//                         />
+//                       </div>
+//                       <div>
+//                         <label className="form-label">Date de début</label>
+//                         <input
+//                           type="date"
+//                           className="form-control"
+//                           name="dateDebut"
+//                           value={formData.dateDebut || ""}
+//                           onChange={handleFormChange}
+//                         />
+//                       </div>
+//                       <div>
+//                         <label className="form-label">Date de fin</label>
+//                         <input
+//                           type="date"
+//                           className="form-control"
+//                           name="dateFin"
+//                           value={formData.dateFin || ""}
+//                           onChange={handleFormChange}
+//                         />
+//                       </div>
+//                     </>
+//                   )}
+
+//                   <div>
+//                     <label className="form-label">Notes</label>
+//                     <textarea
+//                       className="form-control"
+//                       name="notes"
+//                       rows={3}
+//                       value={formData.notes || ""}
+//                       onChange={handleFormChange}
+//                     />
+//                   </div>
+//                 </form>
+//               )}
+//             </div>
+
+//             <div className="modal-footer">
+//               <button
+//                 type="button"
+//                 className="btn btn-secondary"
+//                 onClick={closeForm}
+//               >
+//                 Annuler
+//               </button>
+//               <button
+//                 type="button"
+//                 className="btn btn-primary"
+//                 onClick={submitForm}
+//               >
+//                 {formMode === "create" ? "Créer" : "Enregistrer"}
+//               </button>
+//             </div>
+//           </div>
+//         </div>
+//       </div>
+//       {/* ===== /Modal Form ===== */}
+//     </div>
+//   );
+// }
+
+// import React, { useState, useEffect } from "react";
+// import "./DossierPatient.css";
+// import API_BASE_URL from "../../config/apiConfig";
+
+// // Bootstrap (JS ESM + bundle pour compat)
+// import { Modal } from "bootstrap";
+
+// // ----------------- Utils -----------------
+
+// // cache simple d'objectURLs pour la photo
+// const photoCache = new Map();
+
+// // headers avec JWT
+// function authHeaders() {
+//   return {
+//     "Content-Type": "application/json",
+//     Authorization: `Bearer ${localStorage.getItem("token") || ""}`,
+//   };
+// }
+
+// // rafraîchissement basique (remplace par un refetch local si tu veux éviter le reload)
+// function reload() {
+//   window.location.reload();
+// }
+
+// // formatages pour le modal Détails
+// const fmtBool = (v) => (v === true ? "Oui" : v === false ? "Non" : "");
+// const fmtDate = (d) => (d ? new Date(d).toLocaleDateString() : "");
+
+// // ----------------- Composants -----------------
+
+// /** Affiche la photo protégée du patient (ou un cadre "photo" en fallback) */
+// function PhotoSecure({ patientId, alt, size = 96, rounded = 12 }) {
+//   const [src, setSrc] = useState(null);
+
+//   useEffect(() => {
+//     setSrc(null);
+//     if (!patientId) return;
+//     const token = localStorage.getItem("token");
+//     if (!token) return;
+
+//     const url = `${API_BASE_URL}/api/Medecin/patients/${patientId}/image`;
+
+//     const cached = photoCache.get(url);
+//     if (cached) {
+//       setSrc(cached);
+//       return;
+//     }
+
+//     const ctrl = new AbortController();
+//     (async () => {
+//       try {
+//         const res = await fetch(url, {
+//           headers: { Authorization: `Bearer ${token}` },
+//           signal: ctrl.signal,
+//         });
+//         if (!res.ok) return; // 404 = pas de photo -> fallback
+//         const blob = await res.blob();
+//         const obj = URL.createObjectURL(blob);
+//         photoCache.set(url, obj);
+//         setSrc(obj);
+//       } catch {
+//         /* noop */
+//       }
+//     })();
+
+//     return () => ctrl.abort();
+//   }, [patientId]);
+
+//   const box = {
+//     width: size,
+//     height: size,
+//     objectFit: "cover",
+//     borderRadius: rounded,
+//   };
+
+//   if (src)
+//     return <img src={src} alt={alt} style={box} onError={() => setSrc(null)} />;
+
+//   return (
+//     <div
+//       className="d-flex align-items-center justify-content-center text-muted bg-light"
+//       style={{ ...box, border: "1px solid #e5e5e5" }}
+//     >
+//       photo
+//     </div>
+//   );
+// }
+
+// // ----------------- API Helpers (Allergies/Maladies) -----------------
+
+// async function deleteAllergie(allergieId) {
+//   if (!allergieId) return;
+//   if (!confirm("Supprimer cette allergie ?")) return;
+//   const res = await fetch(
+//     `${API_BASE_URL}/api/Medecin/patients/allergies/${allergieId}`,
+//     {
+//       method: "DELETE",
+//       headers: authHeaders(),
+//     }
+//   );
+//   res.ok ? reload() : alert("Suppression impossible.");
+// }
+
+// async function deleteMaladie(maladieId) {
+//   if (!maladieId) return;
+//   if (!confirm("Supprimer cette maladie ?")) return;
+//   const res = await fetch(
+//     `${API_BASE_URL}/api/Medecin/patients/maladies/${maladieId}`,
+//     {
+//       method: "DELETE",
+//       headers: authHeaders(),
+//     }
+//   );
+//   res.ok ? reload() : alert("Suppression impossible.");
+// }
+
+// // ----------------- DossierPatient -----------------
+
+// export default function DossierPatient({
+//   patient = {},
+//   allergies = [],
+//   maladies = [],
+//   traitements = [],
+//   signesVitaux = [],
+//   examens = [],
+//   documents = [],
+// }) {
+//   // ---- Etat du modal Détails ----
+//   const [detailItem, setDetailItem] = useState(null); // objet sélectionné
+//   const [detailType, setDetailType] = useState(null); // "allergie" | "maladie"
+
+//   // ---- Etat modal Form (create/edit) ----
+//   const [formType, setFormType] = useState(null); // "allergie" | "maladie"
+//   const [formMode, setFormMode] = useState(null); // "create" | "edit"
+//   const [formData, setFormData] = useState({}); // champs du formulaire
+
+//   // ==== FACTURE: états & handlers ====
+//   const [invoice, setInvoice] = useState({
+//     tvaPct: 20,
+//     remisePct: 0,
+//     delaiEcheanceJours: 15,
+//     note: "",
+//     items: [{ designation: "", quantite: 1, prixUnitaire: 0 }],
+//   });
+//   const [invLoading, setInvLoading] = useState(false);
+//   const [invError, setInvError] = useState(null);
+//   const [invResult, setInvResult] = useState(null);
+
+//   function openInvoiceForm() {
+//     setInvoice({
+//       tvaPct: 20,
+//       remisePct: 0,
+//       delaiEcheanceJours: 15,
+//       note: "",
+//       items: [{ designation: "", quantite: 1, prixUnitaire: 0 }],
+//     });
+//     setInvError(null);
+//     setInvResult(null);
+//     const el = document.getElementById("invoiceModal");
+//     if (el) new Modal(el).show();
+//   }
+
+//   function closeInvoiceForm() {
+//     const el = document.getElementById("invoiceModal");
+//     if (el) Modal.getInstance(el)?.hide();
+//   }
+
+//   const invSet = (k, v) => setInvoice((s) => ({ ...s, [k]: v }));
+//   const invItemSet = (i, k, v) =>
+//     setInvoice((s) => ({
+//       ...s,
+//       items: s.items.map((it, idx) => (idx === i ? { ...it, [k]: v } : it)),
+//     }));
+//   const invAddItem = () =>
+//     setInvoice((s) => ({
+//       ...s,
+//       items: [...s.items, { designation: "", quantite: 1, prixUnitaire: 0 }],
+//     }));
+//   const invRmItem = (i) =>
+//     setInvoice((s) => ({ ...s, items: s.items.filter((_, idx) => idx !== i) }));
+
+//   async function submitInvoice(e) {
+//     e?.preventDefault();
+//     if (!patient?.id) {
+//       alert("Patient introuvable.");
+//       return;
+//     }
+//     setInvLoading(true);
+//     setInvError(null);
+//     setInvResult(null);
+
+//     try {
+//       const token = localStorage.getItem("token");
+//       const body = {
+//         patientId: Number(patient.id),
+//         tvaPct: Number(invoice.tvaPct),
+//         remisePct: Number(invoice.remisePct),
+//         delaiEcheanceJours: Number(invoice.delaiEcheanceJours),
+//         note: invoice.note,
+//         items: invoice.items.map((it) => ({
+//           designation: it.designation,
+//           quantite: Number(it.quantite),
+//           prixUnitaire: Number(it.prixUnitaire),
+//         })),
+//       };
+
+//       const res = await fetch(`${API_BASE_URL}/api/factures`, {
+//         method: "POST",
+//         headers: {
+//           "Content-Type": "application/json",
+//           Authorization: `Bearer ${token || ""}`,
+//         },
+//         credentials: "include",
+//         body: JSON.stringify(body),
+//       });
+
+//       if (!res.ok) {
+//         const txt = await res.text().catch(() => "");
+//         throw new Error(txt || `HTTP ${res.status}`);
+//       }
+//       const data = await res.json();
+//       setInvResult(data);
+//       // window.open(API_BASE_URL + data.pdfUrl, "_blank"); // option: ouvrir le PDF auto
+//     } catch (err) {
+//       setInvError(err.message || "Erreur inconnue");
+//     } finally {
+//       setInvLoading(false);
+//     }
+//   }
+//   // ==== /FACTURE ====
+
+//   // Construit les lignes de détails selon tes DTO backend
+//   function getDetailRows(item, type) {
+//     if (!item) return [];
+
+//     if (type === "allergie") {
+//       // AllergieResponse: id, label, reaction, gravite, notes, active, dateDebut
+//       return [
+//         ["Libellé", item.label],
+//         ["Réaction", item.reaction],
+//         ["Gravité", item.gravite],
+//         ["Notes", item.notes],
+//         ["Active", fmtBool(item.active)],
+//         ["Date de début", fmtDate(item.dateDebut)],
+//         ["ID", item.id],
+//       ];
+//     }
+
+//     // MaladieResponse: id, label, code, systemeCode, statut, notes, dateDebut, dateFin
+//     return [
+//       ["Libellé", item.label],
+//       ["Code", item.code],
+//       ["Système de code", item.systemeCode],
+//       ["Statut", item.statut],
+//       ["Notes", item.notes],
+//       ["Date de début", fmtDate(item.dateDebut)],
+//       ["Date de fin", fmtDate(item.dateFin)],
+//       ["ID", item.id],
+//     ];
+//   }
+
+//   // Ouvrir / fermer modal Détails
+//   function openDetails(item, type) {
+//     setDetailItem(item);
+//     setDetailType(type);
+//     const el = document.getElementById("detailModal");
+//     if (el) new Modal(el).show();
+//   }
+
+//   function closeDetails() {
+//     const el = document.getElementById("detailModal");
+//     if (el) Modal.getInstance(el)?.hide();
+//     setDetailItem(null);
+//     setDetailType(null);
+//   }
+
+//   // Ouvrir / fermer modal Form
+//   function openForm(type, mode, item = {}) {
+//     setFormType(type);
+//     setFormMode(mode);
+//     // Normaliser les champs connus pour éviter les "controlled/uncontrolled"
+//     if (type === "allergie") {
+//       setFormData({
+//         id: item.id ?? undefined,
+//         label: item.label ?? "",
+//         reaction: item.reaction ?? "",
+//         gravite: item.gravite ?? "",
+//         notes: item.notes ?? "",
+//         active: item.active ?? true,
+//         dateDebut: item.dateDebut ?? "", // "YYYY-MM-DD"
+//       });
+//     } else {
+//       setFormData({
+//         id: item.id ?? undefined,
+//         label: item.label ?? "",
+//         code: item.code ?? "",
+//         systemeCode: item.systemeCode ?? "",
+//         statut: item.statut ?? "",
+//         notes: item.notes ?? "",
+//         dateDebut: item.dateDebut ?? "",
+//         dateFin: item.dateFin ?? "",
+//       });
+//     }
+//     const el = document.getElementById("formModal");
+//     if (el) new Modal(el).show();
+//   }
+
+//   function closeForm() {
+//     const el = document.getElementById("formModal");
+//     if (el) Modal.getInstance(el)?.hide();
+//     setFormType(null);
+//     setFormMode(null);
+//     setFormData({});
+//   }
+
+//   function handleFormChange(e) {
+//     const { name, value, type, checked } = e.target;
+//     setFormData((d) => ({
+//       ...d,
+//       [name]: type === "checkbox" ? checked : value,
+//     }));
+//   }
+
+//   async function submitForm() {
+//     if (!formType || !formMode) return;
+//     if (!patient?.id && formMode === "create") {
+//       alert("Patient introuvable pour la création.");
+//       return;
+//     }
+
+//     const isAllergie = formType === "allergie";
+//     const endpointBase = isAllergie ? "allergies" : "maladies";
+
+//     let url = "";
+//     let method = "";
+
+//     if (formMode === "create") {
+//       url = `${API_BASE_URL}/api/Medecin/patients/${patient.id}/${endpointBase}`;
+//       method = "POST";
+//     } else if (formMode === "edit") {
+//       url = `${API_BASE_URL}/api/Medecin/patients/${endpointBase}/${formData.id}`;
+//       method = "PATCH";
+//     }
+
+//     // corps à envoyer : on enlève les champs vides pour éviter d’écraser
+//     const body = {};
+//     Object.entries(formData).forEach(([k, v]) => {
+//       if (k === "id") return;
+//       if (v !== "" && v !== undefined) body[k] = v;
+//     });
+
+//     const res = await fetch(url, {
+//       method,
+//       headers: authHeaders(),
+//       body: JSON.stringify(body),
+//     });
+
+//     if (res.ok) {
+//       closeForm();
+//       reload();
+//     } else {
+//       const txt = await res.text().catch(() => "");
+//       alert(`Erreur lors de la sauvegarde\n${txt}`);
+//     }
+//   }
+
+//   const p = patient;
+
+//   return (
+//     <div className="dossier-wrap container-fluid py-3">
+//       <div className="row g-3">
+//         {/* ========= Colonne gauche ========= */}
+//         <div className="col-12 col-lg-4">
+//           <div className="d-flex flex-column gap-3 h-100">
+//             {/* Identité */}
+//             <div className="card border-0 shadow-sm rounded-4 flex-shrink-0">
+//               <div className="card-header bg-white border-0 pb-0">
+//                 <h6 className="m-0 text-med fw-semibold">
+//                   Dossier Médical — Id : {p?.id ?? "—"}
+//                 </h6>
+//               </div>
+//               <div className="card-body">
+//                 <div className="d-flex flex-column flex-sm-row align-items-center align-items-sm-start gap-3">
+//                   <div className="photo-box border rounded-3 d-flex align-items-center justify-content-center overflow-hidden mb-2 mb-sm-0 me-sm-2">
+//                     <PhotoSecure
+//                       patientId={p?.id}
+//                       alt={`${p?.nom ?? ""} ${p?.prenom ?? ""}`}
+//                       size={96}
+//                       rounded={12}
+//                     />
+//                   </div>
+
+//                   <div className="flex-grow-1 small text-center text-sm-start">
+//                     <div className="fw-semibold">
+//                       {p?.nom ?? "Nom"} {p?.prenom ?? "Prénom"}
+//                     </div>
+//                     <div>CIN : {p?.cin ?? "—"}</div>
+//                     <div>Né le : {p?.dateNaissance ?? "—"}</div>
+//                     <div>Téléphone : {p?.telephone ?? "—"}</div>
+//                     <div className="text-break">Email : {p?.email ?? "—"}</div>
+//                   </div>
+//                 </div>
+//               </div>
+//             </div>
+
+//             {/* Allergies */}
+//             <div className="card border-0 shadow-sm rounded-4 flex-shrink-0">
+//               <div className="card-header d-flex justify-content-between align-items-center bg-white border-0">
+//                 <h6 className="m-0">Allergies</h6>
+//                 <button
+//                   type="button"
+//                   className="btn btn-add"
+//                   title="Ajouter une allergie"
+//                   onClick={() => openForm("allergie", "create")}
+//                 >
+//                   <i className="bi bi-plus-lg"></i>
+//                 </button>
+//               </div>
+//               <div className="card-body small">
+//                 {allergies?.length ? (
+//                   <ul className="m-0 ps-3">
+//                     {allergies.map((a, i) => (
+//                       <li
+//                         key={a.id ?? i}
+//                         className="d-flex align-items-center justify-content-between py-1 border-bottom"
+//                       >
+//                         <span>{a.label ?? a}</span>
+//                         <div className="btn-group btn-group-sm gap-1">
+//                           {/* Détails */}
+//                           <button
+//                             type="button"
+//                             className="btn-med btn-detail"
+//                             title="Détails"
+//                             onClick={() => openDetails(a, "allergie")}
+//                           >
+//                             <i className="bi bi-info-circle"></i>
+//                           </button>
+//                           {/* Modifier */}
+//                           <button
+//                             type="button"
+//                             className="btn-med btn-edit"
+//                             title="Modifier"
+//                             onClick={() => openForm("allergie", "edit", a)}
+//                           >
+//                             <i className="bi bi-pencil"></i>
+//                           </button>
+//                           {/* Supprimer */}
+//                           <button
+//                             type="button"
+//                             className="btn-med btn-delete"
+//                             title="Supprimer"
+//                             onClick={() => deleteAllergie(a.id)}
+//                           >
+//                             <i className="bi bi-trash"></i>
+//                           </button>
+//                         </div>
+//                       </li>
+//                     ))}
+//                   </ul>
+//                 ) : (
+//                   <div className="text-muted">Aucune allergie renseignée.</div>
+//                 )}
+//               </div>
+//             </div>
+
+//             {/* Maladies */}
+//             <div className="card border-0 shadow-sm rounded-4 flex-grow-1 d-flex flex-column">
+//               <div className="card-header d-flex justify-content-between align-items-center bg-white border-0">
+//                 <h6 className="m-0">Maladies</h6>
+//                 <button
+//                   type="button"
+//                   className="btn btn-add"
+//                   title="Ajouter une maladie"
+//                   onClick={() => openForm("maladie", "create")}
+//                 >
+//                   <i className="bi bi-plus-lg"></i>
+//                 </button>
+//               </div>
+//               <div className="card-body small overflow-auto">
+//                 {maladies?.length ? (
+//                   <ul className="m-0 ps-3">
+//                     {maladies.map((m, i) => (
+//                       <li
+//                         key={m.id ?? i}
+//                         className="d-flex align-items-center justify-content-between py-1 border-bottom"
+//                       >
+//                         <span>{m.label ?? m}</span>
+//                         <div className="btn-group btn-group-sm gap-1">
+//                           {/* Détails */}
+//                           <button
+//                             type="button"
+//                             className="btn-med btn-detail "
+//                             title="Détails"
+//                             aria-label="Afficher les détails"
+//                             onClick={() => openDetails(m, "maladie")}
+//                           >
+//                             <i className="bi bi-info-circle"></i>
+//                           </button>
+//                           {/* Modifier */}
+//                           <button
+//                             type="button"
+//                             className="btn-med btn-edit"
+//                             title="Modifier"
+//                             aria-label="Modifier"
+//                             onClick={() => openForm("maladie", "edit", m)}
+//                           >
+//                             <i className="bi bi-pencil"></i>
+//                           </button>
+//                           {/* Supprimer */}
+//                           <button
+//                             type="button"
+//                             className="btn-med btn-delete"
+//                             title="Supprimer"
+//                             aria-label="Supprimer"
+//                             onClick={() => deleteMaladie(m.id)}
+//                           >
+//                             <i className="bi bi-trash"></i>
+//                           </button>
+//                         </div>
+//                       </li>
+//                     ))}
+//                   </ul>
+//                 ) : (
+//                   <div className="text-muted">Aucune maladie renseignée.</div>
+//                 )}
+//               </div>
+//             </div>
+//           </div>
+//         </div>
+
+//         {/* ========= Colonne droite (grille 2×2) ========= */}
+//         <div className="col-12 col-lg-8 ">
+//           <div className="grid-2x2 h-100">
+//             {/* Traitements */}
+//             <section className="panel card border-0 shadow-sm rounded-4">
+//               <div className="card-header d-flex justify-content-between align-items-center bg-white border-0">
+//                 <h6 className="m-0">Traitements en cours</h6>
+//                 <button
+//                   type="button"
+//                   className="btn btn-add"
+//                   title="Ajouter un traitement"
+//                 >
+//                   <i className="bi bi-plus-lg"></i>
+//                 </button>
+//               </div>
+//               <div className="card-body overflow-auto small">
+//                 {traitements?.length ? (
+//                   <ul className="m-0 ps-3">
+//                     {traitements.map((t) => (
+//                       <li key={t.id ?? `${t.nom}-${t.debut}`}>
+//                         <span className="fw-semibold">{t.nom ?? "—"}</span>
+//                         {t.posologie ? ` • ${t.posologie}` : ""}{" "}
+//                         {t.debut || t.fin ? (
+//                           <span className="text-muted">
+//                             ({t.debut ?? "?"} → {t.fin ?? "?"})
+//                           </span>
+//                         ) : null}
+//                       </li>
+//                     ))}
+//                   </ul>
+//                 ) : (
+//                   <div className="text-muted">— vide —</div>
+//                 )}
+//               </div>
+//             </section>
+
+//             {/* Signes vitaux */}
+//             <section className="panel card border-0 shadow-sm rounded-4">
+//               <div className="card-header d-flex justify-content-between align-items-center bg-white border-0">
+//                 <h6 className="m-0">Signes vitaux</h6>
+//                 <button
+//                   type="button"
+//                   className="btn btn-add"
+//                   title="Ajouter des signes vitaux"
+//                 >
+//                   <i className="bi bi-plus-lg"></i>
+//                 </button>
+//               </div>
+//               <div className="card-body overflow-auto">
+//                 {signesVitaux?.length ? (
+//                   <table className="table table-sm mb-0 align-middle small">
+//                     <thead>
+//                       <tr>
+//                         <th className="fw-normal">Type</th>
+//                         <th className="fw-normal">Valeur</th>
+//                         <th className="fw-normal">Date</th>
+//                       </tr>
+//                     </thead>
+//                     <tbody>
+//                       {signesVitaux.map((s) => (
+//                         <tr key={s.id ?? `${s.type}-${s.date}`}>
+//                           <td>{s.type ?? "—"}</td>
+//                           <td>{s.valeur ?? "—"}</td>
+//                           <td className="text-muted">{s.date ?? "—"}</td>
+//                         </tr>
+//                       ))}
+//                     </tbody>
+//                   </table>
+//                 ) : (
+//                   <div className="text-muted small">— vide —</div>
+//                 )}
+//               </div>
+//             </section>
+
+//             {/* Examens & Analyses */}
+//             <section className="panel card border-0 shadow-sm rounded-4">
+//               <div className="card-header d-flex justify-content-between align-items-center bg-white border-0">
+//                 <h6 className="m-0">Examens & Analyses</h6>
+//                 <button
+//                   type="button"
+//                   className="btn btn-add"
+//                   title="Ajouter un examen"
+//                 >
+//                   <i className="bi bi-plus-lg"></i>
+//                 </button>
+//               </div>
+//               <div className="card-body overflow-auto small">
+//                 {examens?.length ? (
+//                   <ul className="m-0 ps-3">
+//                     {examens.map((e) => (
+//                       <li key={e.id ?? `${e.type}-${e.date}`}>
+//                         <span className="fw-semibold">{e.type ?? "—"}</span>{" "}
+//                         {e.resultat ? (
+//                           <span className="text-muted">— {e.resultat}</span>
+//                         ) : null}{" "}
+//                         {e.date ? (
+//                           <span className="text-muted">({e.date})</span>
+//                         ) : null}
+//                       </li>
+//                     ))}
+//                   </ul>
+//                 ) : (
+//                   <div className="text-muted">— vide —</div>
+//                 )}
+//               </div>
+//             </section>
+
+//             {/* Documents / Imagerie */}
+//             <section className="panel card border-0 shadow-sm rounded-4">
+//               <div className="card-header d-flex justify-content-between align-items-center bg-white border-0">
+//                 <h6 className="m-0">Documents & Imagerie</h6>
+//                 <button
+//                   type="button"
+//                   className="btn btn-add"
+//                   title="Ajouter un document"
+//                 >
+//                   <i className="bi bi-plus-lg"></i>
+//                 </button>
+//               </div>
+//               <div className="card-body overflow-auto small">
+//                 {documents?.length ? (
+//                   <ul className="m-0 ps-3">
+//                     {documents.map((d) => (
+//                       <li key={d.id ?? `${d.titre}-${d.date}`}>
+//                         <i className="bi bi-file-earmark-text me-1"></i>
+//                         {d.titre ?? "Document"}{" "}
+//                         {d.date ? (
+//                           <span className="text-muted">({d.date})</span>
+//                         ) : null}
+//                         {d.url ? (
+//                           <a
+//                             className="ms-1"
+//                             href={d.url}
+//                             target="_blank"
+//                             rel="noreferrer"
+//                           >
+//                             ouvrir
+//                           </a>
+//                         ) : null}
+//                       </li>
+//                     ))}
+//                   </ul>
+//                 ) : (
+//                   <div className="text-muted">— vide —</div>
+//                 )}
+//               </div>
+//             </section>
+//           </div>
+//         </div>
+
+//         {/* Boutons bas de page */}
+//         <div className="d-flex column mb-3 gap-2 ">
+//           <button
+//             className="btn btn-outline-info flex-grow-1"
+//             onClick={openInvoiceForm}
+//             type="button"
+//           >
+//             Créer facture
+//           </button>
+//           <button className="btn btn-outline-info flex-grow-1" type="button">
+//             Créer prescription
+//           </button>
+//         </div>
+//       </div>
+
+//       {/* ===== Modal Détails (une seule fois) ===== */}
+//       <div
+//         className="modal fade"
+//         id="detailModal"
+//         tabIndex="-1"
+//         aria-hidden="true"
+//       >
+//         <div className="modal-dialog modal-dialog-centered">
+//           <div className="modal-content rounded-4">
+//             <div className="modal-header">
+//               <h5 className="modal-title">
+//                 {detailType === "allergie"
+//                   ? "Détails de l’allergie"
+//                   : detailType === "maladie"
+//                   ? "Détails de la maladie"
+//                   : "Détails"}
+//               </h5>
+//               <button
+//                 type="button"
+//                 className="btn-close"
+//                 onClick={closeDetails}
+//                 aria-label="Close"
+//               ></button>
+//             </div>
+
+//             <div className="modal-body">
+//               {detailItem ? (
+//                 <div className="table-responsive">
+//                   <table className="table table-sm align-middle mb-0">
+//                     <tbody>
+//                       {getDetailRows(detailItem, detailType)
+//                         .filter(
+//                           ([_, v]) =>
+//                             v !== undefined &&
+//                             v !== null &&
+//                             String(v).trim() !== ""
+//                         )
+//                         .map(([k, v]) => (
+//                           <tr key={k}>
+//                             <th
+//                               style={{ width: "40%" }}
+//                               className="text-muted fw-normal"
+//                             >
+//                               {k}
+//                             </th>
+//                             <td>{String(v)}</td>
+//                           </tr>
+//                         ))}
+//                     </tbody>
+//                   </table>
+//                 </div>
+//               ) : (
+//                 <div className="text-muted">Aucun détail à afficher.</div>
+//               )}
+//             </div>
+
+//             <div className="modal-footer">
+//               <button
+//                 type="button"
+//                 className="btn btn-secondary"
+//                 onClick={closeDetails}
+//               >
+//                 Fermer
+//               </button>
+//             </div>
+//           </div>
+//         </div>
+//       </div>
+//       {/* ===== /Modal Détails ===== */}
+
+//       {/* ===== Modal Form (Create/Edit) ===== */}
+//       <div
+//         className="modal fade"
+//         id="formModal"
+//         tabIndex="-1"
+//         aria-hidden="true"
+//       >
+//         <div className="modal-dialog modal-dialog-centered">
+//           <div className="modal-content rounded-4">
+//             <div className="modal-header">
+//               <h5 className="modal-title">
+//                 {formMode === "create"
+//                   ? formType === "allergie"
+//                     ? "Nouvelle Allergie"
+//                     : "Nouvelle Maladie"
+//                   : formType === "allergie"
+//                   ? "Modifier Allergie"
+//                   : "Modifier Maladie"}
+//               </h5>
+//               <button
+//                 type="button"
+//                 className="btn-close"
+//                 onClick={closeForm}
+//                 aria-label="Close"
+//               ></button>
+//             </div>
+
+//             <div className="modal-body">
+//               {formType && (
+//                 <form className="vstack gap-3">
+//                   <div>
+//                     <label className="form-label">Libellé</label>
+//                     <input
+//                       type="text"
+//                       className="form-control"
+//                       name="label"
+//                       value={formData.label || ""}
+//                       onChange={handleFormChange}
+//                     />
+//                   </div>
+
+//                   {formType === "allergie" && (
+//                     <>
+//                       <div>
+//                         <label className="form-label">Réaction</label>
+//                         <input
+//                           type="text"
+//                           className="form-control"
+//                           name="reaction"
+//                           value={formData.reaction || ""}
+//                           onChange={handleFormChange}
+//                         />
+//                       </div>
+//                       <div>
+//                         <label className="form-label">Gravité</label>
+//                         <input
+//                           type="text"
+//                           className="form-control"
+//                           name="gravite"
+//                           value={formData.gravite || ""}
+//                           onChange={handleFormChange}
+//                         />
+//                       </div>
+//                       <div className="form-check">
+//                         <input
+//                           className="form-check-input"
+//                           type="checkbox"
+//                           id="allergie-active"
+//                           name="active"
+//                           checked={!!formData.active}
+//                           onChange={handleFormChange}
+//                         />
+//                         <label
+//                           className="form-check-label"
+//                           htmlFor="allergie-active"
+//                         >
+//                           Active
+//                         </label>
+//                       </div>
+//                       <div>
+//                         <label className="form-label">Date de début</label>
+//                         <input
+//                           type="date"
+//                           className="form-control"
+//                           name="dateDebut"
+//                           value={formData.dateDebut || ""}
+//                           onChange={handleFormChange}
+//                         />
+//                       </div>
+//                     </>
+//                   )}
+
+//                   {formType === "maladie" && (
+//                     <>
+//                       <div>
+//                         <label className="form-label">Code</label>
+//                         <input
+//                           type="text"
+//                           className="form-control"
+//                           name="code"
+//                           value={formData.code || ""}
+//                           onChange={handleFormChange}
+//                         />
+//                       </div>
+//                       <div>
+//                         <label className="form-label">Système de code</label>
+//                         <input
+//                           type="text"
+//                           className="form-control"
+//                           name="systemeCode"
+//                           value={formData.systemeCode || ""}
+//                           onChange={handleFormChange}
+//                         />
+//                       </div>
+//                       <div>
+//                         <label className="form-label">Statut</label>
+//                         <input
+//                           type="text"
+//                           className="form-control"
+//                           name="statut"
+//                           value={formData.statut || ""}
+//                           onChange={handleFormChange}
+//                         />
+//                       </div>
+//                       <div>
+//                         <label className="form-label">Date de début</label>
+//                         <input
+//                           type="date"
+//                           className="form-control"
+//                           name="dateDebut"
+//                           value={formData.dateDebut || ""}
+//                           onChange={handleFormChange}
+//                         />
+//                       </div>
+//                       <div>
+//                         <label className="form-label">Date de fin</label>
+//                         <input
+//                           type="date"
+//                           className="form-control"
+//                           name="dateFin"
+//                           value={formData.dateFin || ""}
+//                           onChange={handleFormChange}
+//                         />
+//                       </div>
+//                     </>
+//                   )}
+
+//                   <div>
+//                     <label className="form-label">Notes</label>
+//                     <textarea
+//                       className="form-control"
+//                       name="notes"
+//                       rows={3}
+//                       value={formData.notes || ""}
+//                       onChange={handleFormChange}
+//                     />
+//                   </div>
+//                 </form>
+//               )}
+//             </div>
+
+//             <div className="modal-footer">
+//               <button
+//                 type="button"
+//                 className="btn btn-secondary"
+//                 onClick={closeForm}
+//               >
+//                 Annuler
+//               </button>
+//               <button
+//                 type="button"
+//                 className="btn btn-primary"
+//                 onClick={submitForm}
+//               >
+//                 {formMode === "create" ? "Créer" : "Enregistrer"}
+//               </button>
+//             </div>
+//           </div>
+//         </div>
+//       </div>
+//       {/* ===== /Modal Form ===== */}
+
+//       {/* ===== Modal Facture ===== */}
+//       <div
+//         className="modal fade"
+//         id="invoiceModal"
+//         tabIndex="-1"
+//         aria-hidden="true"
+//       >
+//         <div className="modal-dialog modal-lg modal-dialog-centered">
+//           <div className="modal-content rounded-4">
+//             <div className="modal-header">
+//               <h5 className="modal-title">Créer une facture</h5>
+//               <button
+//                 type="button"
+//                 className="btn-close"
+//                 onClick={closeInvoiceForm}
+//                 aria-label="Close"
+//               ></button>
+//             </div>
+
+//             <div className="modal-body">
+//               <form onSubmit={submitInvoice} className="vstack gap-3">
+//                 {/* Patient (lecture seule) */}
+//                 <div
+//                   className="alert alert-light border d-flex align-items-center"
+//                   role="alert"
+//                 >
+//                   <i className="bi bi-person-badge me-2"></i>
+//                   <div>
+//                     <div className="small text-muted">Patient</div>
+//                     <div className="fw-semibold">
+//                       {patient?.nom ?? "Nom"} {patient?.prenom ?? "Prénom"}{" "}
+//                       {patient?.id ? `(ID: ${patient.id})` : ""}
+//                     </div>
+//                   </div>
+//                 </div>
+
+//                 {/* Paramètres */}
+//                 <div className="row g-2">
+//                   <div className="col-6">
+//                     <label className="form-label">TVA %</label>
+//                     <input
+//                       type="number"
+//                       className="form-control"
+//                       value={invoice.tvaPct}
+//                       onChange={(e) => invSet("tvaPct", Number(e.target.value))}
+//                     />
+//                   </div>
+//                   <div className="col-6">
+//                     <label className="form-label">Remise %</label>
+//                     <input
+//                       type="number"
+//                       className="form-control"
+//                       value={invoice.remisePct}
+//                       onChange={(e) =>
+//                         invSet("remisePct", Number(e.target.value))
+//                       }
+//                     />
+//                   </div>
+//                   <div className="col-12">
+//                     <label className="form-label">Échéance (jours)</label>
+//                     <input
+//                       type="number"
+//                       className="form-control"
+//                       value={invoice.delaiEcheanceJours}
+//                       onChange={(e) =>
+//                         invSet("delaiEcheanceJours", Number(e.target.value))
+//                       }
+//                     />
+//                   </div>
+//                 </div>
+
+//                 {/* Lignes */}
+//                 <div>
+//                   <div className="d-flex justify-content-between align-items-center">
+//                     <h6 className="m-0">Lignes</h6>
+//                     <button
+//                       type="button"
+//                       className="btn btn-outline-primary btn-sm"
+//                       onClick={invAddItem}
+//                     >
+//                       <i className="bi bi-plus"></i> Ajouter une ligne
+//                     </button>
+//                   </div>
+
+//                   {invoice.items.map((it, i) => (
+//                     <div className="row g-2 align-items-end mt-2" key={i}>
+//                       <div className="col-md-6">
+//                         <label className="form-label">Désignation</label>
+//                         <input
+//                           className="form-control"
+//                           value={it.designation}
+//                           onChange={(e) =>
+//                             invItemSet(i, "designation", e.target.value)
+//                           }
+//                           required
+//                         />
+//                       </div>
+//                       <div className="col-md-2">
+//                         <label className="form-label">Qté</label>
+//                         <input
+//                           type="number"
+//                           min="0"
+//                           step="0.01"
+//                           className="form-control"
+//                           value={it.quantite}
+//                           onChange={(e) =>
+//                             invItemSet(i, "quantite", e.target.value)
+//                           }
+//                           required
+//                         />
+//                       </div>
+//                       <div className="col-md-3">
+//                         <label className="form-label">PU HT</label>
+//                         <input
+//                           type="number"
+//                           min="0"
+//                           step="0.01"
+//                           className="form-control"
+//                           value={it.prixUnitaire}
+//                           onChange={(e) =>
+//                             invItemSet(i, "prixUnitaire", e.target.value)
+//                           }
+//                           required
+//                         />
+//                       </div>
+//                       <div className="col-md-1 d-grid">
+//                         <button
+//                           type="button"
+//                           className="btn btn-outline-danger"
+//                           onClick={() => invRmItem(i)}
+//                           disabled={invoice.items.length === 1}
+//                         >
+//                           <i className="bi bi-trash"></i>
+//                         </button>
+//                       </div>
+//                     </div>
+//                   ))}
+//                 </div>
+
+//                 {/* Note */}
+//                 <div>
+//                   <label className="form-label">Note (optionnelle)</label>
+//                   <textarea
+//                     className="form-control"
+//                     rows="2"
+//                     value={invoice.note}
+//                     onChange={(e) => invSet("note", e.target.value)}
+//                   />
+//                 </div>
+
+//                 {/* Messages */}
+//                 {invError && (
+//                   <div className="alert alert-danger">{invError}</div>
+//                 )}
+//                 {invResult && (
+//                   <div className="alert alert-success">
+//                     Facture <strong>{invResult.numero}</strong> créée.{" "}
+//                     <a
+//                       href={API_BASE_URL + invResult.pdfUrl}
+//                       target="_blank"
+//                       rel="noreferrer"
+//                     >
+//                       Ouvrir le PDF
+//                     </a>
+//                     <div>
+//                       <small className="text-muted">
+//                         La facture a été envoyée à la réceptionniste.
+//                       </small>
+//                     </div>
+//                   </div>
+//                 )}
+//               </form>
+//             </div>
+
+//             <div className="modal-footer">
+//               <button
+//                 type="button"
+//                 className="btn btn-secondary"
+//                 onClick={closeInvoiceForm}
+//               >
+//                 Fermer
+//               </button>
+//               <button
+//                 type="button"
+//                 className="btn btn-primary"
+//                 onClick={submitInvoice}
+//                 disabled={invLoading}
+//               >
+//                 {invLoading ? "Création…" : "Créer la facture"}
+//               </button>
+//             </div>
+//           </div>
+//         </div>
+//       </div>
+//       {/* ===== /Modal Facture ===== */}
+//     </div>
+//   );
+// }
+
+
+
+
+
+
+// import React, { useState, useEffect } from "react";
+// import "./DossierPatient.css";
+// import API_BASE_URL from "../../config/apiConfig";
+// import { Modal } from "bootstrap";
+// import SigneVitalForm from "./Forms/SigneVitalForm";
+
+// // ----------------- Utils -----------------
+
+// // cache simple d'objectURLs pour la photo
+// const photoCache = new Map();
+
+// // headers avec JWT
+// const authHeaders = () => ({
+//   "Content-Type": "application/json",
+//   Authorization: `Bearer ${localStorage.getItem("token")}`,
+// });
+
+// // rafraîchissement basique (remplace par un refetch local si tu veux éviter le reload)
+// function reload() {
+//   window.location.reload();
+// }
+
+// // formatages pour le modal Détails
+// const fmtBool = (v) => (v === true ? "Oui" : v === false ? "Non" : "");
+// const fmtDate = (d) => (d ? new Date(d).toLocaleDateString() : "");
+
+// // ----------------- Composants -----------------
+
+// /** Affiche la photo protégée du patient (ou un cadre "photo" en fallback) */
+// function PhotoSecure({ patientId, alt, size = 96, rounded = 12 }) {
+//   const [src, setSrc] = useState(null);
+
+//   useEffect(() => {
+//     setSrc(null);
+//     if (!patientId) return;
+//     const token = localStorage.getItem("token");
+//     if (!token) return;
+
+//     const url = `${API_BASE_URL}/api/Medecin/patients/${patientId}/image`;
+
+//     const cached = photoCache.get(url);
+//     if (cached) {
+//       setSrc(cached);
+//       return;
+//     }
+
+//     const ctrl = new AbortController();
+//     (async () => {
+//       try {
+//         const res = await fetch(url, {
+//           headers: { Authorization: `Bearer ${token}` },
+//           signal: ctrl.signal,
+//         });
+//         if (!res.ok) return; // 404 = pas de photo -> fallback
+//         const blob = await res.blob();
+//         const obj = URL.createObjectURL(blob);
+//         photoCache.set(url, obj);
+//         setSrc(obj);
+//       } catch {
+//         /* noop */
+//       }
+//     })();
+
+//     return () => ctrl.abort();
+//   }, [patientId]);
+
+//   const box = {
+//     width: size,
+//     height: size,
+//     objectFit: "cover",
+//     borderRadius: rounded,
+//   };
+
+//   if (src)
+//     return <img src={src} alt={alt} style={box} onError={() => setSrc(null)} />;
+
+//   return (
+//     <div
+//       className="d-flex align-items-center justify-content-center text-muted bg-light"
+//       style={{ ...box, border: "1px solid #e5e5e5" }}
+//     >
+//       photo
+//     </div>
+//   );
+// }
+
+// // ----------------- API Helpers (Allergies/Maladies) -----------------
+
+// async function deleteAllergie(allergieId) {
+//   if (!allergieId) return;
+//   if (!window.confirm("Supprimer cette allergie ?")) return;
+//   const res = await fetch(
+//     `${API_BASE_URL}/api/Medecin/patients/allergies/${allergieId}`,
+//     {
+//       method: "DELETE",
+//       headers: authHeaders(),
+//     }
+//   );
+//   res.ok ? reload() : alert("Suppression impossible.");
+// }
+
+// async function editAllergie(a) {
+//   if (!a?.id) return;
+//   // exemple minimal (change selon tes champs)
+//   const newLabel = prompt("Modifier le libellé :", a.label ?? "");
+//   if (newLabel == null) return;
+
+//   const body = {
+//     label: newLabel,
+//     reaction: a.reaction ?? null,
+//     gravite: a.gravite ?? null,
+//     notes: a.notes ?? null,
+//     active: a.active ?? true,
+//     dateDebut: a.dateDebut ?? null, // "YYYY-MM-DD" si tu le gères
+//   };
+
+//   const res = await fetch(
+//     `${API_BASE_URL}/api/Medecin/patients/allergies/${a.id}`,
+//     {
+//       method: "PATCH",
+//       headers: authHeaders(),
+//       body: JSON.stringify(body),
+//     }
+//   );
+//   res.ok ? reload() : alert("Mise à jour impossible.");
+// }
+
+// async function deleteMaladie(maladieId) {
+//   if (!maladieId) return;
+//   if (!window.confirm("Supprimer cette maladie ?")) return;
+//   const res = await fetch(
+//     `${API_BASE_URL}/api/Medecin/patients/maladies/${maladieId}`,
+//     {
+//       method: "DELETE",
+//       headers: authHeaders(),
+//     }
+//   );
+//   res.ok ? reload() : alert("Suppression impossible.");
+// }
+
+// // ----------------- DossierPatient -----------------
+
+// export default function DossierPatient({
+//   patient = {},
+//   allergies = [],
+//   maladies = [],
+//   traitements = [],
+//   signesVitaux = [],
+//   examens = [],
+//   documents = [],
+// }) {
+//   // ---- Etat du modal Détails ----
+//   const [detailItem, setDetailItem] = useState(null); // objet sélectionné
+//   const [detailType, setDetailType] = useState(null); // "allergie" | "maladie"
+
+//   // ---- Etat modal Form (create/edit) ----
+//   const [formType, setFormType] = useState(null); // "allergie" | "maladie"
+//   const [formMode, setFormMode] = useState(null); // "create" | "edit"
+//   const [formData, setFormData] = useState({}); // champs du formulaire
+
+//   const [invoice, setInvoice] = useState({
+//     note: "",
+//     lignes: [{ description: "", prix: "" }],
+//   });
+//   const [invLoading, setInvLoading] = useState(false);
+//   const [invError, setInvError] = useState(null);
+//   const [invResult, setInvResult] = useState(null);
+
+//   function openInvoiceForm() {
+//     setInvoice({ note: "", lignes: [{ description: "", prix: "" }] });
+//     setInvError(null);
+//     setInvResult(null);
+//     const el = document.getElementById("invoiceModal");
+//     if (el) new Modal(el).show();
+//   }
+
+//   function closeInvoiceForm() {
+//     const el = document.getElementById("invoiceModal");
+//     if (el) Modal.getInstance(el)?.hide();
+//   }
+
+//   // helpers lignes
+//   const setLigne = (idx, key, value) =>
+//     setInvoice((s) => ({
+//       ...s,
+//       lignes: s.lignes.map((ln, i) =>
+//         i === idx ? { ...ln, [key]: value } : ln
+//       ),
+//     }));
+
+//   const addLigne = () =>
+//     setInvoice((s) => ({
+//       ...s,
+//       lignes: [...s.lignes, { description: "", prix: "" }],
+//     }));
+
+//   const removeLigne = (idx) =>
+//     setInvoice((s) => ({ ...s, lignes: s.lignes.filter((_, i) => i !== idx) }));
+
+//   // total calculé
+//   const totalCalc = invoice.lignes.reduce((acc, ln) => {
+//     const v = Number(ln.prix);
+//     return acc + (isNaN(v) ? 0 : v);
+//   }, 0);
+
+//   // envoi
+//   async function submitInvoice(e) {
+//     e?.preventDefault();
+//     if (!patient?.id) {
+//       alert("Patient introuvable.");
+//       return;
+//     }
+
+//     // validations basiques
+//     if (!invoice.lignes?.length) {
+//       alert("Ajoutez au moins une ligne.");
+//       return;
+//     }
+//     const hasInvalid = invoice.lignes.some(
+//       (ln) => !ln.description || Number(ln.prix) <= 0 || isNaN(Number(ln.prix))
+//     );
+//     if (hasInvalid) {
+//       alert("Chaque ligne doit avoir une description et un prix > 0.");
+//       return;
+//     }
+
+//     setInvLoading(true);
+//     setInvError(null);
+//     setInvResult(null);
+
+//     try {
+//       const token = localStorage.getItem("token");
+//       const payload = {
+//         patientId: Number(patient.id),
+//         notes: invoice.note,
+//         lignes: invoice.lignes.map((ln) => ({
+//           description: ln.description,
+//           prix: Number(ln.prix),
+//         })),
+//       };
+
+//       const res = await fetch(`${API_BASE_URL}/api/factures`, {
+//         method: "POST",
+//         headers: {
+//           "Content-Type": "application/json",
+//           Authorization: `Bearer ${token || ""}`,
+//         },
+//         credentials: "include",
+//         body: JSON.stringify(payload),
+//       });
+
+//       if (!res.ok) {
+//         const txt = await res.text().catch(() => "");
+//         throw new Error(txt || `HTTP ${res.status}`);
+//       }
+//       const data = await res.json();
+//       setInvResult(data);
+
+//       // Ouvrir le PDF immédiatement (optionnel)
+//       window.open(`${API_BASE_URL}/api/factures/${data.id}/pdf`, "_blank");
+//     } catch (err) {
+//       setInvError(err.message || "Erreur inconnue");
+//     } finally {
+//       setInvLoading(false);
+//     }
+//   }
+//   // ==== /FACTURE ====
+
+//   // ==== PRESCRIPTION: états & handlers ====
+//   const [rx, setRx] = useState({
+//     numeroOrdonnance: "",
+//     dateValidite: "", // YYYY-MM-DD (optionnel)
+//     note: "",
+//     lignes: [
+//       {
+//         nomMedicament: "",
+//         dosage: "",
+//         posologie: "",
+//         duree: "",
+//         instructions: "",
+//       },
+//     ],
+//   });
+//   const [rxLoading, setRxLoading] = useState(false);
+//   const [rxError, setRxError] = useState(null);
+//   const [rxResult, setRxResult] = useState(null);
+
+//   function openPrescriptionForm() {
+//     setRx({
+//       numeroOrdonnance: "",
+//       dateValidite: "",
+//       note: "",
+//       lignes: [
+//         {
+//           nomMedicament: "",
+//           dosage: "",
+//           posologie: "",
+//           duree: "",
+//           instructions: "",
+//         },
+//       ],
+//     });
+//     setRxError(null);
+//     setRxResult(null);
+//     const el = document.getElementById("prescriptionModal");
+//     if (el) new Modal(el).show();
+//   }
+
+//   function closePrescriptionForm() {
+//     const el = document.getElementById("prescriptionModal");
+//     if (el) Modal.getInstance(el)?.hide();
+//   }
+
+//   const setRxLigne = (idx, key, value) =>
+//     setRx((s) => ({
+//       ...s,
+//       lignes: s.lignes.map((ln, i) =>
+//         i === idx ? { ...ln, [key]: value } : ln
+//       ),
+//     }));
+
+//   const addRxLigne = () =>
+//     setRx((s) => ({
+//       ...s,
+//       lignes: [
+//         ...s.lignes,
+//         {
+//           nomMedicament: "",
+//           dosage: "",
+//           posologie: "",
+//           duree: "",
+//           instructions: "",
+//         },
+//       ],
+//     }));
+
+//   const removeRxLigne = (idx) =>
+//     setRx((s) => ({ ...s, lignes: s.lignes.filter((_, i) => i !== idx) }));
+
+//   async function submitPrescription(e) {
+//     e?.preventDefault();
+//     if (!patient?.id) {
+//       alert("Patient introuvable.");
+//       return;
+//     }
+//     if (!rx.lignes?.length) {
+//       alert("Ajoutez au moins une ligne.");
+//       return;
+//     }
+//     // validations de base
+//     const hasInvalid = rx.lignes.some(
+//       (ln) =>
+//         !ln.nomMedicament?.trim() ||
+//         !ln.dosage?.trim() ||
+//         !ln.posologie?.trim() ||
+//         (ln.duree !== "" && (isNaN(Number(ln.duree)) || Number(ln.duree) < 0))
+//     );
+//     if (hasInvalid) {
+//       alert(
+//         "Chaque ligne doit contenir au minimum: médicament, dosage, posologie. Durée ≥ 0 si renseignée."
+//       );
+//       return;
+//     }
+
+//     setRxLoading(true);
+//     setRxError(null);
+//     setRxResult(null);
+
+//     try {
+//       const token = localStorage.getItem("token");
+//       const payload = {
+//         patientId: Number(patient.id),
+//         numeroOrdonnance: rx.numeroOrdonnance || undefined,
+//         dateValidite: rx.dateValidite || undefined, // "YYYY-MM-DD"
+//         note: rx.note || undefined,
+//         lignes: rx.lignes.map((ln) => ({
+//           nomMedicament: ln.nomMedicament.trim(),
+//           dosage: ln.dosage.trim(),
+//           posologie: ln.posologie.trim(),
+//           duree:
+//             ln.duree === "" || ln.duree === null || ln.duree === undefined
+//               ? 0
+//               : Number(ln.duree),
+//           instructions: (ln.instructions || "").trim(),
+//         })),
+//       };
+
+//       const res = await fetch(`${API_BASE_URL}/api/ordonnances`, {
+//         method: "POST",
+//         headers: {
+//           "Content-Type": "application/json",
+//           Authorization: `Bearer ${token || ""}`,
+//         },
+//         credentials: "include",
+//         body: JSON.stringify(payload),
+//       });
+
+//       if (!res.ok) {
+//         const txt = await res.text().catch(() => "");
+//         throw new Error(txt || `HTTP ${res.status}`);
+//       }
+
+//       const data = await res.json();
+//       setRxResult(data);
+//       // Ouvrir le PDF de l’ordonnance (si ton endpoint existe)
+//       window.open(`${API_BASE_URL}/api/ordonnances/${data.id}/pdf`, "_blank");
+//     } catch (err) {
+//       setRxError(err.message || "Erreur inconnue");
+//     } finally {
+//       setRxLoading(false);
+//     }
+//   }
+//   // ==== /PRESCRIPTION ====
+
+//   // Construit les lignes de détails selon tes DTO backend
+//   function getDetailRows(item, type) {
+//     if (!item) return [];
+
+//     if (type === "allergie") {
+//       // AllergieResponse: id, label, reaction, gravite, notes, active, dateDebut
+//       return [
+//         ["Libellé", item.label],
+//         ["Réaction", item.reaction],
+//         ["Gravité", item.gravite],
+//         ["Notes", item.notes],
+//         ["Active", fmtBool(item.active)],
+//         ["Date de début", fmtDate(item.dateDebut)],
+//         ["ID", item.id],
+//       ];
+//     } else if (type === "maladie") {
+//       // MaladieResponse: id, label, code, systemeCode, statut, notes, dateDebut, dateFin
+//       return [
+//         ["Libellé", item.label],
+//         ["Code", item.code],
+//         ["Système de code", item.systemeCode],
+//         ["Statut", item.statut],
+//         ["Notes", item.notes],
+//         ["Date de début", fmtDate(item.dateDebut)],
+//         ["Date de fin", fmtDate(item.dateFin)],
+//         ["ID", item.id],
+//       ];
+//     } else {
+//       return null;
+//     }
+//   }
+
+//   // Ouvrir / fermer modal Détails
+//   function openDetails(item, type) {
+//     setDetailItem(item);
+//     setDetailType(type);
+//     const el = document.getElementById("detailModal");
+//     if (el) new Modal(el).show();
+//   }
+
+//   function closeDetails() {
+//     const el = document.getElementById("detailModal");
+//     if (el) Modal.getInstance(el)?.hide();
+//     setDetailItem(null);
+//     setDetailType(null);
+//   }
+
+//   // Ouvrir / fermer modal Form
+//   function openForm(type, mode, item = {}) {
+//     setFormType(type);
+//     setFormMode(mode);
+//     // Normaliser les champs connus pour éviter les "controlled/uncontrolled"
+//     if (type === "allergie") {
+//       setFormData({
+//         id: item.id ?? undefined,
+//         label: item.label ?? "",
+//         reaction: item.reaction ?? "",
+//         gravite: item.gravite ?? "",
+//         notes: item.notes ?? "",
+//         active: item.active ?? true,
+//         dateDebut: item.dateDebut ?? "", // "YYYY-MM-DD"
+//       });
+//     } else if (type === "maladie") {
+//       setFormData({
+//         id: item.id ?? undefined,
+//         label: item.label ?? "",
+//         code: item.code ?? "",
+//         systemeCode: item.systemeCode ?? "",
+//         statut: item.statut ?? "",
+//         notes: item.notes ?? "",
+//         dateDebut: item.dateDebut ?? "",
+//         dateFin: item.dateFin ?? "",
+//       });
+//     } else if (type === "signeVital") {
+//       setFormData({
+//         id: item.id ?? undefined,
+//         temperature: item.temperature ?? "",
+//         tension: item.tension ?? "",
+//         frequenceRespiratoire: item.frequenceRespiratoire ?? "",
+//         saturationOxygene: item.saturationOxygene ?? "",
+//         poids: item.poids ?? "",
+//         taille: item.taille ?? "",
+//         commentaire: item.commentaire ?? "",
+//       });
+//     }
+//     const el = document.getElementById("formModal");
+//     if (el) new Modal(el).show();
+//   }
+
+//   function closeForm() {
+//     const el = document.getElementById("formModal");
+//     if (el) Modal.getInstance(el)?.hide();
+//     setFormType(null);
+//     setFormMode(null);
+//     setFormData({});
+//   }
+
+//   function handleFormChange(e) {
+//     const { name, value, type, checked } = e.target;
+//     setFormData((d) => ({
+//       ...d,
+//       [name]: type === "checkbox" ? checked : value,
+//     }));
+//   }
+
+//   async function submitForm() {
+//     if (!formType || !formMode) return;
+//     if (!patient?.id && formMode === "create") {
+//       alert("Patient introuvable ");
+//       return;
+//     }
+
+//     const isAllergie = formType === "allergie";
+//     //const endpointBase = isAllergie ? "allergies" : "maladies";
+//     const endpointBase =
+//       formType === "allergie"
+//         ? "allergies"
+//         : formType === "maladie"
+//         ? "maladies"
+//         : "signeVitaux";
+
+//     let url = "";
+//     let method = "";
+
+//     if (formMode === "create") {
+//       url = `${API_BASE_URL}/api/Medecin/patients/${patient.id}/${endpointBase}`;
+//       method = "POST";
+//     } else if (formMode === "edit") {
+//       url = `${API_BASE_URL}/api/Medecin/patients/${endpointBase}/${formData.id}`;
+//       method = "PATCH";
+//     }
+
+//     // corps à envoyer : on enlève les champs vides pour éviter d’écraser
+//     const body = {};
+//     Object.entries(formData).forEach(([k, v]) => {
+//       if (k === "id") return;
+//       if (v !== "" && v !== undefined) body[k] = v;
+//     });
+
+//     const res = await fetch(url, {
+//       method,
+//       headers: authHeaders(),
+//       body: JSON.stringify(body),
+//     });
+
+//     if (res.ok) {
+//       closeForm();
+//       reload();
+//     } else {
+//       const txt = await res.text().catch(() => "");
+//       alert(`Erreur lors de la sauvegarde\n${txt}`);
+//     }
+//   }
+
+//   function handleSigneSuccess(data) {
+//     closeForm(); // ferme la modal
+//     reload(); // recharge la page (ton helper window.location.reload)
+//   }
+
+//   const p = patient;
+
+//   return (
+//     <div className="dossier-wrap container-fluid py-3">
+//       <div className="row g-3">
+//         {/* ========= Colonne gauche ========= */}
+//         <div className="col-12 col-lg-4">
+//           <div className="d-flex flex-column gap-3 h-100">
+//             {/* Identité */}
+//             <div className="card border-0 shadow-sm rounded-4 flex-shrink-0">
+//               <div className="card-header bg-white border-0 pb-0">
+//                 <h6 className="m-0 text-med fw-semibold">
+//                   Dossier Médical — Id : {p?.id ?? "—"}
+//                 </h6>
+//               </div>
+//               <div className="card-body">
+//                 <div className="d-flex flex-column flex-sm-row align-items-center align-items-sm-start gap-3">
+//                   <div className="photo-box border rounded-3 d-flex align-items-center justify-content-center overflow-hidden mb-2 mb-sm-0 me-sm-2">
+//                     <PhotoSecure
+//                       patientId={p?.id}
+//                       alt={`${p?.nom ?? ""} ${p?.prenom ?? ""}`}
+//                       size={96}
+//                       rounded={12}
+//                     />
+//                   </div>
+
+//                   <div className="flex-grow-1 small text-center text-sm-start">
+//                     <div className="fw-semibold">
+//                       {p?.nom ?? "Nom"} {p?.prenom ?? "Prénom"}
+//                     </div>
+//                     <div>CIN : {p?.cin ?? "—"}</div>
+//                     <div>Né le : {p?.dateNaissance ?? "—"}</div>
+//                     <div>Téléphone : {p?.telephone ?? "—"}</div>
+//                     <div className="text-break">Email : {p?.email ?? "—"}</div>
+//                   </div>
+//                 </div>
+//               </div>
+//             </div>
+
+//             {/* Allergies */}
+//             <div className="card border-0 shadow-sm rounded-4 flex-shrink-0">
+//               <div className="card-header d-flex justify-content-between align-items-center bg-white border-0">
+//                 <h6 className="m-0">Allergies</h6>
+//                 <button
+//                   type="button"
+//                   className="btn btn-add"
+//                   title="Ajouter une allergie"
+//                   onClick={() => openForm("allergie", "create")}
+//                 >
+//                   <i className="bi bi-plus-lg"></i>
+//                 </button>
+//               </div>
+//               <div className="card-body small">
+//                 {allergies?.length ? (
+//                   <ul className="m-0 ps-3">
+//                     {allergies.map((a, i) => (
+//                       <li
+//                         key={a.id ?? i}
+//                         className="d-flex align-items-center justify-content-between py-1 border-bottom"
+//                       >
+//                         <span>{a.label ?? a}</span>
+//                         <div className="btn-group btn-group-sm gap-1">
+//                           {/* Détails */}
+//                           <button
+//                             type="button"
+//                             className="btn-med btn-detail"
+//                             title="Détails"
+//                             onClick={() => openDetails(a, "allergie")}
+//                           >
+//                             <i className="bi bi-info-circle"></i>
+//                           </button>
+//                           {/* Modifier */}
+//                           <button
+//                             type="button"
+//                             className="btn-med btn-edit"
+//                             title="Modifier"
+//                             onClick={() => openForm("allergie", "edit", a)}
+//                           >
+//                             <i className="bi bi-pencil"></i>
+//                           </button>
+//                           {/* Supprimer */}
+//                           <button
+//                             type="button"
+//                             className="btn-med btn-delete"
+//                             title="Supprimer"
+//                             onClick={() => deleteAllergie(a.id)}
+//                           >
+//                             <i className="bi bi-trash"></i>
+//                           </button>
+//                         </div>
+//                       </li>
+//                     ))}
+//                   </ul>
+//                 ) : (
+//                   <div className="text-muted">Aucune allergie renseignée.</div>
+//                 )}
+//               </div>
+//             </div>
+
+//             {/* Maladies */}
+//             <div className="card border-0 shadow-sm rounded-4 flex-grow-1 d-flex flex-column">
+//               <div className="card-header d-flex justify-content-between align-items-center bg-white border-0">
+//                 <h6 className="m-0">Maladies</h6>
+//                 <button
+//                   type="button"
+//                   className="btn btn-add"
+//                   title="Ajouter une maladie"
+//                   onClick={() => openForm("maladie", "create")}
+//                 >
+//                   <i className="bi bi-plus-lg"></i>
+//                 </button>
+//               </div>
+//               <div className="card-body small overflow-auto">
+//                 {maladies?.length ? (
+//                   <ul className="m-0 ps-3">
+//                     {maladies.map((m, i) => (
+//                       <li
+//                         key={m.id ?? i}
+//                         className="d-flex align-items-center justify-content-between py-1 border-bottom"
+//                       >
+//                         <span>{m.label ?? m}</span>
+//                         <div className="btn-group btn-group-sm gap-1">
+//                           {/* Détails */}
+//                           <button
+//                             type="button"
+//                             className="btn-med btn-detail "
+//                             title="Détails"
+//                             aria-label="Afficher les détails"
+//                             onClick={() => openDetails(m, "maladie")}
+//                           >
+//                             <i className="bi bi-info-circle"></i>
+//                           </button>
+//                           {/* Modifier */}
+//                           <button
+//                             type="button"
+//                             className="btn-med btn-edit"
+//                             title="Modifier"
+//                             aria-label="Modifier"
+//                             onClick={() => openForm("maladie", "edit", m)}
+//                           >
+//                             <i className="bi bi-pencil"></i>
+//                           </button>
+//                           {/* Supprimer */}
+//                           <button
+//                             type="button"
+//                             className="btn-med btn-delete"
+//                             title="Supprimer"
+//                             aria-label="Supprimer"
+//                             onClick={() => deleteMaladie(m.id)}
+//                           >
+//                             <i className="bi bi-trash"></i>
+//                           </button>
+//                         </div>
+//                       </li>
+//                     ))}
+//                   </ul>
+//                 ) : (
+//                   <div className="text-muted">Aucune maladie renseignée.</div>
+//                 )}
+//               </div>
+//             </div>
+//           </div>
+//         </div>
+
+//         {/* ========= Colonne droite (grille 2×2) ========= */}
+//         <div className="col-12 col-lg-8 ">
+//           <div className="grid-2x2 h-100">
+//             {/* Traitements */}
+//             <section className="panel card border-0 shadow-sm rounded-4">
+//               <div className="card-header d-flex justify-content-between align-items-center bg-white border-0">
+//                 <h6 className="m-0">Traitements en cours</h6>
+//                 <button
+//                   type="button"
+//                   className="btn btn-add"
+//                   title="Ajouter un traitement"
+//                 >
+//                   <i className="bi bi-plus-lg"></i>
+//                 </button>
+//               </div>
+//               <div className="card-body overflow-auto small">
+//                 {traitements?.length ? (
+//                   <ul className="m-0 ps-3">
+//                     {traitements.map((t) => (
+//                       <li key={t.id ?? `${t.nom}-${t.debut}`}>
+//                         <span className="fw-semibold">{t.nom ?? "—"}</span>
+//                         {t.posologie ? ` • ${t.posologie}` : ""}{" "}
+//                         {t.debut || t.fin ? (
+//                           <span className="text-muted">
+//                             ({t.debut ?? "?"} → {t.fin ?? "?"})
+//                           </span>
+//                         ) : null}
+//                       </li>
+//                     ))}
+//                   </ul>
+//                 ) : (
+//                   <div className="text-muted">— vide —</div>
+//                 )}
+//               </div>
+//             </section>
+
+//             {/* Signes vitaux */}
+//             <section className="panel card border-0 shadow-sm rounded-4">
+//               <div className="card-header d-flex justify-content-between bg-white border-0">
+//                 <h6 className="m-0">Signes vitaux</h6>
+//                 <button
+//                   type="button"
+//                   className="btn btn-add"
+//                   title={
+//                     signesVitaux.length > 0
+//                       ? "Modifier les signes vitaux"
+//                       : "Ajouter les signes vitaux"
+//                   }
+//                   onClick={() =>
+//                     openForm(
+//                       "signeVital",
+//                       signesVitaux.length > 0 ? "edit" : "create",
+//                       signesVitaux[0] ?? {}
+//                     )
+//                   }
+//                 >
+//                   <i
+//                     className={
+//                       signesVitaux.length > 0 ? "bi bi-pencil" : "bi bi-plus-lg"
+//                     }
+//                   ></i>
+//                 </button>
+//               </div>
+//               <div className="card-body small overflow-auto">
+//                 {signesVitaux?.length ? (
+//                   <table className="table table-sm">
+//                     <thead>
+//                       <tr>
+//                         <th>Température</th>
+//                         <th>Tension</th>
+//                         <th>FR</th>
+//                         <th>SpO₂</th>
+//                         <th>Poids</th>
+//                         <th>Taille</th>
+//                         <th>Commentaire</th>
+//                       </tr>
+//                     </thead>
+//                     <tbody>
+//                       <tr>
+//                         <td>{signesVitaux[0].temperature ?? "—"}</td>
+//                         <td>{signesVitaux[0].tension ?? "—"}</td>
+//                         <td>{signesVitaux[0].frequenceRespiratoire ?? "—"}</td>
+//                         <td>{signesVitaux[0].saturationOxygene ?? "—"}</td>
+//                         <td>{signesVitaux[0].poids ?? "—"}</td>
+//                         <td>{signesVitaux[0].taille ?? "—"}</td>
+//                         <td>{signesVitaux[0].commentaire ?? "—"}</td>
+//                       </tr>
+//                     </tbody>
+//                   </table>
+//                 ) : (
+//                   <div className="text-muted">— vide —</div>
+//                 )}
+//               </div>
+//             </section>
+//           </div>
+//         </div>
+
+//         {/* Boutons bas de page */}
+//         <div className="d-flex column mb-3 gap-2 ">
+//           <button
+//             className="btn btn-outline-info flex-grow-1"
+//             onClick={openInvoiceForm}
+//             type="button"
+//           >
+//             Créer facture
+//           </button>
+//           <button
+//             className="btn btn-outline-info flex-grow-1"
+//             type="button"
+//             onClick={openPrescriptionForm}
+//           >
+//             Créer prescription
+//           </button>
+//         </div>
+//       </div>
+
+//       {/* ===== Modal Détails ===== */}
+//       <div
+//         className="modal fade"
+//         id="detailModal"
+//         tabIndex="-1"
+//         aria-hidden="true"
+//       >
+//         <div className="modal-dialog modal-dialog-centered">
+//           <div className="modal-content rounded-4">
+//             <div className="modal-header">
+//               <h5 className="modal-title">
+//                 {detailType === "allergie"
+//                   ? "Détails de l’allergie"
+//                   : detailType === "maladie"
+//                   ? "Détails de la maladie"
+//                   : "Détails"}
+//               </h5>
+//               <button
+//                 type="button"
+//                 className="btn-close"
+//                 onClick={closeDetails}
+//                 aria-label="Close"
+//               ></button>
+//             </div>
+
+//             <div className="modal-body">
+//               {detailItem ? (
+//                 <div className="table-responsive">
+//                   <table className="table table-sm align-middle mb-0">
+//                     <tbody>
+//                       {getDetailRows(detailItem, detailType)
+//                         .filter(
+//                           ([_, v]) =>
+//                             v !== undefined &&
+//                             v !== null &&
+//                             String(v).trim() !== ""
+//                         )
+//                         .map(([k, v]) => (
+//                           <tr key={k}>
+//                             <th
+//                               style={{ width: "40%" }}
+//                               className="text-muted fw-normal"
+//                             >
+//                               {k}
+//                             </th>
+//                             <td>{String(v)}</td>
+//                           </tr>
+//                         ))}
+//                     </tbody>
+//                   </table>
+//                 </div>
+//               ) : (
+//                 <div className="text-muted">Aucun détail à afficher.</div>
+//               )}
+//             </div>
+
+//             <div className="modal-footer">
+//               <button
+//                 type="button"
+//                 className="btn btn-secondary"
+//                 onClick={closeDetails}
+//               >
+//                 Fermer
+//               </button>
+//             </div>
+//           </div>
+//         </div>
+//       </div>
+//       {/* ===== /Modal Détails ===== */}
+
+//       {/* ===== Modal Form Allergie/Maladie/ signeVital ===== */}
+//       <div
+//         className="modal fade"
+//         id="formModal"
+//         tabIndex="-1"
+//         aria-hidden="true"
+//       >
+//         <div className="modal-dialog modal-dialog-centered">
+//           <div className="modal-content rounded-4">
+//             <div className="modal-header">
+//               {/* <h5 className="modal-title">
+//                 {formMode === "create"
+//                   ? formType === "allergie"
+//                     ? "Nouvelle Allergie"
+//                     : formType === "maladie"
+//                     ? "Nouvelle Maladie"
+//                     : formType === "signeVital"
+//                     ? "Nouveau Signe Vital"
+//                     : "Nouveau Traitement"
+//                   : formType === "allergie"
+//                   ? "Modifier Allergie"
+//                   : formType === "maladie"
+//                   ? "Modifier Maladie"
+//                   : formType === "signeVital"
+//                   ? "Modifier Signe Vital"
+//                   : "Modifier Traitement"}
+//               </h5> */}
+//               <h5 className="modal-title">
+//                 {formMode === "create" ? "Ajouter" : "Modifier"}{" "}
+//                 {formType === "allergie"
+//                   ? "une allergie"
+//                   : formType === "maladie"
+//                   ? "une maladie"
+//                   : "les signes vitaux"}
+//               </h5>
+//               <button
+//                 type="button"
+//                 className="btn-close"
+//                 onClick={closeForm}
+//                 aria-label="Close"
+//               ></button>
+//             </div>
+
+//             <div className="modal-body">
+//               {formType && (
+//                 <form className="vstack gap-3">
+//                   {formType === "allergie" && (
+//                     <>
+//                       <div>
+//                         <label className="form-label">Libellé</label>
+//                         <input
+//                           type="text"
+//                           className="form-control"
+//                           name="label"
+//                           value={formData.label || ""}
+//                           onChange={handleFormChange}
+//                         />
+//                       </div>
+//                       <div>
+//                         <label className="form-label">Réaction</label>
+//                         <input
+//                           type="text"
+//                           className="form-control"
+//                           name="reaction"
+//                           value={formData.reaction || ""}
+//                           onChange={handleFormChange}
+//                         />
+//                       </div>
+//                       <div>
+//                         <label className="form-label">Gravité</label>
+//                         <input
+//                           type="text"
+//                           className="form-control"
+//                           name="gravite"
+//                           value={formData.gravite || ""}
+//                           onChange={handleFormChange}
+//                         />
+//                       </div>
+//                       <div className="form-check">
+//                         <input
+//                           className="form-check-input"
+//                           type="checkbox"
+//                           id="allergie-active"
+//                           name="active"
+//                           checked={!!formData.active}
+//                           onChange={handleFormChange}
+//                         />
+//                         <label
+//                           className="form-check-label"
+//                           htmlFor="allergie-active"
+//                         >
+//                           Active
+//                         </label>
+//                       </div>
+//                       <div>
+//                         <label className="form-label">Date de début</label>
+//                         <input
+//                           type="date"
+//                           className="form-control"
+//                           name="dateDebut"
+//                           value={formData.dateDebut || ""}
+//                           onChange={handleFormChange}
+//                         />
+//                       </div>
+//                       <div className="modal-footer">
+//                         <button
+//                           type="button"
+//                           className="btn btn-secondary"
+//                           onClick={closeForm}
+//                         >
+//                           Annuler
+//                         </button>
+//                         <button
+//                           type="button"
+//                           className="btn btn-primary"
+//                           onClick={submitForm}
+//                         >
+//                           {formMode === "create" ? "Créer" : "Enregistrer"}
+//                         </button>
+//                       </div>
+//                     </>
+//                   )}
+
+//                   {formType === "maladie" && (
+//                     <>
+//                       <div>
+//                         <label className="form-label">Libellé</label>
+//                         <input
+//                           type="text"
+//                           className="form-control"
+//                           name="label"
+//                           value={formData.label || ""}
+//                           onChange={handleFormChange}
+//                         />
+//                       </div>
+//                       <div>
+//                         <label className="form-label">Code</label>
+//                         <input
+//                           type="text"
+//                           className="form-control"
+//                           name="code"
+//                           value={formData.code || ""}
+//                           onChange={handleFormChange}
+//                         />
+//                       </div>
+//                       <div>
+//                         <label className="form-label">Système de code</label>
+//                         <input
+//                           type="text"
+//                           className="form-control"
+//                           name="systemeCode"
+//                           value={formData.systemeCode || ""}
+//                           onChange={handleFormChange}
+//                         />
+//                       </div>
+//                       <div>
+//                         <label className="form-label">Statut</label>
+//                         <input
+//                           type="text"
+//                           className="form-control"
+//                           name="statut"
+//                           value={formData.statut || ""}
+//                           onChange={handleFormChange}
+//                         />
+//                       </div>
+//                       <div>
+//                         <label className="form-label">Date de début</label>
+//                         <input
+//                           type="date"
+//                           className="form-control"
+//                           name="dateDebut"
+//                           value={formData.dateDebut || ""}
+//                           onChange={handleFormChange}
+//                         />
+//                       </div>
+//                       <div>
+//                         <label className="form-label">Date de fin</label>
+//                         <input
+//                           type="date"
+//                           className="form-control"
+//                           name="dateFin"
+//                           value={formData.dateFin || ""}
+//                           onChange={handleFormChange}
+//                         />
+//                       </div>
+//                       <div>
+//                         <label className="form-label">Notes</label>
+//                         <textarea
+//                           className="form-control"
+//                           name="notes"
+//                           rows={3}
+//                           value={formData.notes || ""}
+//                           onChange={handleFormChange}
+//                         />
+//                       </div>
+//                       <div className="modal-footer">
+//                         <button
+//                           type="button"
+//                           className="btn btn-secondary"
+//                           onClick={closeForm}
+//                         >
+//                           Annuler
+//                         </button>
+//                         <button
+//                           type="button"
+//                           className="btn btn-primary"
+//                           onClick={submitForm}
+//                         >
+//                           {formMode === "create" ? "Créer" : "Enregistrer"}
+//                         </button>
+//                       </div>
+//                     </>
+//                   )}
+//                   {formType === "signeVital" && (
+//                     <>
+//                       <SigneVitalForm
+//                         patientId={p?.id}
+//                         formMode={formMode || "create"}
+//                         initialData={formData}
+//                         onSuccess={handleSigneSuccess}
+//                         onClose={() => closeForm()}
+//                       />
+//                       {/* <div className="modal-footer">
+//                         <button
+//                           type="button"
+//                           className="btn btn-secondary"
+//                           onClick={closeForm}
+//                         >
+//                           Annuler
+//                         </button>
+//                         <button
+//                           type="button"
+//                           className="btn btn-primary"
+//                           onClick={submitForm}
+//                         >
+//                           {formMode === "create" ? "Créer" : "Enregistrer"}
+//                         </button>
+//                       </div> */}
+//                     </>
+//                   )}
+//                 </form>
+//               )}
+//             </div>
+//           </div>
+//         </div>
+//       </div>
+//       {/* ===== /Modal Form ===== */}
+
+//       {/* ===== Modal Facture (lignes + total) ===== */}
+//       <div
+//         className="modal fade"
+//         id="invoiceModal"
+//         tabIndex="-1"
+//         aria-hidden="true"
+//       >
+//         <div className="modal-dialog modal-lg modal-dialog-centered">
+//           <div className="modal-content rounded-4">
+//             <div className="modal-header">
+//               <h5 className="modal-title">Créer une facture</h5>
+//               <button
+//                 type="button"
+//                 className="btn-close"
+//                 onClick={closeInvoiceForm}
+//                 aria-label="Close"
+//               ></button>
+//             </div>
+
+//             <div className="modal-body">
+//               <form onSubmit={submitInvoice} className="vstack gap-3">
+//                 {/* Patient (lecture seule) */}
+//                 <div
+//                   className="alert alert-light border d-flex align-items-center"
+//                   role="alert"
+//                 >
+//                   <i className="bi bi-person-badge me-2"></i>
+//                   <div>
+//                     <div className="small text-muted">Patient</div>
+//                     <div className="fw-semibold">
+//                       {patient?.nom ?? "Nom"} {patient?.prenom ?? "Prénom"}{" "}
+//                       {patient?.id ? `(ID: ${patient.id})` : ""}
+//                     </div>
+//                   </div>
+//                 </div>
+
+//                 {/* Lignes */}
+//                 <div className="d-flex justify-content-between align-items-center">
+//                   <h6 className="m-0">Lignes</h6>
+//                   <button
+//                     type="button"
+//                     className="btn btn-outline-primary btn-sm"
+//                     onClick={addLigne}
+//                   >
+//                     <i className="bi bi-plus"></i> Ajouter une ligne
+//                   </button>
+//                 </div>
+
+//                 {invoice.lignes.map((ln, i) => (
+//                   <div className="row g-2 align-items-end mt-1" key={i}>
+//                     <div className="col-md-7">
+//                       <label className="form-label">Description</label>
+//                       <input
+//                         className="form-control"
+//                         value={ln.description}
+//                         onChange={(e) =>
+//                           setLigne(i, "description", e.target.value)
+//                         }
+//                         required
+//                       />
+//                     </div>
+//                     <div className="col-md-3">
+//                       <label className="form-label">Prix (MAD)</label>
+//                       <input
+//                         type="number"
+//                         min="0"
+//                         step="0.01"
+//                         className="form-control"
+//                         value={ln.prix}
+//                         onChange={(e) => setLigne(i, "prix", e.target.value)}
+//                         required
+//                       />
+//                     </div>
+//                     <div className="col-md-2 d-grid">
+//                       <button
+//                         type="button"
+//                         className="btn btn-outline-danger"
+//                         onClick={() => removeLigne(i)}
+//                         disabled={invoice.lignes.length === 1}
+//                         title="Supprimer la ligne"
+//                       >
+//                         <i className="bi bi-trash"></i>
+//                       </button>
+//                     </div>
+//                   </div>
+//                 ))}
+
+//                 {/* Note */}
+//                 <div className="mt-2">
+//                   <label className="form-label">Note (optionnelle)</label>
+//                   <textarea
+//                     className="form-control"
+//                     rows="2"
+//                     value={invoice.note}
+//                     onChange={(e) =>
+//                       setInvoice((s) => ({ ...s, note: e.target.value }))
+//                     }
+//                   />
+//                 </div>
+
+//                 {/* Total */}
+//                 <div className="d-flex justify-content-end">
+//                   <div className="fs-5">
+//                     Total : <strong>{Number(totalCalc).toFixed(2)} MAD</strong>
+//                   </div>
+//                 </div>
+
+//                 {/* Messages */}
+//                 {invError && (
+//                   <div className="alert alert-danger">{invError}</div>
+//                 )}
+//                 {invResult && (
+//                   <div className="alert alert-success">
+//                     Facture <strong>{invResult.numero}</strong> créée.
+//                     <div className="small text-muted">
+//                       La réceptionniste peut l’imprimer et la cacheter.
+//                     </div>
+//                   </div>
+//                 )}
+//               </form>
+//             </div>
+
+//             <div className="modal-footer">
+//               <button
+//                 type="button"
+//                 className="btn btn-secondary"
+//                 onClick={closeInvoiceForm}
+//               >
+//                 Fermer
+//               </button>
+//               <button
+//                 type="button"
+//                 className="btn btn-primary"
+//                 onClick={submitInvoice}
+//                 disabled={
+//                   invLoading ||
+//                   !invoice.lignes?.length ||
+//                   invoice.lignes.some(
+//                     (ln) =>
+//                       !ln.description ||
+//                       Number(ln.prix) <= 0 ||
+//                       isNaN(Number(ln.prix))
+//                   )
+//                 }
+//               >
+//                 {invLoading ? "Création…" : "Créer la facture"}
+//               </button>
+//             </div>
+//           </div>
+//         </div>
+//       </div>
+//       {/* ===== /Modal Facture ===== */}
+//       {/* ===== Modal Prescription ===== */}
+//       <div
+//         className="modal fade"
+//         id="prescriptionModal"
+//         tabIndex="-1"
+//         aria-hidden="true"
+//       >
+//         <div className="modal-dialog modal-lg modal-dialog-centered">
+//           <div className="modal-content rounded-4">
+//             <div className="modal-header">
+//               <h5 className="modal-title">Créer une prescription</h5>
+//               <button
+//                 type="button"
+//                 className="btn-close"
+//                 onClick={closePrescriptionForm}
+//                 aria-label="Close"
+//               ></button>
+//             </div>
+
+//             <div className="modal-body">
+//               <form onSubmit={submitPrescription} className="vstack gap-3">
+//                 {/* Patient (lecture seule) */}
+//                 <div
+//                   className="alert alert-light border d-flex align-items-center"
+//                   role="alert"
+//                 >
+//                   <i className="bi bi-person-badge me-2"></i>
+//                   <div>
+//                     <div className="small text-muted">Patient</div>
+//                     <div className="fw-semibold">
+//                       {patient?.nom ?? "Nom"} {patient?.prenom ?? "Prénom"}{" "}
+//                       {patient?.id ? `(ID: ${patient.id})` : ""}
+//                     </div>
+//                   </div>
+//                 </div>
+
+//                 {/* Méta (optionnel) */}
+//                 <div className="row g-2">
+//                   <div className="col-md-6">
+//                     <label className="form-label">
+//                       N° ordonnance (optionnel)
+//                     </label>
+//                     <input
+//                       className="form-control"
+//                       value={rx.numeroOrdonnance}
+//                       onChange={(e) =>
+//                         setRx((s) => ({
+//                           ...s,
+//                           numeroOrdonnance: e.target.value,
+//                         }))
+//                       }
+//                       placeholder="ex: ORD-2025-0001"
+//                     />
+//                   </div>
+//                   <div className="col-md-6">
+//                     <label className="form-label">
+//                       Valable jusqu’au (optionnel)
+//                     </label>
+//                     <input
+//                       type="date"
+//                       className="form-control"
+//                       value={rx.dateValidite}
+//                       onChange={(e) =>
+//                         setRx((s) => ({ ...s, dateValidite: e.target.value }))
+//                       }
+//                     />
+//                   </div>
+//                 </div>
+
+//                 {/* Lignes */}
+//                 <div className="d-flex justify-content-between align-items-center">
+//                   <h6 className="m-0">Lignes de prescription</h6>
+//                   <button
+//                     type="button"
+//                     className="btn btn-outline-primary btn-sm"
+//                     onClick={addRxLigne}
+//                   >
+//                     <i className="bi bi-plus"></i> Ajouter une ligne
+//                   </button>
+//                 </div>
+
+//                 {rx.lignes.map((ln, i) => (
+//                   <div className="row g-2 align-items-end mt-1" key={i}>
+//                     <div className="col-md-4">
+//                       <label className="form-label">Médicament</label>
+//                       <input
+//                         className="form-control"
+//                         value={ln.nomMedicament}
+//                         onChange={(e) =>
+//                           setRxLigne(i, "nomMedicament", e.target.value)
+//                         }
+//                         placeholder="ex: Amoxicilline"
+//                         required
+//                       />
+//                     </div>
+//                     <div className="col-md-2">
+//                       <label className="form-label">Dosage</label>
+//                       <input
+//                         className="form-control"
+//                         value={ln.dosage}
+//                         onChange={(e) =>
+//                           setRxLigne(i, "dosage", e.target.value)
+//                         }
+//                         placeholder="ex: 500 mg"
+//                         required
+//                       />
+//                     </div>
+//                     <div className="col-md-3">
+//                       <label className="form-label">Posologie</label>
+//                       <input
+//                         className="form-control"
+//                         value={ln.posologie}
+//                         onChange={(e) =>
+//                           setRxLigne(i, "posologie", e.target.value)
+//                         }
+//                         placeholder="ex: 2 fois/jour"
+//                         required
+//                       />
+//                     </div>
+//                     <div className="col-md-1">
+//                       <label className="form-label">Durée</label>
+//                       <input
+//                         type="number"
+//                         min="0"
+//                         className="form-control"
+//                         value={ln.duree}
+//                         onChange={(e) => setRxLigne(i, "duree", e.target.value)}
+//                         placeholder="jrs"
+//                       />
+//                     </div>
+//                     <div className="col-md-2">
+//                       <label className="form-label">Instructions</label>
+//                       <input
+//                         className="form-control"
+//                         value={ln.instructions}
+//                         onChange={(e) =>
+//                           setRxLigne(i, "instructions", e.target.value)
+//                         }
+//                         placeholder="ex: après repas"
+//                       />
+//                     </div>
+//                     <div className="col-md-12 d-flex justify-content-end">
+//                       <button
+//                         type="button"
+//                         className="btn btn-outline-danger btn-sm"
+//                         onClick={() => removeRxLigne(i)}
+//                         disabled={rx.lignes.length === 1}
+//                         title="Supprimer la ligne"
+//                       >
+//                         <i className="bi bi-trash"></i>
+//                       </button>
+//                     </div>
+//                   </div>
+//                 ))}
+
+//                 {/* Note */}
+//                 <div className="mt-2">
+//                   <label className="form-label">
+//                     Observations / Note (optionnelle)
+//                   </label>
+//                   <textarea
+//                     className="form-control"
+//                     rows="2"
+//                     value={rx.note}
+//                     onChange={(e) =>
+//                       setRx((s) => ({ ...s, note: e.target.value }))
+//                     }
+//                   />
+//                 </div>
+
+//                 {/* Messages */}
+//                 {rxError && <div className="alert alert-danger">{rxError}</div>}
+//                 {rxResult && (
+//                   <div className="alert alert-success">
+//                     Ordonnance{" "}
+//                     <strong>{rxResult.numeroOrdonnance ?? rxResult.id}</strong>{" "}
+//                     créée.
+//                     <div className="small text-muted">
+//                       La réceptionniste peut l’imprimer et la cacheter.
+//                     </div>
+//                   </div>
+//                 )}
+//               </form>
+//             </div>
+
+//             <div className="modal-footer">
+//               <button
+//                 type="button"
+//                 className="btn btn-secondary"
+//                 onClick={closePrescriptionForm}
+//               >
+//                 Fermer
+//               </button>
+//               <button
+//                 type="button"
+//                 className="btn btn-primary"
+//                 onClick={submitPrescription}
+//                 disabled={
+//                   rxLoading ||
+//                   !rx.lignes?.length ||
+//                   rx.lignes.some(
+//                     (ln) =>
+//                       !ln.nomMedicament?.trim() ||
+//                       !ln.dosage?.trim() ||
+//                       !ln.posologie?.trim() ||
+//                       (ln.duree !== "" &&
+//                         (isNaN(Number(ln.duree)) || Number(ln.duree) < 0))
+//                   )
+//                 }
+//               >
+//                 {rxLoading ? "Création…" : "Créer la prescription"}
+//               </button>
+//             </div>
+//           </div>
+//         </div>
+//       </div>
+//       {/* ===== /Modal Prescription ===== */}
+//     </div>
+//   );
+// }

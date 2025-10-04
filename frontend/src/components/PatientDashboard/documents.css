@@ -1,0 +1,133 @@
+/* ===== Palette & thème médical (cohérent avec navbar bleu/cyan) ===== */
+:root {
+    --medical-25: #f7fcfd;
+    --medical-50: #e8f6f9;
+    --medical-100: #d7f0f5;
+    --medical-200: #bce7ef;
+    --medical-300: #90e0ef;
+    --medical-400: #5dd0e3;
+    --medical-500: #22bfd6;
+    /* primaire */
+    --medical-600: #0fa7bf;
+    /* hover */
+    --medical-700: #0b6c82;
+    /* titres */
+    --medical-900: #093c49;
+    /* texte fort */
+    --medical-shadow: 0 .75rem 1.5rem rgba(9, 60, 73, .12);
+}
+
+/* Conteneur centré et plus large (élargit les cards) */
+.theme-medical .docs-wrap {
+    max-width: 1200px;
+}
+
+/* Titre centré avec soulignement dégradé */
+.theme-medical .docs-title {
+    text-align: center;
+    color: var(--medical-700);
+    margin-bottom: 1.25rem;
+    position: relative;
+}
+
+.theme-medical .docs-title::after {
+    content: "";
+    display: block;
+    width: 140px;
+    height: 4px;
+    margin: .5rem auto 0;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--medical-300), var(--medical-500));
+}
+
+/* ===== Disposition des deux cartes ===== */
+/* 2 colonnes larges, centrées ; ajuste min/max pour élargir/rétrécir */
+.theme-medical .docs-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(460px, 580px));
+    justify-content: center;
+    /* centre le groupe */
+    gap: 1.5rem;
+}
+
+/* Bordure visible sur chaque card */
+.theme-medical .doc-card {
+    border: 2px solid var(--medical-200) !important;
+    /* ajoute/force la bordure */
+    background: linear-gradient(180deg, var(--medical-25), #fff 65%);
+    box-shadow: 0 .25rem .75rem rgba(16, 24, 40, .06);
+    transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+}
+
+/* Hover: bordure un peu plus soutenue */
+.theme-medical .doc-card:hover {
+    border-color: var(--medical-500);
+    transform: translateY(-2px);
+    box-shadow: var(--medical-shadow);
+}
+
+/* (optionnel) focus clavier accessible */
+.theme-medical .doc-card:focus-within {
+    outline: 3px solid color-mix(in srgb, var(--medical-300) 40%, transparent);
+    outline-offset: 2px;
+}
+
+/* Mobile : 1 colonne pleine largeur */
+@media (max-width: 575.98px) {
+    .theme-medical .docs-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ===== Style des cartes ===== */
+.theme-medical .doc-card {
+    background: linear-gradient(180deg, var(--medical-25), #fff 65%);
+    border: 1px solid var(--medical-100);
+    box-shadow: 0 .25rem .75rem rgba(16, 24, 40, .06);
+    transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+}
+
+.theme-medical .doc-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--medical-shadow);
+    border-color: var(--medical-300);
+}
+
+/* Icône dans une pastille douce */
+.theme-medical .doc-icon-wrap {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 12px;
+    background: var(--medical-50);
+    border: 1px solid var(--medical-100);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.theme-medical .doc-icon {
+    font-size: 1.75rem;
+    color: var(--medical-600);
+}
+
+/* Utilitaires */
+.text-medical {
+    color: var(--medical-700) !important;
+}
+
+.bg-medical-soft {
+    background: var(--medical-50) !important;
+}
+
+.btn-medical {
+    color: #fff;
+    background: var(--medical-500);
+    border-color: var(--medical-500);
+}
+
+.btn-medical:hover {
+    color: #fff;
+    background: var(--medical-600);
+    border-color: var(--medical-600);
+}

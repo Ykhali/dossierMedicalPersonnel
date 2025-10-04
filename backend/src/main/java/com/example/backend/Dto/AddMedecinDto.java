@@ -1,6 +1,10 @@
 package com.example.backend.Dto;
 
-public class AddMedecinDto extends UserDto{
+import org.springframework.cglib.core.Local;
+
+import java.time.LocalDate;
+
+public class AddMedecinDto extends RegisterUserRequest{
     private Long id;
 
     private String specialite;
@@ -11,8 +15,8 @@ public class AddMedecinDto extends UserDto{
         super();
     }
 
-    public AddMedecinDto(Long id, String nom, String prenom, String email, String motDePasse, String confirmPwd, String telephone,  String specialite, String sexe) {
-        super(nom, prenom, email, motDePasse, confirmPwd, telephone);
+    public AddMedecinDto(Long id, String CIN, String nom, String prenom, String email, String motDePasse, String confirmPwd, String telephone, LocalDate dateNaiss, String specialite, String sexe) {
+        super(id,CIN, nom, prenom, email, motDePasse,confirmPwd, telephone, dateNaiss);
         this.id = id;
         this.specialite = specialite;
         this.sexe = sexe;

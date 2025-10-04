@@ -10,7 +10,6 @@ import java.time.LocalDate;
 
 public class CreateRendezVousDto {
 
-    @JsonFormat(pattern = "dd-MM-yyyy")
     @Column(name = "date_rendezVous")
     private LocalDate date;
 
@@ -23,7 +22,6 @@ public class CreateRendezVousDto {
     @Enumerated(EnumType.STRING)
     private StatusRendezVous status;
 
-    private Long receptionnisteId;
     private Long patientId;
     private Long medecinId;
 
@@ -32,14 +30,13 @@ public class CreateRendezVousDto {
 
 
     public CreateRendezVousDto(
-            LocalDate date, String heure, String motif, Long medecinId, Long receptionnisteId,
+            LocalDate date, String heure, String motif, Long medecinId,
             Long patientId) {
         this.date = date;
         this.heure = heure;
         this.motif = motif;
         this.medecinId = medecinId;
         this.setStatus(StatusRendezVous.En_attente);
-        this.receptionnisteId = receptionnisteId;
         this.patientId = patientId;
         this.setDateCreation(LocalDate.now());
     }
@@ -83,14 +80,6 @@ public class CreateRendezVousDto {
 
     public void setMedecinId(Long medecinId) {
         this.medecinId = medecinId;
-    }
-
-    public Long getReceptionnisteId() {
-        return receptionnisteId;
-    }
-
-    public void setReceptionnisteId(Long receptionnisteId) {
-        this.receptionnisteId = receptionnisteId;
     }
 
     public Long getPatientId() {

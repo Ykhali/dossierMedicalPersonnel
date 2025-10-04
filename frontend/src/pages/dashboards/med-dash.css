@@ -1,0 +1,143 @@
+/* ---------- Variables ---------- */
+:root {
+    --sb-w: 260px;
+    /* largeur sidebar PC */
+    --tb-h: 64px;
+    /* hauteur topbar PC */
+    --border: #e7eef3;
+    --card: #fff;
+    --bg: #f6fbfd;
+}
+
+/* ---------- Règle capitale : en desktop, pas de scroll global ---------- */
+@media (min-width: 992px) {
+
+    html,
+    body,
+    #root {
+        height: 100%;
+    }
+
+    body {
+        overflow: hidden;
+        background: var(--bg);
+    }
+}
+
+/* ---------- Shell global ---------- */
+.desk-shell {
+    display: flex;
+    min-height: 100vh;
+    background: var(--bg);
+    color: #1f2937;
+}
+
+/* ---------- Sidebar (fixe en PC) ---------- */
+.desk-sidebar {
+    background: var(--card);
+    border-right: 1px solid var(--border);
+}
+
+/* ---------- Colonne droite ---------- */
+.desk-right {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ---------- Topbar (fixe en PC, sticky en mobile) ---------- */
+.desk-topbar {
+    background: var(--card);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+}
+
+/* ---------- Main (scrollable) ---------- */
+.desk-main {
+    padding: 16px;
+}
+
+/* ---------- Comportement PC (fixe) ---------- */
+@media (min-width: 992px) {
+    .desk-sidebar {
+        position: fixed;
+        inset: 0 auto 0 0;
+        /* top:0 right:auto bottom:0 left:0 */
+        width: var(--sb-w);
+        z-index: 1040;
+        overflow: hidden;
+        /* évite le double scroll global */
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* Si le menu est long: scroller dans la sidebar, pas la page */
+    .desk-sidebar>* {
+        min-height: 0;
+        /* permet au child de scroller */
+    }
+
+    .desk-sidebar .nav,
+    .desk-sidebar .med-nav,
+    .desk-sidebar .offcanvas-body {
+        overflow: auto;
+        /* adapte au markup interne de MedSide */
+    }
+
+    .desk-right {
+        margin-left: var(--sb-w);
+        min-height: 100vh;
+    }
+
+    .desk-topbar {
+        position: fixed;
+        top: 0;
+        left: var(--sb-w);
+        right: 0;
+        height: var(--tb-h);
+        z-index: 1030;
+        backdrop-filter: saturate(140%) blur(4px);
+    }
+
+    .desk-main {
+        height: calc(100vh - var(--tb-h));
+        /* occupe l'espace sous la topbar */
+        margin-top: var(--tb-h);
+        /* décale sous la topbar fixe */
+        overflow: auto;
+        /* <-- le seul scroll */
+    }
+}
+
+/* ---------- Comportement Mobile/Tablet (non fixe) ---------- */
+@media (max-width: 991.98px) {
+    .desk-sidebar {
+        position: static;
+        width: 100%;
+    }
+
+    .desk-topbar {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+    }
+
+    .desk-main {
+        height: auto;
+        overflow: visible;
+    }
+}
+
+/* ---------- Option : bouton outline ---------- */
+.btn-outline-med {
+    border-color: #0c8fa0 !important;
+    color: #0c8fa0 !important;
+}
+
+.btn-outline-med:hover {
+    background: #0c8fa0 !important;
+    color: #fff !important;
+}

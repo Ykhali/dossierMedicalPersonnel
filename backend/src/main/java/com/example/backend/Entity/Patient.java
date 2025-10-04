@@ -1,6 +1,7 @@
 package com.example.backend.Entity;
 
 import com.example.backend.Entity.Enums.Role;
+import com.example.backend.Entity.Enums.Sexe;
 import jakarta.persistence.*;
 
 @Entity
@@ -13,21 +14,20 @@ public class Patient extends User{
 
     private String adresse;
 
-    @ManyToOne
-    private RendezVous rendezVous;
+    private String sexe;
 
-    @OneToOne
-    private HistoriqueRendezVous historiqueRendezVous;
+
 
     //Constructors
     public Patient() {
     }
 
-    public Patient(Long id, String nom, String prenom,
-                   String email, String motDePasse, String confirmePasse,
-                   String telephone, String adresse) {
-        super(id, nom, prenom, email, motDePasse, confirmePasse, telephone);
+    public Patient(Long id,String CIN, String nom, String prenom,
+                   String email, String motDePasse,
+                   String telephone, String adresse, String sexe) {
+        super(id,CIN, nom, prenom, email, motDePasse, telephone);
         this.adresse = adresse;
+        this.sexe = sexe;
         this.id = id;
         super.setRole(Role.PATIENT);
     }
@@ -38,6 +38,14 @@ public class Patient extends User{
 
     public void setAdresse(String adresse) {
         this.adresse = adresse;
+    }
+
+    public String getSexe() {
+        return sexe;
+    }
+
+    public void setSexe(String sexe) {
+        this.sexe = sexe;
     }
 
     @Override
@@ -54,4 +62,5 @@ public class Patient extends User{
     public String getEmail() {
         return super.getEmail();
     }
+
 }

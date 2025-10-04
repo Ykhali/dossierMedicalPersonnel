@@ -1,0 +1,105 @@
+
+
+.logo{
+    width: 100px;
+    height: 80px;
+}
+
+.navbar > div > h3 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+
+.custom-navbar {
+    background-color: #e8f6f9 !important;
+}
+
+.custom-navbar .nav-link {
+    font-weight:600;
+    color: #004d61 !important;
+    /* Dark teal for good contrast */
+}
+
+.custom-navbar .nav-link:hover {
+    color: #007c91 !important;
+    /* Slightly brighter on hover */
+}
+
+.custom-navbar .dropdown-menu {
+    background-color: #e8f6f9 !important;
+    /* Match navbar */
+}
+
+.custom-navbar .dropdown-item {
+    font-weight: bold;
+    color: #004d61 !important;
+}
+
+.custom-navbar .dropdown-item:hover {
+    background-color: #d1eef3 !important;
+    color: #007c91 !important;
+}
+
+
+.buttons{
+    gap: 20px;
+}
+
+.navbar-nav .nav-item.active .nav-link {
+    color: #007bff;
+    /* Bootstrap primary color */
+    font-weight: bold;
+}
+
+.navbar-nav .nav-item .nav-link:hover {
+    color: #0056b3;
+    /* Darker shade for hover */
+}
+
+/*pour centrer les elements de la navbar au centre*/
+.center-page {
+  width: 100%;
+  text-align: center;
+  position: static;      /* assure le flux normal sur mobile */
+  transform: none;
+  left: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  
+}
+
+
+/* Ensure buttons stack nicely on mobile */
+@media (max-width: 991px) {
+    .nav-btns {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .nav-btns .btn {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    .center-page {
+    width: auto;               /* shrink to content on desktop */
+    position: absolute;        /* absolute only on large screens */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 50;               /* stay above other elements like buttons */
+  }
+
+  /* if you want the nav vertical align well with logo/buttons */
+  .container-fluid.position-relative {
+    position: relative;        /* ensure the absolute nav is relative to this */
+  }
+    
+}
+/* defensive: when collapse is open on any size, keep nav in flow (if needed) */
+.navbar-collapse.show .center-page {
+  position: static !important;
+  transform: none !important;
+  left: auto !important;
+}

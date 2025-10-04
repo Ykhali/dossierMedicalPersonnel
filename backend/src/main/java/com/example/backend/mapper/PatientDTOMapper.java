@@ -14,6 +14,7 @@ public interface PatientDTOMapper {
     @Mapping(target = "dateDeCreation", expression = "java(java.time.LocalDateTime.now())")
     PatientDto toDto(Patient patient);
 
+    @Mapping(target = "image", ignore = true)
     Patient toEntity(AddPatientDto request);
 
     void update(UpdatePatientDto request, @MappingTarget Patient patient);

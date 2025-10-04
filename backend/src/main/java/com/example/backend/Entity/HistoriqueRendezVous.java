@@ -2,6 +2,7 @@ package com.example.backend.Entity;
 
 import com.example.backend.Entity.Enums.StatusRendezVous;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -13,12 +14,21 @@ public class HistoriqueRendezVous {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "idrdv")
+    private Long IdRDV;
+
     @JsonFormat(pattern = "dd-MM-yyyy")
     @Column(name = "date_rendezVous")
     private LocalDate date;
 
     @Column(name = "date_creation",updatable = false)
     private LocalDate dateCreation;
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private LocalDate dateDeModification;
+
+    @Column(name = "date_annulation")
+    private LocalDate dateDAnnulation;
 
     private String heure;
 
@@ -27,9 +37,6 @@ public class HistoriqueRendezVous {
     @Enumerated(EnumType.STRING)
     private StatusRendezVous status;
 
-    @ManyToOne
-    @JoinColumn(name = "receptionniste_id")
-    private Receptionniste receptionniste;
 
     @ManyToOne
     @JoinColumn(name = "medecin_id")
@@ -42,17 +49,39 @@ public class HistoriqueRendezVous {
     public HistoriqueRendezVous() {
     }
 
-    public HistoriqueRendezVous(Long id, LocalDate date, LocalDate dateCreation, String heure, String motif, StatusRendezVous status, Receptionniste receptionniste, Medecin medecin, Patient patient) {
+    public HistoriqueRendezVous(Long id, Long IdRDV,
+                                LocalDate date, LocalDate dateCreation,
+                                String heure, String motif,
+                                StatusRendezVous status,
+                                Medecin medecin, Patient patient) {
         this.id = id;
+        this.IdRDV = IdRDV;
         this.date = date;
         this.dateCreation = dateCreation;
         this.heure = heure;
         this.motif = motif;
         this.status = status;
-        this.receptionniste = receptionniste;
         this.medecin = medecin;
         this.patient = patient;
     }
+
+    public HistoriqueRendezVous(Long id,
+                                LocalDate date, LocalDate dateCreation,
+                                LocalDate dateDeModification,
+                                String heure, String motif,
+                                StatusRendezVous status,
+                                Medecin medecin, Patient patient) {
+        this.id = id;
+        this.date = date;
+        this.dateCreation = dateCreation;
+        this.dateDeModification = dateDeModification;
+        this.heure = heure;
+        this.motif = motif;
+        this.status = status;
+        this.medecin = medecin;
+        this.patient = patient;
+    }
+
 
     public Long getId() {
         return id;
@@ -60,6 +89,14 @@ public class HistoriqueRendezVous {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getIdRDV() {
+        return IdRDV;
+    }
+
+    public void setIdRDV(Long idRDV) {
+        IdRDV = idRDV;
     }
 
     public LocalDate getDate() {
@@ -76,6 +113,14 @@ public class HistoriqueRendezVous {
 
     public void setDateCreation(LocalDate dateCreation) {
         this.dateCreation = dateCreation;
+    }
+
+    public LocalDate getDateDAnnulation() {
+        return dateDAnnulation;
+    }
+
+    public void setDateDAnnulation(LocalDate dateDAnnulation) {
+        this.dateDAnnulation = dateDAnnulation;
     }
 
     public String getHeure() {
@@ -102,13 +147,6 @@ public class HistoriqueRendezVous {
         this.status = status;
     }
 
-    public Receptionniste getReceptionniste() {
-        return receptionniste;
-    }
-
-    public void setReceptionniste(Receptionniste receptionniste) {
-        this.receptionniste = receptionniste;
-    }
 
     public Medecin getMedecin() {
         return medecin;
@@ -124,5 +162,13 @@ public class HistoriqueRendezVous {
 
     public void setPatient(Patient patient) {
         this.patient = patient;
+    }
+
+    public LocalDate getDateDeModification() {
+        return dateDeModification;
+    }
+
+    public void setDateDeModification(LocalDate dateDeModification) {
+        this.dateDeModification = dateDeModification;
     }
 }

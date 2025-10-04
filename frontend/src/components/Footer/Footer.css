@@ -1,0 +1,26 @@
+.footer{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    background-color: #F5F6F7;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+.logo{
+    padding-bottom: 10px;
+}
+.contact_links{
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    justify-content: center;
+    align-items: center;
+}
+
+@media (max-width: 991px){
+    .footer{
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+}

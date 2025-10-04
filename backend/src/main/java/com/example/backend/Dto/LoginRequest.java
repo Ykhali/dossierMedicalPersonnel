@@ -9,14 +9,14 @@ public class LoginRequest {
     public String email;
 
     @NotBlank(message = "mot de passe est obligatoire")
-    public String motDePasse;
+    public String motdepasse;
 
     public LoginRequest() {
     }
 
     public LoginRequest(String email, String motDePasse) {
         this.email = email;
-        this.motDePasse = motDePasse;
+        this.motdepasse = motDePasse;
     }
 
     public String getEmail() {
@@ -27,11 +27,11 @@ public class LoginRequest {
         this.email = email;
     }
 
-    public String getMotDePasse() {
-        return motDePasse;
+    public String getMotdepasse() {
+        return motdepasse;
     }
 
-    public void setMotDePasse(String motDePasse) {
-        this.motDePasse = motDePasse;
+    public void setMotdepasse(String motdepasse) {
+        this.motdepasse = motdepasse;
     }
 }

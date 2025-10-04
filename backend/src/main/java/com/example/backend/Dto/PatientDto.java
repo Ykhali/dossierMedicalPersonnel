@@ -21,12 +21,17 @@ public class PatientDto extends UserDto {
     public PatientDto() {
     }
 
-    public PatientDto(Long id, String nom, String prenom, String email,
+    public PatientDto(Long id,String CIN, String nom, String prenom, String email,
                       String telephone, String adresse) {
-        super(id,nom,prenom,email,telephone);
+        super(id,CIN,nom,prenom,email,telephone);
         this.id = id;
         this.adresse = adresse;
         super.setRole(Role.PATIENT);
+    }
+
+    public PatientDto(long l, String aya) {
+        this.id = l;
+        this.setNom(aya);
     }
 
     public Long getId() {
@@ -51,5 +56,9 @@ public class PatientDto extends UserDto {
 
     public void setDateDeCreation(LocalDateTime dateDeCreation) {
         this.dateDeCreation = dateDeCreation;
+    }
+
+    public String getName() {
+        return super.getNom();
     }
 }

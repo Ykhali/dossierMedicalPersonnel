@@ -14,35 +14,41 @@ import java.time.LocalDate;
 public class HistoriqueRendezVousDto {
     private Long id;
 
-    @JsonFormat(pattern = "dd-MM-yyyy")
+    @Column(name = "idrdv")
+    private Long IdRDV;
+
     @Column(name = "date_rendezVous")
     private LocalDate date;
 
     @Column(name = "date_creation", updatable = false)
     private LocalDate dateCreation;
 
+    @Column(name = "date_annulation")
+    private LocalDate dateDAnnulation;
+
     private String heure;
     private String motif;
+
     private Medecin medecin;
 
     @Enumerated(EnumType.STRING)
     private StatusRendezVous status;
-    private Receptionniste receptionniste;
     private Patient patient;
 
     public HistoriqueRendezVousDto() {
     }
 
-    public HistoriqueRendezVousDto( LocalDate date, LocalDate dateCreation, String heure,
-                                    String motif, Medecin medecin, StatusRendezVous status,
-                                    Receptionniste receptionniste, Patient patient) {
+    public HistoriqueRendezVousDto( LocalDate date, Long IdRDV,
+                                    LocalDate dateCreation, String heure,
+                                    String motif, Medecin medecin,
+                                    StatusRendezVous status, Patient patient) {
         this.date = date;
+        this.IdRDV = IdRDV;
         this.dateCreation = dateCreation;
         this.heure = heure;
         this.motif = motif;
         this.medecin = medecin;
         this.status = status;
-        this.receptionniste = receptionniste;
         this.patient = patient;
     }
 
@@ -52,6 +58,22 @@ public class HistoriqueRendezVousDto {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getIdRDV() {
+        return IdRDV;
+    }
+
+    public void setIdRDV(Long idRDV) {
+        IdRDV = idRDV;
+    }
+
+    public LocalDate getDateDAnnulation() {
+        return dateDAnnulation;
+    }
+
+    public void setDateDAnnulation(LocalDate dateDAnnulation) {
+        this.dateDAnnulation = dateDAnnulation;
     }
 
     public LocalDate getDate() {
@@ -100,14 +122,6 @@ public class HistoriqueRendezVousDto {
 
     public void setStatus(StatusRendezVous status) {
         this.status = status;
-    }
-
-    public Receptionniste getReceptionniste() {
-        return receptionniste;
-    }
-
-    public void setReceptionniste(Receptionniste receptionniste) {
-        this.receptionniste = receptionniste;
     }
 
     public Patient getPatient() {

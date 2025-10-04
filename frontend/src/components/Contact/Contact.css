@@ -1,0 +1,18 @@
+.contact-sec{
+    width: 100%;
+}
+
+.logo {
+    width: 100px;
+    height: 80px;
+}
+
+@media (max-width: 991px) {
+    .ImageMobile {
+        content: url('../../assets/Images/doctor_pointing_below.png');
+        
+    }
+    .contact-sec > div {
+        margin-bottom: 25px;
+    }
+}

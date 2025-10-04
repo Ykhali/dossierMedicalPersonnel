@@ -17,9 +17,19 @@ public class Admin extends User{
     public Admin() {
     }
 
-    public Admin(Long id, String nom, String prenom, String email, String motDePasse, String confirmePasse, String telephone) {
-        super(id, nom, prenom, email, motDePasse, confirmePasse, telephone);
+    public Admin(Long id,String CIN, String nom, String prenom, String email, String motDePasse, String telephone) {
+        super(id,CIN, nom, prenom, email, motDePasse, telephone);
         this.id = id;
         super.setRole(Role.ADMIN);
+    }
+
+    @Override
+    public Long getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(Long id) {
+        this.id = id;
     }
 }

@@ -1,16 +1,64 @@
 spring:
   application:
     name: backend
-
   datasource:
     url: jdbc:postgresql://localhost:5432/dossiermedical
     username: postgres
     password: n
     driver-class-name: org.postgresql.Driver
-
   jpa:
     hibernate:
       ddl-auto: update
     show-sql: true
   jwt:
     secret: ${JWT_SECRET}
+    accessTokenExpiration: 86400  # 24 hour
+    refreshTokenExpiration: 604800  # 7 days
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 6MB
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+  web:
+    resources:
+      static-locations: file:${app.upload.dir}/
+  mvc:
+    static-path-pattern: /files/**
+  mail:
+    host: smtp.gmail.com        # or Mailtrap/SendGrid
+    port: 587
+    username: ${SMTP_USER}
+    password: ${SMTP_PASS}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+mail:
+  from: "Ton App <${SMTP_USER}>"
+app:
+  files:
+    base: /files
+    factures: ${app.files.base}/factures   # dossier de sortie si tu veux aussi sauvegarder
+    ordonnance: ${app.files.base}/ordonnances
+  upload:
+    dir: ${user.dir}/uploads
+    # >>> Add these for the reset flow <<<
+  frontendBaseUrl: ${APP_FRONTEND_BASE_URL:http://localhost:5173}
+  resetTokenTtlMinutes: ${RESET_TOKEN_TTL_MINUTES:20}
+  mailFrom: ${SMTP_FROM:"Ton App <${SMTP_USER}>"}
+  mailFromAddress: ${SMTP_USER}             # MUST be the same address you authenticate with, unless you configured an alias in Gmail
+  mailFromName: "Admin"
+  #email verif
+  emailOtpTtlMinutes: ${EMAIL_OTP_TTL:10}     # durée de validité du code
+  emailOtpLength: ${EMAIL_OTP_LEN:6}          # nb de chiffres
+  emailOtpResendSeconds: ${EMAIL_OTP_RESEND:60} # délai mini entre renvois
+  emailOtpMaxAttempts: ${EMAIL_OTP_MAX:5}     # nb max de tentatives
+
+twilio:
+  accountSid: ${TWILIO_ACCOUNT_SID}
+  authToken: ${TWILIO_AUTH_TOKEN}
+  verifyServiceSid: ${TWILIO_VERIFY_SID}

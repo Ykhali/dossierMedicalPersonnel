@@ -1,0 +1,207 @@
+/* ===== Palette & helpers médicaux ===== */
+:root {
+    --medical: #0aa2c0;
+    /* turquoise clinique */
+    --medical-soft: #e8f6f9;
+    /* fond doux */
+    --medical-border: #bfe7f0;
+
+    --grey: #868d8e;
+    /* bordure claire */
+}
+
+/* Ensure dropdowns aren’t clipped by scrollable cards */
+.rdv-list,
+.rdv-card,
+.rdv-scroll {
+  overflow: visible !important;
+}
+
+/* In case something overlaps it */
+.dropdown-menu {
+  z-index: 2000;
+}
+
+
+.card-rv {
+    width: 100%;
+    
+}
+
+.text-medical {
+    color: var(--medical);
+}
+
+.bg-medical-soft {
+    background: var(--medical-soft);
+}
+
+/* Bouton outline aux couleurs médicales (Bootstrap‑compatible) */
+.btn-outline-medical {
+    --bs-btn-color: var(--medical);
+    --bs-btn-border-color: var(--medical);
+    --bs-btn-hover-bg: var(--medical);
+    --bs-btn-hover-border-color: var(--medical);
+    --bs-btn-hover-color: #fff;
+    --bs-btn-active-bg: var(--medical);
+    --bs-btn-active-border-color: var(--medical);
+}
+
+/* ===== Bloc liste (en‑tête + contenu) ===== */
+.rdv-list-header {
+    background: var(--medical-soft);
+    border-bottom: 1px solid var(--medical-border);
+}
+
+/* ===== Carte individuelle ===== */
+.rdv-card {
+    min-height: 20vh;
+    background: #fff;
+    transition: transform .12s ease, box-shadow .12s ease;
+}
+
+.rdv-card:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 .6rem 1.4rem rgba(0, 0, 0, .06);
+}
+
+/* Pavé date à gauche */
+.rdv-datebox {
+    width: 130px;
+    min-width: 110px;
+    background: var(--medical-soft);
+    border: 1px solid var(--medical-border);
+    border-radius: 1rem;
+    padding: 10px 8px;
+    text-align: center;
+}
+
+.rdv-month {
+    font-size: .85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+    color: var(--medical);
+    opacity: .9;
+}
+
+.rdv-day {
+    font-size: 1.9rem;
+    font-weight: 800;
+    line-height: 1.1;
+    color: #1f2d3d;
+}
+
+.rdv-time {
+    margin-top: 6px;
+    padding-top: 6px;
+    border-top: 1px dashed var(--medical-border);
+    font-size: .95rem;
+    color: #3f5b6b;
+}
+
+/* Conteneur scrollable pour la liste des RDV */
+.rdv-scroll {
+    height: 80vh;
+    /* ajuste 220px selon la hauteur de ton header + padding */
+    overflow-y: auto;
+    /* ajuste la hauteur visible */
+    /* padding-right: .25rem; */
+    /* évite que la scrollbar chevauche le contenu */
+    /*scroll-behavior: smooth;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    scrollbar-color: #bfe7ef transparent;*/
+}
+
+/* Garder l'en-tête visible pendant le scroll (optionnel) */
+.rdv-list-header {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    background: #f8fdff;
+    /* même fond que la carte */
+}
+
+/* Scrollbar (WebKit: Chrome, Edge, Safari) */
+.rdv-scroll::-webkit-scrollbar {
+    width: 8px;
+}
+
+.rdv-scroll::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 8px;
+}
+
+.rdv-scroll::-webkit-scrollbar-thumb {
+    background: #bfe7ef;
+    border-radius: 8px;
+}
+
+.rdv-scroll::-webkit-scrollbar-thumb:hover {
+    background: #82c9d6;
+}
+
+.container{
+    height: 100%;
+}
+
+
+
+/* Responsive : sur mobile le pavé s’adapte mieux */
+/* @media (max-width: 576px) {
+    .rdv-datebox {
+        width: 100%;
+        flex-direction: row;
+        gap: 10px;
+        padding: 8px 10px;
+    }
+
+    .rdv-day {
+        font-size: 1.6rem;
+    }
+} */
+
+/* --- Desktop (≥992px): activer le scroll --- */
+@media (min-width: 992px) {
+    .rdv-scroll {
+        max-height: 85vh;
+        /* ajuste selon ton layout */
+        overflow-y: auto;
+        overflow-x: hidden;
+        padding-right: .25rem;
+        scroll-behavior: smooth;
+        overscroll-behavior: contain;
+
+        /* Scrollbar (Firefox) */
+        scrollbar-width: thin;
+        scrollbar-color: #bfe7ef transparent;
+    }
+
+    .rdv-scroll::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    .rdv-scroll::-webkit-scrollbar-track {
+        background: transparent;
+        border-radius: 8px;
+    }
+
+    .rdv-scroll::-webkit-scrollbar-thumb {
+        background: #bfe7ef;
+        border-radius: 8px;
+    }
+
+    .rdv-scroll::-webkit-scrollbar-thumb:hover {
+        background: #82c9d6;
+    }
+
+    /* En-tête collante uniquement sur desktop */
+    .rdv-list-header {
+        position: sticky;
+        top: 0;
+        z-index: 2;
+        background: #f8fdff;
+    }
+}
+

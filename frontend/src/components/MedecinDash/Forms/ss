@@ -1,0 +1,618 @@
+// src/components/SigneVitalForm.jsx
+// import React, { useState, useEffect } from "react";
+// import API_BASE_URL from "../../../config/apiConfig";
+
+// // Composant réutilisable pour create/edit signes vitaux
+// export default function SigneVitalForm({
+//   patientId,
+//   formMode = "create", // "create" | "edit"
+//   initialData = null, // objet existant ou null
+//   onSuccess = null, // callback(data) après succès
+//   onClose = null, // callback pour fermer la modal
+// }) {
+//   const initialForm = {
+//     temperature: "",
+//     tension: "",
+//     frequenceRespiratoire: "",
+//     saturationOxygene: "",
+//     poids: "",
+//     taille: "",
+//     commentaire: "",
+//   };
+
+//   const [formData, setFormData] = useState(initialForm);
+//   const [loading, setLoading] = useState(false);
+//   const [error, setError] = useState(null);
+
+//   useEffect(() => {
+//     if (initialData) {
+//       setFormData({
+//         temperature: initialData.temperature ?? "",
+//         tension: initialData.tension ?? "",
+//         frequenceRespiratoire: initialData.frequenceRespiratoire ?? "",
+//         saturationOxygene: initialData.saturationOxygene ?? "",
+//         poids: initialData.poids ?? "",
+//         taille: initialData.taille ?? "",
+//         commentaire: initialData.commentaire ?? "",
+//         id: initialData.id ?? undefined,
+//       });
+//     } else {
+//       setFormData(initialForm);
+//     }
+//   }, [initialData]);
+
+//   const numericFields = [
+//     "temperature",
+//     "frequenceRespiratoire",
+//     "saturationOxygene",
+//     "poids",
+//     "taille",
+//   ];
+
+//   function handleChange(e) {
+//     const { name, value, type, checked } = e.target;
+//     if (numericFields.includes(name)) {
+//       const normalized = value.replace(",", ".");
+//       if (normalized === "" || /^-?\d*\.?\d*$/.test(normalized)) {
+//         setFormData((s) => ({ ...s, [name]: normalized }));
+//       }
+//     } else {
+//       setFormData((s) => ({
+//         ...s,
+//         [name]: type === "checkbox" ? checked : value,
+//       }));
+//     }
+//   }
+
+//   function buildPayload() {
+//     const p = {
+//       temperature:
+//         formData.temperature === "" ? null : parseFloat(formData.temperature),
+//       tension: formData.tension || null,
+//       frequenceRespiratoire:
+//         formData.frequenceRespiratoire === ""
+//           ? null
+//           : parseInt(formData.frequenceRespiratoire, 10),
+//       saturationOxygene:
+//         formData.saturationOxygene === ""
+//           ? null
+//           : parseFloat(formData.saturationOxygene),
+//       poids: formData.poids === "" ? null : parseFloat(formData.poids),
+//       taille: formData.taille === "" ? null : parseFloat(formData.taille),
+//       commentaire: formData.commentaire || null,
+//     };
+//     return p;
+//   }
+
+//   async function handleSubmit(e) {
+//     e?.preventDefault();
+//     setError(null);
+
+//     if (!patientId && formMode === "create") {
+//       setError("Patient introuvable.");
+//       return;
+//     }
+
+//     setLoading(true);
+
+//     try {
+//       const token = localStorage.getItem("token") || "";
+//       const payload = buildPayload();
+
+//       let url = "";
+//       let method = "";
+//       if (formMode === "create") {
+//         url = `${API_BASE_URL}/api/Medecin/patients/${patientId}/signeVitaux`;
+//         method = "POST";
+//       } else {
+//         // edit
+//         url = `${API_BASE_URL}/api/Medecin/patients/signeVitaux/${formData.id}`;
+//         method = "PATCH";
+//       }
+
+//       const res = await fetch(url, {
+//         method,
+//         headers: {
+//           "Content-Type": "application/json",
+//           Authorization: `Bearer ${token}`,
+//         },
+//         body: JSON.stringify(payload),
+//       });
+
+//       if (!res.ok) {
+//         const txt = await res.text().catch(() => "");
+//         throw new Error(txt || `HTTP ${res.status}`);
+//       }
+
+//       // si renvoie JSON, on parse, sinon null
+//       let data = null;
+//       const ct = res.headers.get("content-type") || "";
+//       if (ct.includes("application/json")) data = await res.json();
+
+//       if (onSuccess) onSuccess(data);
+//       if (onClose) onClose();
+//       // reset si create
+//       if (formMode === "create") setFormData(initialForm);
+//     } catch (err) {
+//       setError(err.message || "Erreur inconnue");
+//     } finally {
+//       setLoading(false);
+//     }
+//   }
+
+//   return (
+//     <form onSubmit={handleSubmit} className="vstack gap-2">
+//       <input
+//         type="number"
+//         step="0.1"
+//         className="form-control"
+//         name="temperature"
+//         placeholder="Température °C"
+//         value={formData.temperature}
+//         onChange={handleChange}
+//       />
+
+//       <input
+//         type="text"
+//         className="form-control"
+//         name="tension"
+//         placeholder="Tension (ex: 120/80)"
+//         value={formData.tension}
+//         onChange={handleChange}
+//       />
+
+//       <input
+//         type="number"
+//         className="form-control"
+//         name="frequenceRespiratoire"
+//         placeholder="Fréquence respiratoire"
+//         value={formData.frequenceRespiratoire}
+//         onChange={handleChange}
+//       />
+
+//       <input
+//         type="number"
+//         step="0.1"
+//         className="form-control"
+//         name="saturationOxygene"
+//         placeholder="SpO₂ %"
+//         value={formData.saturationOxygene}
+//         onChange={handleChange}
+//       />
+
+//       <input
+//         type="number"
+//         step="0.1"
+//         className="form-control"
+//         name="poids"
+//         placeholder="Poids kg"
+//         value={formData.poids}
+//         onChange={handleChange}
+//       />
+
+//       <input
+//         type="number"
+//         step="0.1"
+//         className="form-control"
+//         name="taille"
+//         placeholder="Taille cm"
+//         value={formData.taille}
+//         onChange={handleChange}
+//       />
+
+//       <textarea
+//         className="form-control"
+//         name="commentaire"
+//         placeholder="Commentaire"
+//         value={formData.commentaire}
+//         onChange={handleChange}
+//       />
+
+//       {error && <div className="text-danger small">{error}</div>}
+
+//       <div className="d-flex justify-content-end gap-2 mt-2">
+//         <button
+//           type="button"
+//           className="btn btn-secondary"
+//           onClick={() => onClose && onClose()}
+//           disabled={loading}
+//         >
+//           Annuler
+//         </button>
+//         <button type="submit" className="btn btn-primary" disabled={loading}>
+//           {loading
+//             ? "Envoi..."
+//             : formMode === "create"
+//             ? "Créer"
+//             : "Enregistrer"}
+//         </button>
+//       </div>
+//     </form>
+//   );
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+//////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+// import React, { useState, useEffect } from "react";
+// import API_BASE_URL from "../../config/apiConfig";
+
+// export default function SigneVitalForm({
+//   patientId,
+//   formMode = "create",
+//   initialData = null,
+//   onSuccess = null,
+//   onClose = null,
+// }) {
+//   const initialForm = {
+//     temperature: "",
+//     tension: "",
+//     frequenceRespiratoire: "",
+//     saturationOxygene: "",
+//     poids: "",
+//     taille: "",
+//     commentaire: "",
+//   };
+
+//   const [formData, setFormData] = useState(initialForm);
+//   const [loading, setLoading] = useState(false);
+//   const [error, setError] = useState(null);
+
+//   useEffect(() => {
+//     if (initialData) {
+//       setFormData({
+//         temperature: initialData.temperature?.toString() ?? "",
+//         tension: initialData.tension ?? "",
+//         frequenceRespiratoire: initialData.frequenceRespiratoire?.toString() ?? "",
+//         saturationOxygene: initialData.saturationOxygene?.toString() ?? "",
+//         poids: initialData.poids?.toString() ?? "",
+//         taille: initialData.taille?.toString() ?? "",
+//         commentaire: initialData.commentaire ?? "",
+//         id: initialData.id ?? undefined,
+//       });
+//     } else {
+//       setFormData(initialForm);
+//     }
+//   }, [initialData]);
+
+//   const numericFields = [
+//     "temperature",
+//     "frequenceRespiratoire",
+//     "saturationOxygene",
+//     "poids",
+//     "taille",
+//   ];
+
+//   function handleChange(e) {
+//     const { name, value } = e.target;
+//     if (numericFields.includes(name)) {
+//       const normalized = value.replace(",", "."); // Support comma as decimal separator
+//       if (normalized === "" || /^-?\d*\.?\d*$/.test(normalized)) {
+//         setFormData((prev) => ({ ...prev, [name]: normalized }));
+//       }
+//     } else {
+//       setFormData((prev) => ({ ...prev, [name]: value }));
+//     }
+//   }
+
+//   function buildPayload() {
+//     const payload = {
+//       temperature: formData.temperature ? parseFloat(formData.temperature) : null,
+//       tension: formData.tension || null,
+//       frequenceRespiratoire: formData.frequenceRespiratoire
+//         ? parseInt(formData.frequenceRespiratoire, 10)
+//         : null,
+//       saturationOxygene: formData.saturationOxygene
+//         ? parseFloat(formData.saturationOxygene)
+//         : null,
+//       poids: formData.poids ? parseFloat(formData.poids) : null,
+//       taille: formData.taille ? parseFloat(formData.taille) : null,
+//       commentaire: formData.commentaire || null,
+//     };
+//     console.log("SigneVitalForm Payload:", payload); // Debug: Log payload
+//     return payload;
+//   }
+
+//   async function handleSubmit(e) {
+//     e?.preventDefault();
+//     setError(null);
+
+//     // Optional: Prevent submission if all fields are empty
+//     const hasData = Object.values(formData).some(
+//       (value) => value !== "" && value !== null && value !== undefined
+//     );
+//     if (!hasData) {
+//       setError("Veuillez remplir au moins un champ.");
+//       console.error("SigneVitalForm Error: No data provided");
+//       return;
+//     }
+
+//     if (!patientId && formMode === "create") {
+//       setError("Patient introuvable.");
+//       console.error("SigneVitalForm Error: Missing patientId");
+//       return;
+//     }
+
+//     setLoading(true);
+
+//     try {
+//       const token = localStorage.getItem("token") || "";
+//       if (!token) {
+//         throw new Error("No authentication token found");
+//       }
+
+//       const payload = buildPayload();
+//       const url =
+//         formMode === "create"
+//           ? `${API_BASE_URL}/api/Medecin/patients/${patientId}/signeVitaux`
+//           : `${API_BASE_URL}/api/Medecin/patients/signeVitaux/${formData.id}`;
+//       const method = formMode === "create" ? "POST" : "PATCH";
+
+//       const res = await fetch(url, {
+//         method,
+//         headers: {
+//           "Content-Type": "application/json",
+//           Authorization: `Bearer ${token}`,
+//         },
+//         body: JSON.stringify(payload),
+//       });
+
+//       if (!res.ok) {
+//         const errorText = await res.text().catch(() => "Erreur serveur");
+//         console.error("SigneVitalForm API Error:", {
+//           status: res.status,
+//           statusText: res.statusText,
+//           errorText,
+//         });
+//         throw new Error(errorText || `HTTP ${res.status}`);
+//       }
+
+//       const contentType = res.headers.get("content-type") || "";
+//       const data = contentType.includes("application/json")
+//         ? await res.json()
+//         : null;
+//       console.log("SigneVitalForm API Response:", data);
+
+//       if (onSuccess) onSuccess(data);
+//       if (onClose) onClose();
+//       if (formMode === "create") setFormData(initialForm);
+//     } catch (err) {
+//       setError(err.message || "Erreur inconnue lors de la soumission");
+//       console.error("SigneVitalForm Submission Failed:", err);
+//     } finally {
+//       setLoading(false);
+//     }
+//   }
+
+//   return (
+//     <form onSubmit={handleSubmit} className="vstack gap-2">
+//       <input
+//         type="number"
+//         step="0.1"
+//         className="form-control"
+//         name="temperature"
+//         placeholder="Température °C"
+//         value={formData.temperature}
+//         onChange={handleChange}
+//       />
+//       <input
+//         type="text"
+//         className="form-control"
+//         name="tension"
+//         placeholder="Tension (ex: 120/80)"
+//         value={formData.tension}
+//         onChange={handleChange}
+//       />
+//       <input
+//         type="number"
+//         className="form-control"
+//         name="frequenceRespiratoire"
+//         placeholder="Fréquence respiratoire"
+//         value={formData.frequenceRespiratoire}
+//         onChange={handleChange}
+//       />
+//       <input
+//         type="number"
+//         step="0.1"
+//         className="form-control"
+//         name="saturationOxygene"
+//         placeholder="SpO₂ %"
+//         value={formData.saturationOxygene}
+//         onChange={handleChange}
+//       />
+//       <input
+//         type="number"
+//         step="0.1"
+//         className="form-control"
+//         name="poids"
+//         placeholder="Poids kg"
+//         value={formData.poids}
+//         onChange={handleChange}
+//       />
+//       <input
+//         type="number"
+//         step="0.1"
+//         className="form-control"
+//         name="taille"
+//         placeholder="Taille cm"
+//         value={formData.taille}
+//         onChange={handleChange}
+//       />
+//       <textarea
+//         className="form-control"
+//         name="commentaire"
+//         placeholder="Commentaire"
+//         value={formData.commentaire}
+//         onChange={handleChange}
+//       />
+//       {error && <div className="text-danger small">{error}</div>}
+//       <div className="d-flex justify-content-end gap-2 mt-2">
+//         <button
+//           type="button"
+//           className="btn btn-secondary"
+//           onClick={onClose}
+//           disabled={loading}
+//         >
+//           Annuler
+//         </button>
+//         <button type="submit" className="btn btn-primary" disabled={loading}>
+//           {loading
+//             ? "Envoi..."
+//             : formMode === "create"
+//             ? "Créer"
+//             : "Enregistrer"}
+//         </button>
+//       </div>
+//     </form>
+//   );
+// }
+
+
+
+
+// import React from "react";
+// import API_BASE_URL from "../../../config/apiConfig";
+
+// export default function SigneVitalForm({
+//   patientId,
+//   formMode,
+//   initialData,
+//   onSuccess,
+//   onClose,
+// }) {
+//   const [formData, setFormData] = React.useState(initialData);
+
+//   const handleChange = (e) => {
+//     const { name, value } = e.target;
+//     setFormData((prev) => ({ ...prev, [name]: value }));
+//   };
+
+//   const submit = async () => {
+//     const endpoint =
+//       formMode === "create" ? "signeVitaux" : `signeVitaux/${formData.id}`;
+//     const url = `${API_BASE_URL}/api/Medecin/patients/${patientId}/${endpoint}`;
+//     const method = formMode === "create" ? "POST" : "PATCH";
+
+//     const body = {};
+//     Object.entries(formData).forEach(([k, v]) => {
+//       if (k !== "id" && v !== "" && v !== undefined) body[k] = v;
+//     });
+
+//     const res = await fetch(url, {
+//       method,
+//       headers: {
+//         "Content-Type": "application/json",
+//         Authorization: `Bearer ${localStorage.getItem("token")}`,
+//       },
+//       body: JSON.stringify(body),
+//     });
+
+//     if (res.ok) {
+//       onSuccess(await res.json());
+//     } else {
+//       alert(
+//         `Erreur lors de la sauvegarde\n${await res.text().catch(() => "")}`
+//       );
+//     }
+//   };
+
+//   return (
+//     <form className="vstack gap-3">
+//       <div>
+//         <label className="form-label">Température (°C)</label>
+//         <input
+//           type="number"
+//           className="form-control"
+//           name="temperature"
+//           value={formData.temperature || ""}
+//           onChange={handleChange}
+//         />
+//       </div>
+//       <div>
+//         <label className="form-label">Tension (mmHg)</label>
+//         <input
+//           type="text"
+//           className="form-control"
+//           name="tension"
+//           value={formData.tension || ""}
+//           onChange={handleChange}
+//         />
+//       </div>
+//       <div>
+//         <label className="form-label">Fréquence respiratoire (cpm)</label>
+//         <input
+//           type="number"
+//           className="form-control"
+//           name="frequenceRespiratoire"
+//           value={formData.frequenceRespiratoire || ""}
+//           onChange={handleChange}
+//         />
+//       </div>
+//       <div>
+//         <label className="form-label">Saturation en oxygène (%)</label>
+//         <input
+//           type="number"
+//           className="form-control"
+//           name="saturationOxygene"
+//           value={formData.saturationOxygene || ""}
+//           onChange={handleChange}
+//         />
+//       </div>
+//       <div>
+//         <label className="form-label">Poids (kg)</label>
+//         <input
+//           type="number"
+//           className="form-control"
+//           name="poids"
+//           value={formData.poids || ""}
+//           onChange={handleChange}
+//         />
+//       </div>
+//       <div>
+//         <label className="form-label">Taille (cm)</label>
+//         <input
+//           type="number"
+//           className="form-control"
+//           name="taille"
+//           value={formData.taille || ""}
+//           onChange={handleChange}
+//         />
+//       </div>
+//       <div>
+//         <label className="form-label">Commentaire</label>
+//         <textarea
+//           className="form-control"
+//           name="commentaire"
+//           rows={3}
+//           value={formData.commentaire || ""}
+//           onChange={handleChange}
+//         />
+//       </div>
+//       <div className="modal-footer">
+//         <button type="button" className="btn btn-secondary" onClick={onClose}>
+//           Annuler
+//         </button>
+//         <button type="button" className="btn btn-primary" onClick={submit}>
+//           {formMode === "create" ? "Créer" : "Enregistrer"}
+//         </button>
+//       </div>
+//     </form>
+//   );
+// }
